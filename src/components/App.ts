@@ -17,7 +17,7 @@ class App implements m.ClassComponent<{}> {
         loading: true
       }
       this.fetchTransactions();
-      //setInterval(() => this.fetchTransactions(), 250); // 4 mal pro Sekunde
+      // setInterval(() => this.fetchTransactions(), 250); // 4 mal pro Sekunde
     }
     fetchTransactions = async () => {
         const response = await fetch('http://0.0.0.0:8340/api', {
@@ -39,9 +39,11 @@ class App implements m.ClassComponent<{}> {
         const result = await response.json();
         
         if (result.result.transactions.length !== this.state.transactions.length) {
-          this.state.transactions = result.result.transactions.map((transaction: any) => 
-            plainToInstance(ConfirmedTransaction, transaction)
-          )
+          this.state.transactions = result.result.transactions.map((transaction: any) => {
+            transaction.gradidoTransaction.bodyBytes = transaction.gradidoTransaction.bodyBytes.json
+            const obj = plainToInstance(ConfirmedTransaction, transaction)
+            return obj
+          })
         }
         this.state.loading = false;
         m.redraw()

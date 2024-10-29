@@ -11,6 +11,9 @@ module.exports = {
   },
   resolve: {
     extensions: ['.ts', '.js'],
+    alias: {
+      'class-transformer': path.resolve(__dirname, 'node_modules/class-transformer/esm5/index.js')
+    }
   },
   module: {
     rules: [
@@ -25,6 +28,7 @@ module.exports = {
       },
     ],
   },
+  devtool: 'source-map',
   plugins: [
     new MiniCssExtractPlugin({
       filename: 'styles.css',

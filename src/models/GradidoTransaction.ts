@@ -4,13 +4,14 @@ import { TransactionBody } from './TransactionBody'
 
 export class GradidoTransaction {
   @Type(() => SignatureMap)
-  public sigMap: SignatureMap
+  public signatureMap: SignatureMap
   @Expose({ name: 'bodyBytes' })
   @Type(() => TransactionBody)
+  @Expose({ name: 'bodyBytes'})
   public body: TransactionBody
 
-  public constructor(sigMap: SignatureMap, body: TransactionBody) {
-    this.sigMap = sigMap
+  public constructor(signatureMap: SignatureMap, body: TransactionBody) {
+    this.signatureMap = signatureMap
     this.body = body
   }
 }

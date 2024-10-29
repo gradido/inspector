@@ -10,11 +10,12 @@ export class TransactionExcerpt {
   isOpen: boolean // Neu hinzugefügt
 
   constructor(transaction: ConfirmedTransaction) {
+    const gradidoTransaction = transaction.gradidoTransaction
     this.id = transaction.id
-    this.confirmedAt = transaction.confirmedAt.getDate()
-    this.amount = transaction.transaction.body.getAmount()
-    this.createdAt = transaction.transaction.body.createdAt.getDate()
-    this.transactionType = transaction.transaction.body.getTransactionType()
+    this.confirmedAt = transaction.confirmedAt
+    this.amount = gradidoTransaction.body.getAmount()
+    this.createdAt = gradidoTransaction.body.createdAt
+    this.transactionType = gradidoTransaction.body.getTransactionType()
     this.details = 
       JSON.stringify(transaction, null, 2)
           .replace(/\n/g, '<br/>')

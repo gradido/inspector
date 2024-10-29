@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "class-transformer": "^0.5.1",
+    "es6-shim": "^0.35.8",
     "mithril": "^2.2.2",
     "reflect-metadata": "^0.2.2"
   },

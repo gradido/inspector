@@ -3,12 +3,10 @@ import { CommunityRoot } from './CommunityRoot'
 import { GradidoCreation } from './GradidoCreation'
 import { GradidoTransfer } from './GradidoTransfer'
 import { RegisterAddress } from './RegisterAddress'
-import { Timestamp } from './Timestamp'
 
 export class TransactionBody {
   memo: string
-  @Type(() => Timestamp)
-  createdAt: Timestamp
+  createdAt: Date
   versionNumber: string
   type: string = 'LOCAL'
   otherGroup: string = ''
@@ -61,7 +59,7 @@ export class TransactionBody {
 
   public constructor(
     memo: string,
-    createdAt: Timestamp,
+    createdAt: Date,
     versionNumber: string,
   ) {
     this.memo = memo
