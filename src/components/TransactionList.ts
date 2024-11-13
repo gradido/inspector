@@ -47,7 +47,7 @@ export const TransactionList: m.Component<Attrs, State> = {
                   m('td', transaction.createdAt.toLocaleString()),
                   m('td', transaction.confirmedAt.toLocaleString()),
                   m('td', transaction.transactionType),
-                  m('td', transaction.amount)
+                  m('td', transaction.amount + ' GDD')
               ]),
               transactionsShowDetailState[index] ? m('tr', m('td', {colspan: 3}, m('div', m.trust(transaction.details)))): null
             ]

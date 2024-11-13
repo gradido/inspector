@@ -17,7 +17,7 @@ class App implements m.ClassComponent<{}> {
         loading: true
       }
       this.fetchTransactions();
-      // setInterval(() => this.fetchTransactions(), 250); // 4 mal pro Sekunde
+      setInterval(() => this.fetchTransactions(), 250); // 4 mal pro Sekunde
     }
     fetchTransactions = async () => {
         const response = await fetch('http://0.0.0.0:8340/api', {

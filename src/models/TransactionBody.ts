@@ -3,6 +3,7 @@ import { CommunityRoot } from './CommunityRoot'
 import { GradidoCreation } from './GradidoCreation'
 import { GradidoTransfer } from './GradidoTransfer'
 import { RegisterAddress } from './RegisterAddress'
+import { GradidoDeferredTransfer } from './GradidoDeferredTransfer'
 
 export class TransactionBody {
   memo: string
@@ -19,6 +20,8 @@ export class TransactionBody {
   creation: GradidoCreation | undefined
   @Type(() => GradidoTransfer)
   transfer: GradidoTransfer | undefined
+  @Type(() => GradidoDeferredTransfer)
+  deferredTransfer: GradidoDeferredTransfer | undefined
 
   parentMessageId: string = ''
 
@@ -34,6 +37,9 @@ export class TransactionBody {
   isTransfer(): boolean {
     return this.transfer !== undefined
   }
+  isDeferredTransfer(): boolean {
+    return this.deferredTransfer !== undefined
+  }
 
   getTransactionType(): string {
     if(this.isCommunityRoot()) {
@@ -44,6 +50,8 @@ export class TransactionBody {
       return "Contribution Transaction"
     } else if(this.isTransfer()) {
       return "Transfer Transaction"
+    } else if(this.isDeferredTransfer()) {
+      return "Deferred Transfer"
     }
     return "unknown"
   }
@@ -53,6 +61,8 @@ export class TransactionBody {
       return this.creation.recipient.amount
     } else if(this.transfer) {
       return this.transfer.sender.amount
+    } else if(this.deferredTransfer) {
+      return this.deferredTransfer.transfer.sender.amount
     }
     return '0'
   }

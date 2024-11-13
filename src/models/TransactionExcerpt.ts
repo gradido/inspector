@@ -3,7 +3,7 @@ import { ConfirmedTransaction } from "./ConfirmedTransaction"
 export class TransactionExcerpt {
   id: string
   confirmedAt: Date
-  amount: string
+  amount: number
   createdAt: Date
   transactionType: string
   details: string
@@ -13,7 +13,8 @@ export class TransactionExcerpt {
     const gradidoTransaction = transaction.gradidoTransaction
     this.id = transaction.id
     this.confirmedAt = transaction.confirmedAt
-    this.amount = gradidoTransaction.body.getAmount()
+    const amountString = gradidoTransaction.body.getAmount()
+    this.amount = parseFloat(amountString)
     this.createdAt = gradidoTransaction.body.createdAt
     this.transactionType = gradidoTransaction.body.getTransactionType()
     this.details = 
