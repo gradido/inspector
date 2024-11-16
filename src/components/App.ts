@@ -15,7 +15,7 @@ class App implements m.ClassComponent<{}> {
       this.state = {
         transactions: [],
         loading: true
-      }
+      }      
       this.fetchTransactions();
       setInterval(() => this.fetchTransactions(), 250); // 4 mal pro Sekunde
     }
@@ -49,8 +49,9 @@ class App implements m.ClassComponent<{}> {
         m.redraw()
     }
     view({attrs}: m.CVnode<{}>) {
+        // const i = i18n()
         return m('div.container', [
-            m('h1', 'Transaktionsübersicht'),
+            m('h1',  t.__('Transactions overview')),
             this.state.loading ? m('p', 'Lade...') : m(TransactionList, { 
                 transactions: this.state.transactions.map((transaction) => 
                     new TransactionExcerpt(transaction)

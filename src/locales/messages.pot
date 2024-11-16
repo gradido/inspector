@@ -1,0 +1,8 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Language: \n"
+
+#: src/components/App.ts:54
+msgid "Transactions overview"
+msgstr ""

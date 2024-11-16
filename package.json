@@ -8,17 +8,19 @@
     "watch": "webpack --watch",
     "server": "node server.js",
     "dev": "concurrently \"yarn watch\" \"yarn server\"",
-    "build": "webpack"
+    "build": "webpack",
+    "extract": "gettext-extract"
   },
   "dependencies": {
     "class-transformer": "^0.5.1",
     "es6-shim": "^0.35.8",
-    "jed": "^1.1.1",
+    "gettext.js": "^2.0.3",
     "jed-gettext-parser": "^2.0.0",
     "mithril": "^2.2.2",
     "reflect-metadata": "^0.2.2"
   },
   "devDependencies": {
+    "@types/gettext.js": "^1.0.3",
     "@types/mithril": "^2.2.7",
     "compression-webpack-plugin": "^11.1.0",
     "concurrently": "^9.0.1",

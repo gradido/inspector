@@ -127,6 +127,11 @@
     "@types/qs" "*"
     "@types/serve-static" "*"
 
+"@types/gettext.js@^1.0.3":
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/@types/gettext.js/-/gettext.js-1.0.3.tgz#55195aacc25057f6ea84affb0b940000269ceeb0"
+  integrity sha512-TXxS3QFOmiJbL/DqHy5bqvgdU6FsD6ocUFw9xHrkEZJD6mJRLz5j5bEpSHpoKlm7+d/sekftn3rltIOZ3S/0Lw==
+
 "@types/glob@5 - 7":
   version "7.2.0"
   resolved "https://registry.yarnpkg.com/@types/glob/-/glob-7.2.0.tgz#bc1b5bf3aa92f25bd5dd39f35c57361bdce5b2eb"
@@ -682,6 +687,11 @@ commander@^2.20.0:
   resolved "https://registry.yarnpkg.com/commander/-/commander-2.20.3.tgz#fd485e84c03eb4881c20722ba48035e8531aeb33"
   integrity sha512-GpVkmM8vF2vQUkj2LvZmD35JxeJOLCwJ9cUkugyk2nuhbv3+mJvpLYYt+0+USMxE+oj+ey/lJEnhZw75x/OMcQ==
 
+commander@^6.0.0:
+  version "6.2.1"
+  resolved "https://registry.yarnpkg.com/commander/-/commander-6.2.1.tgz#0792eb682dfbc325999bb2b84fddddba110ac73c"
+  integrity sha512-U7VdrJFnJgo4xjrHpTzu0yrHPGImdsmD95ZlgYSEajAn2JKzDhDTPG9kBTefmObL2w/ngeZnilk+OV9CG3d7UA==
+
 compressible@~2.0.16:
   version "2.0.18"
   resolved "https://registry.yarnpkg.com/compressible/-/compressible-2.0.18.tgz#af53cca6b070d4c3c0750fbd77286a6d7cc46fba"
@@ -892,6 +902,13 @@ encodeurl@~2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/encodeurl/-/encodeurl-2.0.0.tgz#7b8ea898077d7e409d3ac45474ea38eaf0857a58"
   integrity sha512-Q0n9HRi4m6JuGIV1eFlmvJB7ZEVxu93IrMyiMsGC0lrMJMWzRgx6WGquyfQgZVb31vhGgXnfmPNNXmxnOkRBrg==
+
+encoding@^0.1.12:
+  version "0.1.13"
+  resolved "https://registry.yarnpkg.com/encoding/-/encoding-0.1.13.tgz#56574afdd791f54a8e9b2785c0582a2d26210fa9"
+  integrity sha512-ETBauow1T35Y/WZMkio9jiM0Z5xjHHmJ4XmjZOq1l/dXz3lr2sRn87nJy20RupqSh1F2m3HHPSp8ShIPQJrJ3A==
+  dependencies:
+    iconv-lite "^0.6.2"
 
 enhanced-resolve@^5.0.0, enhanced-resolve@^5.17.1:
   version "5.17.1"
@@ -1166,6 +1183,36 @@ gettext-extractor@^3.1.0:
     pofile "1.0.x"
     typescript "4 - 5"
 
+gettext-parser@2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/gettext-parser/-/gettext-parser-2.0.0.tgz#c28bb31e61f76f14665dfafbb5c0518cdc1270ed"
+  integrity sha512-FDs/7XjNw58ToQwJFO7avZZbPecSYgw8PBYhd0An+4JtZSrSzKhEvTsVV2uqdO7VziWTOGSgLGD5YRPdsCjF7Q==
+  dependencies:
+    encoding "^0.1.12"
+    safe-buffer "^5.1.2"
+
+gettext-parser@^1.4.0:
+  version "1.4.0"
+  resolved "https://registry.yarnpkg.com/gettext-parser/-/gettext-parser-1.4.0.tgz#f8baf34a292f03d5e42f02df099d301f167a7ace"
+  integrity sha512-sedZYLHlHeBop/gZ1jdg59hlUEcpcZJofLq2JFwJT1zTqAU3l2wFv6IsuwFHGqbiT9DWzMUW4/em2+hspnmMMA==
+  dependencies:
+    encoding "^0.1.12"
+    safe-buffer "^5.1.1"
+
+gettext-to-messageformat@0.3.1:
+  version "0.3.1"
+  resolved "https://registry.yarnpkg.com/gettext-to-messageformat/-/gettext-to-messageformat-0.3.1.tgz#c303ff9e31a5c781b14629b13bddb27b9ffca1f8"
+  integrity sha512-UyqIL3Ul4NryU95Wome/qtlcuVIqgEWVIFw0zi7Lv14ACLXfaVDCbrjZ7o+3BZ7u+4NS1mP/2O1eXZoHCoas8g==
+  dependencies:
+    gettext-parser "^1.4.0"
+
+gettext.js@^2.0.3:
+  version "2.0.3"
+  resolved "https://registry.yarnpkg.com/gettext.js/-/gettext.js-2.0.3.tgz#ae6a9f396b193fafe9f3f089cef141f14ffb1648"
+  integrity sha512-11gyttZWBUBkenEVgPMqJTL9TIKaH4PW6ZCMZr+lNXrgiYHXBg+bOGAc8OjfLE8lvi0dgwtqrSfScd310PlKJw==
+  dependencies:
+    po2json "^1.0.0-beta-3"
+
 glob-parent@~5.1.2:
   version "5.1.2"
   resolved "https://registry.yarnpkg.com/glob-parent/-/glob-parent-5.1.2.tgz#869832c58034fe68a4093c17dc15e8340d8401c4"
@@ -1319,7 +1366,7 @@ iconv-lite@0.4.24:
   dependencies:
     safer-buffer ">= 2.1.2 < 3"
 
-iconv-lite@^0.6.3:
+iconv-lite@^0.6.2, iconv-lite@^0.6.3:
   version "0.6.3"
   resolved "https://registry.yarnpkg.com/iconv-lite/-/iconv-lite-0.6.3.tgz#a52f80bf38da1952eb5c681790719871a1a72501"
   integrity sha512-4fCk79wshMdzMp2rH06qWrJE4iolqLhCUH+OiuIgU++RB0+94NlDL81atO7GX55uUKueo0txHNtvEyI6D7WdMw==
@@ -1854,6 +1901,15 @@ pkg-dir@^4.2.0:
   dependencies:
     find-up "^4.0.0"
 
+po2json@^1.0.0-beta-3:
+  version "1.0.0-beta-3"
+  resolved "https://registry.yarnpkg.com/po2json/-/po2json-1.0.0-beta-3.tgz#f087abeeccdc82c1e5315a749e5f3bcf7e1421e1"
+  integrity sha512-taS8y6ZEGzPAs0rygW9CuUPY8C3Zgx6cBy31QXxG2JlWS3fLxj/kuD3cbIfXBg30PuYN7J5oyBa/TIRjyqFFtg==
+  dependencies:
+    commander "^6.0.0"
+    gettext-parser "2.0.0"
+    gettext-to-messageformat "0.3.1"
+
 pofile@1.0.x:
   version "1.0.11"
   resolved "https://registry.yarnpkg.com/pofile/-/pofile-1.0.11.tgz#35aff58c17491d127a07336d5522ebc9df57c954"
@@ -2060,7 +2116,7 @@ safe-buffer@5.1.2, safe-buffer@~5.1.0, safe-buffer@~5.1.1:
   resolved "https://registry.yarnpkg.com/safe-buffer/-/safe-buffer-5.1.2.tgz#991ec69d296e0313747d59bdfd2b745c35f8828d"
   integrity sha512-Gd2UZBJDkXlY7GbJxfsE8/nvKkUEU1G38c1siN6QP6a9PT9MmHB8GnpscSmMJSoF8LOIrt8ud/wPtojys4G6+g==
 
-safe-buffer@5.2.1, safe-buffer@>=5.1.0, safe-buffer@^5.1.0, safe-buffer@~5.2.0:
+safe-buffer@5.2.1, safe-buffer@>=5.1.0, safe-buffer@^5.1.0, safe-buffer@^5.1.1, safe-buffer@^5.1.2, safe-buffer@~5.2.0:
   version "5.2.1"
   resolved "https://registry.yarnpkg.com/safe-buffer/-/safe-buffer-5.2.1.tgz#1eaf9fa9bdb1fdd4ec75f58f9cdb4e6b7827eec6"
   integrity sha512-rp3So07KcdmmKbGvgaNxQSJr7bGVSVk5S9Eq1F+ppbRo70+YeaDxkw5Dd8NPN+GD6bjnYm2VuPuCXmpuYvmCXQ==
