@@ -1,9 +1,9 @@
 import './styles/styles.less'
 import m from 'mithril'
-import i18n from 'gettext.js'
 import App from './components/App'
+import i18nInit from './utils/i18nInit'
 
-global.t = i18n()
+i18nInit()
 
 // Mount the app
 m.mount(document.getElementById('app')!, App)
