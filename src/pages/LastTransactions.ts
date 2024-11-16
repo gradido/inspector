@@ -1,23 +1,24 @@
 import m from 'mithril'
-import TransactionList from './TransactionList'
+import TransactionList from '../components/TransactionList'
 import { TransactionExcerpt } from '../models/TransactionExcerpt'
 import { ConfirmedTransaction } from '../models/ConfirmedTransaction'
 import { plainToInstance } from 'class-transformer'
+import NavBar from '../components/NavBar'
 
-interface AppState {
+interface State {
     transactions: ConfirmedTransaction[]
     loading: boolean
 }
 
-class App implements m.ClassComponent<{}> {
-    state: AppState
+class LastTransactions implements m.ClassComponent<{}> {
+    state: State
     constructor() {
       this.state = {
         transactions: [],
         loading: true
       }      
       this.fetchTransactions();
-      setInterval(() => this.fetchTransactions(), 250); // 4 mal pro Sekunde
+      setInterval(() => this.fetchTransactions(), 10000); // 4 mal pro Sekunde
     }
     fetchTransactions = async () => {
         const response = await fetch('http://0.0.0.0:8340/api', {
@@ -32,6 +33,7 @@ class App implements m.ClassComponent<{}> {
                     fromTransactionId: 0,
                     format: 'json',
                     groupAlias: '77c8732a4584cb1e099ae0c4bcc3cad9b453895f1449a42d53f82174b0527da6',
+                    pageSize: 10
                 },
                 id: 1
             })
@@ -50,15 +52,17 @@ class App implements m.ClassComponent<{}> {
     }
     view({attrs}: m.CVnode<{}>) {
         // const i = i18n()
-        return m('div.container', [
-            m('h1',  t.__('Transactions overview')),
-            this.state.loading ? m('p', 'Lade...') : m(TransactionList, { 
-                transactions: this.state.transactions.map((transaction) => 
-                    new TransactionExcerpt(transaction)
-                ) 
-            })
-        ])
+        return [
+            m('div.container', [
+                m('h1',  t.__('Transactions overview')),
+                this.state.loading ? m('p', 'Lade...') : m(TransactionList, { 
+                    transactions: this.state.transactions.map((transaction) => 
+                        new TransactionExcerpt(transaction)
+                    ) 
+                })
+            ])
+        ]
     }
 }
 
-export default App
+export default LastTransactions

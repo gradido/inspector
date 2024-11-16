@@ -1,9 +1,24 @@
+import 'bootstrap/scss/bootstrap.scss'
 import './styles/styles.less'
 import m from 'mithril'
-import App from './components/App'
 import i18nInit from './utils/i18nInit'
+import Layout from './components/Layout'
+import LastTransactions from './pages/LastTransactions'
+import Search from './pages/Search'
 
 i18nInit()
 
-// Mount the app
-m.mount(document.getElementById('app')!, App)
+var root = document.getElementById('app')!
+
+// m.route.prefix = ''
+
+// routes
+m.route(root, '/', {
+   '/': {
+    render: () => m(Layout, m(LastTransactions))
+  },
+  '/search': {
+    render: () => m(Layout, m(Search))
+  }
+})
+

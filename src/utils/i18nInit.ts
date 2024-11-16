@@ -13,7 +13,6 @@ function i18nInit() {
   ];
   
   translations.forEach((j) => {
-    console.log(j)
     j.messages['']['plural-forms'] = j.pluralForms
     t.loadJSON(j.messages, 'messages')
   })

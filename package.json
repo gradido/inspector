@@ -13,6 +13,7 @@
     "extract": "gettext-extract"
   },
   "dependencies": {
+    "bootstrap": "^5.3.3",
     "class-transformer": "^0.5.1",
     "es6-shim": "^0.35.8",
     "gettext.js": "^2.0.3",
@@ -25,11 +26,14 @@
     "compression-webpack-plugin": "^11.1.0",
     "concurrently": "^9.0.1",
     "css-loader": "^7.1.2",
+    "css-minimizer-webpack-plugin": "^7.0.0",
     "express": "^4.21.0",
     "gettext-extract": "^2.0.1",
     "less": "^4.2.0",
     "less-loader": "^12.2.0",
     "mini-css-extract-plugin": "^2.9.1",
+    "sass": "^1.81.0",
+    "sass-loader": "^16.0.3",
     "serve-index": "^1.9.1",
     "ts-loader": "^9.5.1",
     "typescript": "^5.6.2",
