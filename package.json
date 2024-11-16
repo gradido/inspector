@@ -13,6 +13,8 @@
   "dependencies": {
     "class-transformer": "^0.5.1",
     "es6-shim": "^0.35.8",
+    "jed": "^1.1.1",
+    "jed-gettext-parser": "^2.0.0",
     "mithril": "^2.2.2",
     "reflect-metadata": "^0.2.2"
   },
@@ -22,6 +24,7 @@
     "concurrently": "^9.0.1",
     "css-loader": "^7.1.2",
     "express": "^4.21.0",
+    "gettext-extract": "^2.0.1",
     "less": "^4.2.0",
     "less-loader": "^12.2.0",
     "mini-css-extract-plugin": "^2.9.1",
