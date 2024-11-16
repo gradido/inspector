@@ -1,22 +1,17 @@
 const path = require('path')
+const glob = require('glob')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const CompressionPlugin = require('compression-webpack-plugin')
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin')
+const { PurgeCSSPlugin } = require('purgecss-webpack-plugin')
+
+const PATHS = {
+  src: path.join(__dirname, 'src'),
+}
+
 
 module.exports = {
   mode: 'development',
-  optimization: {
-    splitChunks: {
-      cacheGroups: {
-        styles: {
-          name: 'styles',
-          test: /\.css$/,
-          chunks: 'all',
-          enforce: true,
-        },
-      },
-    },
-  },
   entry: './src/index.ts',
   output: {
     filename: 'bundle.js',
@@ -64,6 +59,9 @@ module.exports = {
       filename: 'styles.min.css',
       chunkFilename: '[id].[contenthash].css',
     }),
+    new PurgeCSSPlugin({
+      paths: glob.sync(`${PATHS.src}/**/*`, { nodir: true }),
+    }),
     new CompressionPlugin({
       algorithm: 'gzip',
       threshold: 10240,
@@ -85,5 +83,15 @@ module.exports = {
         },
       }),
     ],
+    splitChunks: {
+      cacheGroups: {
+        styles: {
+          name: 'styles',
+          test: /\.css$/,
+          chunks: 'all',
+          enforce: true,
+        },
+      },
+    },
   },
 }

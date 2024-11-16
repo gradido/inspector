@@ -1,12 +1,12 @@
 import m from 'mithril'
 
-interface Attrs {
-}
+/*import 'bootstrap/scss/_nav.scss'
+import 'bootstrap/scss/_navbar.scss'
+*/
 
-interface State {
-}
+import 'bootstrap/js/src/collapse.js'
 
-export const NavBar: m.Component<Attrs, State> = {
+export const NavBar: m.Component = {
   oninit: ({attrs, state}) => {
     
   },
