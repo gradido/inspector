@@ -21,6 +21,7 @@
     "reflect-metadata": "^0.2.2"
   },
   "devDependencies": {
+    "@popperjs/core": "^2.11.8",
     "@types/gettext.js": "^1.0.3",
     "@types/mithril": "^2.2.7",
     "compression-webpack-plugin": "^11.1.0",

@@ -1,5 +1,6 @@
 import 'bootstrap/scss/bootstrap.scss'
 import './styles/styles.less'
+import 'bootstrap/js/index.umd.js'
 import m from 'mithril'
 import i18nInit from './utils/i18nInit'
 import Layout from './components/Layout'
