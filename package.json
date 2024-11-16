@@ -8,10 +8,9 @@
     "watch": "webpack --watch",
     "server": "node server.js",
     "dev": "concurrently \"yarn watch\" \"yarn server\"",
+    "prebuild": "find src/locales -name '*.po' -exec sh -c 'node node_modules/gettext.js/bin/po2json \"$1\" \"${1%.po}.json\"' _ {} \\;",
     "build": "webpack",
-    "extract": "gettext-extract",
-    "convert": "node parsePo.mjs",
-    "convert:po": "find src/locales -name '*.po' -exec sh -c 'node node_modules/gettext.js/bin/po2json \"$1\" \"${1%.po}.json\"' _ {} \\;"
+    "extract": "gettext-extract"
   },
   "dependencies": {
     "class-transformer": "^0.5.1",
