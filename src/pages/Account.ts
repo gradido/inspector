@@ -1,18 +1,19 @@
 import m from 'mithril'
 
 interface Attrs {
+  id: string
 }
 
 interface State {
 }
 
-export const Search: m.Component<Attrs, State> = {
+export const Account: m.Component<Attrs, State> = {
   oninit: ({attrs, state}) => {
     
   },
   view: ({attrs, state}) => {
-      return m('', 'search')
+      return m('', attrs.id)
   }
 }
 
-export default Search
+export default Account

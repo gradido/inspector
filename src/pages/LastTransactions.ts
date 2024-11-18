@@ -3,7 +3,6 @@ import TransactionList from '../components/TransactionList'
 import { TransactionExcerpt } from '../models/TransactionExcerpt'
 import { ConfirmedTransaction } from '../models/ConfirmedTransaction'
 import { plainToInstance } from 'class-transformer'
-import NavBar from '../components/NavBar'
 
 interface State {
     transactions: ConfirmedTransaction[]
@@ -20,7 +19,7 @@ class LastTransactions implements m.ClassComponent<{}> {
       this.fetchTransactions();
       setInterval(() => this.fetchTransactions(), 10000); // 4 mal pro Sekunde
     }
-    fetchTransactions = async () => {
+    async fetchTransactions() {
         const response = await fetch('http://0.0.0.0:8340/api', {
             method: 'POST',
             headers: {
