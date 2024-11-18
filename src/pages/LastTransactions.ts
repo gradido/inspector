@@ -9,7 +9,7 @@ interface State {
     loading: boolean
 }
 
-class LastTransactions implements m.ClassComponent<{}> {
+export class LastTransactions implements m.ClassComponent<{}> {
     state: State
     constructor() {
       this.state = {
@@ -20,7 +20,7 @@ class LastTransactions implements m.ClassComponent<{}> {
       setInterval(() => this.fetchTransactions(), 10000); // 4 mal pro Sekunde
     }
     async fetchTransactions() {
-        const response = await fetch('http://0.0.0.0:8340/api', {
+        const response = await fetch(nodeServerUrl, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -31,7 +31,7 @@ class LastTransactions implements m.ClassComponent<{}> {
                 params: {
                     fromTransactionId: 0,
                     format: 'json',
-                    groupAlias: '77c8732a4584cb1e099ae0c4bcc3cad9b453895f1449a42d53f82174b0527da6',
+                    groupAlias,
                     pageSize: 10
                 },
                 id: 1
@@ -63,5 +63,3 @@ class LastTransactions implements m.ClassComponent<{}> {
         ]
     }
 }
-
-export default LastTransactions
