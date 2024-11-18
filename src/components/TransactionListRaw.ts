@@ -10,7 +10,7 @@ interface State {
     transactionsShowDetailState: boolean[]
 }
 
-export const TransactionList: m.Component<Attrs, State> = {
+export const TransactionListRaw: m.Component<Attrs, State> = {
   oninit: ({attrs, state}) => {
     state.transactionsShowDetailState = []
     attrs.transactions.map((_value, index) => state.transactionsShowDetailState[index] = false)
@@ -55,5 +55,3 @@ export const TransactionList: m.Component<Attrs, State> = {
       ])
   }
 }
-
-export default TransactionList

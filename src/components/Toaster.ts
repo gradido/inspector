@@ -21,7 +21,6 @@ export class Toaster implements m.ClassComponent<{}> {
     toast.id = id
     toast.timeout ??= defaultDelay
     this.toasts.push(toast)
-    console.log('toasts: ', this.toasts)
     m.redraw()
 
     if (toast.timeout > 0) {
@@ -33,12 +32,12 @@ export class Toaster implements m.ClassComponent<{}> {
     this.toasts = this.toasts.filter((toast) => toast.id !== id)
     m.redraw()
   }
-
+// write css selectors fully so they can be found by PurgeCSS
   public success(message: string, timeout?: number) {
     this.toast({
       title: t.__('Success'),
       message,
-      variant: 'success',
+      variant: '.text-bg-success',
       timeout
     });
   }
@@ -47,7 +46,7 @@ export class Toaster implements m.ClassComponent<{}> {
     this.toast({
       title: t.__('Error'),
       message,
-      variant: 'danger',
+      variant: '.text-bg-danger',
       timeout
     });
   }
@@ -56,8 +55,8 @@ export class Toaster implements m.ClassComponent<{}> {
     this.toast({
       title: t.__('Info'),
       message,
-      variant: 'warning',
-      bodyClass: 'gdd-toaster-body-darken',
+      variant: '.text-bg-warning',
+      bodyClass: '.gdd-toaster-body-darken',
       timeout
     });
   }
@@ -66,8 +65,7 @@ export class Toaster implements m.ClassComponent<{}> {
     return m(
       '.toast-container.position-fixed.top-0.end-0.p-3',
       this.toasts.map((toast) => 
-        m(
-          `.toast.show.gdd-toaster.text-bg-${toast.variant}`,
+        m(`.toast.show.gdd-toaster${toast.variant}`,
           {
             key: toast.id,
             role: 'alert',
@@ -90,7 +88,7 @@ export class Toaster implements m.ClassComponent<{}> {
                 }
               )
             ]),
-            m(`.toast-body.${toast.bodyClass || '.gdd-toaster-body'}`, toast.message)
+            m(`.toast-body${toast.bodyClass || '.gdd-toaster-body'}`, toast.message)
           ]
         )        
       )

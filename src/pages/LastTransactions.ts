@@ -1,5 +1,5 @@
 import m from 'mithril'
-import TransactionList from '../components/TransactionList'
+import { TransactionListRaw } from '../components/TransactionListRaw'
 import { TransactionExcerpt } from '../models/TransactionExcerpt'
 import { ConfirmedTransaction } from '../models/ConfirmedTransaction'
 import { plainToInstance } from 'class-transformer'
@@ -49,12 +49,12 @@ export class LastTransactions implements m.ClassComponent<{}> {
         this.state.loading = false;
         m.redraw()
     }
-    view({attrs}: m.CVnode<{}>) {
+    view() {
         // const i = i18n()
         return [
             m('div.container', [
                 m('h1',  t.__('Transactions overview')),
-                this.state.loading ? m('p', 'Lade...') : m(TransactionList, { 
+                this.state.loading ? m('p', 'Lade...') : m(TransactionListRaw, { 
                     transactions: this.state.transactions.map((transaction) => 
                         new TransactionExcerpt(transaction)
                     ) 

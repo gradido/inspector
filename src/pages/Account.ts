@@ -1,18 +1,23 @@
 import m from 'mithril'
+import { TransactionList } from '../models/TransactionList'
+import { plainToInstance } from 'class-transformer'
+import { TransactionListView } from '../components/TransactionListView'
+import { Title } from '../components/Title'
 
 interface Attrs {
   id: string
 }
 
 interface State {
-  result:any
+  transactionList: TransactionList | undefined
+  timeUsed: string
 }
 
 export class Account implements m.ClassComponent<Attrs> {
   private state: State
   constructor() 
   {
-    this.state = { result: undefined }
+    this.state = { transactionList: undefined, timeUsed: '' }
   }
 
   oninit({attrs}: m.CVnode<Attrs>) {
@@ -35,21 +40,32 @@ export class Account implements m.ClassComponent<Attrs> {
             id: Math.random()
         })
     })
-    const result = await response.json()
-    console.log('response', result)
-    if (result.result) {
-      this.state.result = result.result
+    const r = await response.json()
+    if (r.result) {
+      this.state.transactionList = plainToInstance(TransactionList, r.result.transactionList as TransactionList)
+      this.state.timeUsed = r.result.timeUsed
+      console.log('response', this.state)
       m.redraw()
-    } else if(result.error) {
-      toaster.error(result.error.message)
+    } else if(r.error) {
+      toaster.error(r.error.message)
       m.route.set('/')
     }
     
     
   }
   view({attrs}: m.CVnode<Attrs>) {
-    if(this.state.result) {
-      return m('', this.state.result.timeUsed)
+    if(this.state.transactionList) {
+      return m('div.container', [
+        m(Title, {title: t.__('Transactions')}),
+        m('.row.d-flex', [
+          m('.col-2.d-none.d-lg-block'),
+          m('.col', [
+            m(TransactionListView, {transactionList: this.state.transactionList}),
+            m('', this.state.timeUsed)
+          ]),
+          m('.col-3.d-none.d-lg-block')
+      ])
+      ])
     } else {
       return m('', t.__('Loading....'))
     }

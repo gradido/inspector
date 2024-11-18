@@ -12,3 +12,17 @@ export function getEnumValue<T extends string | number>(
 
   return defaultValue
 }
+
+export function formatCurrency(value: string, currency: string = 'GDD'): string {
+  const numericValue = parseFloat(value)
+  if (isNaN(numericValue)) {
+    return 'NaN'
+  }
+  
+  return new Intl.NumberFormat(t.getLocale(), {
+    style: 'currency',
+    currency,
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  }).format(numericValue);
+}
