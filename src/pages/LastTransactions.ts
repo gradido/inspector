@@ -17,7 +17,7 @@ export class LastTransactions implements m.ClassComponent<{}> {
         loading: true
       }      
       this.fetchTransactions();
-      setInterval(() => this.fetchTransactions(), 10000); // 4 mal pro Sekunde
+      // setInterval(() => this.fetchTransactions(), 10000); // 4 mal pro Sekunde
     }
     async fetchTransactions() {
         const response = await fetch(nodeServerUrl, {

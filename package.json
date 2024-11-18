@@ -8,7 +8,7 @@
     "watch": "webpack --watch",
     "server": "node server.js",
     "dev": "concurrently \"yarn watch\" \"yarn server\"",
-    "prebuild": "find src/locales -name '*.po' -exec sh -c 'node node_modules/gettext.js/bin/po2json \"$1\" \"${1%.po}.json\"' _ {} \\;",
+    "prebuild": "node node_modules/gettext.js/bin/po2json src/locales/de/messages.po src/locales/de/messages.json",
     "build": "webpack",
     "extract": "gettext-extract"
   },

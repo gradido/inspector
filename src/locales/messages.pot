@@ -3,6 +3,36 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language: \n"
 
-#: src/components/App.ts:54
+#: src/components/NavBar.ts:60
+msgid "Account"
+msgstr ""
+
+#: src/components/Toaster.ts:87
+msgid "Close"
+msgstr ""
+
+#: src/components/Toaster.ts:47
+msgid "Error"
+msgstr ""
+
+#: src/components/Toaster.ts:56
+msgid "Info"
+msgstr ""
+
+#: src/components/NavBar.ts:65
+#: src/components/NavBar.ts:66
+#: src/components/NavBar.ts:70
+msgid "Search"
+msgstr ""
+
+#: src/components/Toaster.ts:38
+msgid "Success"
+msgstr ""
+
+#: src/components/NavBar.ts:48
+msgid "Toggle navigation"
+msgstr ""
+
+#: src/pages/LastTransactions.ts:56
 msgid "Transactions overview"
 msgstr ""

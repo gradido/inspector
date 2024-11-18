@@ -21,6 +21,7 @@ export class Toaster implements m.ClassComponent<{}> {
     toast.id = id
     toast.timeout ??= defaultDelay
     this.toasts.push(toast)
+    console.log('toasts: ', this.toasts)
     m.redraw()
 
     if (toast.timeout > 0) {

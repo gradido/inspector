@@ -7,7 +7,7 @@ const Layout: m.Component = {
     return m('#app-wrapper', [
       m(NavBar),
       m('#content', children),
-      m('.toaster-wrapper', toaster)
+      m('.toaster-wrapper', m(toaster))
     ])
   }
 }

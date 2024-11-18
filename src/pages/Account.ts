@@ -5,18 +5,18 @@ interface Attrs {
 }
 
 interface State {
-  result:any[]
+  result:any
 }
 
 export class Account implements m.ClassComponent<Attrs> {
   private state: State
   constructor() 
   {
-    this.state = { result: [] }
+    this.state = { result: undefined }
   }
 
-  async oninit({attrs}: m.CVnode<Attrs>) {
-    await this.fetchTransactions(attrs.id)
+  oninit({attrs}: m.CVnode<Attrs>) {
+    this.fetchTransactions(attrs.id)
   }
   async fetchTransactions(pubkey: string) {
     const response = await fetch(nodeServerUrl, {
@@ -35,12 +35,24 @@ export class Account implements m.ClassComponent<Attrs> {
             id: Math.random()
         })
     })
-    this.state.result = await response.json();
-    m.redraw()
+    const result = await response.json()
+    console.log('response', result)
+    if (result.result) {
+      this.state.result = result.result
+      m.redraw()
+    } else if(result.error) {
+      toaster.error(result.error.message)
+      m.route.set('/')
+    }
+    
+    
   }
   view({attrs}: m.CVnode<Attrs>) {
-    console.log('attrs: ', attrs)
-    return m('', this.state.result)
+    if(this.state.result) {
+      return m('', this.state.result.timeUsed)
+    } else {
+      return m('', t.__('Loading....'))
+    }
   }
 }
 
