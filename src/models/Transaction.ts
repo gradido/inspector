@@ -6,6 +6,7 @@ import { LinkedUser } from './LinkedUser'
 export class Transaction {
   amount: string 
   balance: string
+  previousBalance: string
   balanceDate: Date
   @Type(() => Decay)
   decay: Decay
@@ -22,6 +23,7 @@ export class Transaction {
   constructor(
     amount: string, 
     balance: string, 
+    previousBalance: string,
     balanceDate: Date, 
     decay: Decay, 
     id: number, 
@@ -30,6 +32,7 @@ export class Transaction {
     typeId: TransactionType) {
       this.amount = amount
       this.balance = balance
+      this.previousBalance = previousBalance
       this.balanceDate = balanceDate
       this.decay = decay
       this.id = id

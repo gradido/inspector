@@ -16,7 +16,7 @@ export function getEnumValue<T extends string | number>(
 export function formatCurrency(value: string, currency: string = 'GDD'): string {
   const numericValue = parseFloat(value)
   if (isNaN(numericValue)) {
-    return 'NaN'
+    return ''
   }
   
   return new Intl.NumberFormat(t.getLocale(), {
@@ -24,5 +24,23 @@ export function formatCurrency(value: string, currency: string = 'GDD'): string 
     currency,
     minimumFractionDigits: 2,
     maximumFractionDigits: 2,
-  }).format(numericValue);
+  }).format(numericValue).replace('-', t.__('− '))
+}
+
+export function formatGDD(value: string): string {
+  const firstStep = formatCurrency(value)
+  if(firstStep.length) {
+    const numericValue = parseFloat(value)
+    if(numericValue > 0) {
+      return t.__('+') + ' ' + firstStep
+    } 
+  }
+  return firstStep  
+}
+export function combineElementWithClasses(element: string, classes: string[]) {
+  let elementWithClasses = element
+    if(classes.length) {
+      elementWithClasses += '.' + classes.join('.')
+    } 
+    return elementWithClasses
 }

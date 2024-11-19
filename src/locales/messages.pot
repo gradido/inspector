@@ -3,12 +3,38 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language: \n"
 
-#: src/components/NavBar.ts:60
+#: src/utils/utils.ts:35
+msgid "+"
+msgstr ""
+
+#: src/components/TransactionTypes/DecayDetailsShort.ts:19
+msgid "="
+msgstr ""
+
+#: src/components/TransactionTypes/DecayDetailsShort.ts:11
+#: src/utils/utils.ts:27
+msgid "− "
+msgstr ""
+
+#: src/components/NavBar.ts:66
+#: src/components/WalletSum.ts:28
 msgid "Account"
 msgstr ""
 
-#: src/components/Toaster.ts:87
+#: src/components/TransactionTypes/DecayDetailsShort.ts:30
+msgid "Calculation of Decay"
+msgstr ""
+
+#: src/components/Toaster.ts:86
 msgid "Close"
+msgstr ""
+
+#: src/components/TransactionTypes/DecayDetailsShort.ts:36
+msgid "Decay"
+msgstr ""
+
+#: src/components/TransactionTypes/Decay.ts:13
+msgid "Decay since the last transaction"
 msgstr ""
 
 #: src/components/Toaster.ts:47
@@ -19,9 +45,17 @@ msgstr ""
 msgid "Info"
 msgstr ""
 
-#: src/components/NavBar.ts:65
-#: src/components/NavBar.ts:66
-#: src/components/NavBar.ts:70
+#: src/components/NavBar.ts:34
+msgid "invalid input"
+msgstr ""
+
+#: src/pages/Account.ts:70
+msgid "Loading...."
+msgstr ""
+
+#: src/components/NavBar.ts:72
+#: src/components/NavBar.ts:73
+#: src/components/NavBar.ts:79
 msgid "Search"
 msgstr ""
 
@@ -29,8 +63,12 @@ msgstr ""
 msgid "Success"
 msgstr ""
 
-#: src/components/NavBar.ts:48
+#: src/components/NavBar.ts:54
 msgid "Toggle navigation"
+msgstr ""
+
+#: src/pages/Account.ts:59
+msgid "Transactions"
 msgstr ""
 
 #: src/pages/LastTransactions.ts:56

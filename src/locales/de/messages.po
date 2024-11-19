@@ -11,6 +11,72 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 3.2.2\n"
 
-#: src/components/App.ts:54
+#: src/utils/utils.ts:35
+msgid "+"
+msgstr "+"
+
+#: src/components/TransactionTypes/DecayDetailsShort.ts:19
+msgid "="
+msgstr "="
+
+#: src/components/TransactionTypes/DecayDetailsShort.ts:11
+#: src/utils/utils.ts:27
+msgid "− "
+msgstr "− "
+
+#: src/components/NavBar.ts:66 src/components/WalletSum.ts:28
+msgid "Account"
+msgstr "Konto"
+
+#: src/components/TransactionTypes/DecayDetailsShort.ts:30
+msgid "Calculation of Decay"
+msgstr "Berechnung der Vergänglichkeit"
+
+#: src/components/Toaster.ts:86
+msgid "Close"
+msgstr "Schließen"
+
+#: src/components/TransactionTypes/DecayDetailsShort.ts:36
+msgid "Decay"
+msgstr "Vergänglichkeit"
+
+#: src/components/TransactionTypes/Decay.ts:13
+msgid "Decay since the last transaction"
+msgstr "Vergänglichkeit seit der letzten Transaktion"
+
+#: src/components/Toaster.ts:47
+msgid "Error"
+msgstr "Fehler"
+
+#: src/components/Toaster.ts:56
+msgid "Info"
+msgstr "Info"
+
+#: src/components/NavBar.ts:34
+msgid "invalid input"
+msgstr "ungültige Eingabe"
+
+#: src/pages/Account.ts:70
+msgid "Loading...."
+msgstr "Wird geladen ..."
+
+#: src/components/NavBar.ts:72 src/components/NavBar.ts:73
+#: src/components/NavBar.ts:79
+msgid "Search"
+msgstr "Suche"
+
+#: src/components/Toaster.ts:38
+msgid "Success"
+msgstr "Erfolg"
+
+#: src/components/NavBar.ts:54
+msgid "Toggle navigation"
+msgstr "Navigation umschalten"
+
+#: src/pages/Account.ts:59
+msgid "Transactions"
+msgstr "Transaktionen"
+
+#: src/pages/LastTransactions.ts:56
 msgid "Transactions overview"
 msgstr "Transaktionsübersicht"
