@@ -38,7 +38,8 @@ export class Collapse implements m.ClassComponent<Attrs> {
         m(
           combineElementWithClasses('.collapse', attrs.detailClasses),
            {id: this.state.id, 'is-nav': false},
-           this.state.detailsVisible ? attrs.details : undefined
+           //this.state.detailsVisible ? attrs.details : undefined
+           attrs.details
         )        
       ])    
   }

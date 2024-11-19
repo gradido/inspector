@@ -4,6 +4,9 @@ import { WalletSum } from './WalletSum'
 import { Collapse } from './bootstrap/Collapse'
 import { Decay } from './TransactionTypes/Decay'
 import { DecayDetailsShort } from './TransactionTypes/DecayDetailsShort'
+import { Transaction } from '../models/Transaction'
+import { Transfer } from './TransactionTypes/Transfer'
+import { combineElementWithClasses } from '../utils/utils'
 
 interface Attrs {
   transactionList: TransactionList
@@ -25,6 +28,34 @@ export class TransactionListView implements m.ClassComponent<Attrs> {
     )
   }
 
+  chooseTransactionTypeView(transaction: Transaction): m.Child {
+    const containerClasses = ['pointer', 'mb-3', 'bg-white', 'app-box-shadow', 'gradido-border-radius', 'p-3']
+    switch(transaction.typeId) {
+      case 'DECAY': 
+        return m(Collapse, {
+          info: (isOpen) => m(Decay, { isOpen }),
+          details: m(DecayDetailsShort, transaction),
+          containerClasses,
+          detailClasses: ['pb-4', 'pt-5']
+        })
+      case 'SEND':
+      case 'RECEIVE':
+      case 'CREATE':
+      case 'LINK_SEND':
+      case 'LINK_RECEIVE':
+      case 'LINK_DELETE':
+        /* return m(Collapse, {
+          info: (isOpen) => m(Transfer, { isOpen, transaction }),
+          details: m(DecayDetailsShort, transaction),
+          containerClasses,
+          detailClasses: ['pb-4 pt-lg-3']
+        })*/
+       return m(combineElementWithClasses('', containerClasses), m(Transfer, { isOpen: false, transaction }))
+      default: 
+        return m('', transaction.typeId.toString())
+    }
+  }
+
   view({attrs: {transactionList}}: m.CVnode<Attrs>) {
     return m('.row.px-lg3', [
       m('.col-12', 
@@ -39,14 +70,9 @@ export class TransactionListView implements m.ClassComponent<Attrs> {
       ),
       m('.col-12', 
         m('.main-content.mt-lg-3.mt-0', 
-          m('.list-group', [
-            m(Collapse, {
-              info: (isOpen) => m(Decay, { isOpen }),
-              details: m(DecayDetailsShort, transactionList.transactions[0]),
-              containerClasses: ['pointer', 'bg-white', 'app-box-shadow', 'gradido-border-radius', 'px-4', 'pt-2'],
-              detailClasses: ['pb-4', 'pt-5']
-            })
-          ])
+          m('.list-group.transactions-list', 
+            transactionList.transactions.map((transaction) => this.chooseTransactionTypeView(transaction))
+          )
         )
       )
     ])

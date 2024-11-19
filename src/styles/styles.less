@@ -33,3 +33,73 @@ body {
   margin-bottom: 1rem;
   padding: 0.75rem 1rem;
 }
+
+@media (min-width: 1025px) {
+  .transactions-list .col-lg-2 {
+    -webkit-box-flex: 0;
+    -ms-flex: 0 0 auto;
+    flex: 0 0 auto;
+    width: 16.66666667%;
+  }
+}
+
+.transactions-list .row {
+  --bs-gutter-x: 1.5rem;
+  --bs-gutter-y: 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  margin-top: calc(-1 * var(--bs-gutter-y));
+  margin-right: calc(-.5 * var(--bs-gutter-x));
+  margin-left: calc(-.5 * var(--bs-gutter-x));
+}
+
+.transactions-list .row > * {
+  flex-shrink: 0;
+  margin-top: var(--bs-gutter-y);
+  max-width: auto;
+  padding-left: calc(var(--bs-gutter-x)*.5);
+  padding-right: calc(var(--bs-gutter-x)*.5);
+  width: auto;
+}
+
+.transactions-list .col {
+	-webkit-box-flex: 1;
+	-ms-flex: 1 0 0%;
+	flex: 1 0 0%;
+}
+
+.transactions-list .align-items-center {
+  -webkit-box-align: center !important;
+  -ms-flex-align: center !important;
+  align-items: center !important;
+}
+
+.rounded-circle {
+  border-radius: 50% !important;
+}
+
+.b-avatar-custom > svg {
+  height: 2em;
+  width: 2em;
+}
+
+.b-avatar .b-avatar-custom, .b-avatar .b-avatar-text, .b-avatar .b-avatar-img {
+  border-radius: inherit;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-mask-image: radial-gradient(#fff,#000);
+  mask-image: radial-gradient(#fff,#000);
+}

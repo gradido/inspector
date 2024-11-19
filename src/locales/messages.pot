@@ -29,6 +29,10 @@ msgstr ""
 msgid "Close"
 msgstr ""
 
+#: src/components/TransactionTypes/Transfer.ts:36
+msgid "Created"
+msgstr ""
+
 #: src/components/TransactionTypes/DecayDetailsShort.ts:36
 msgid "Decay"
 msgstr ""
@@ -39,6 +43,10 @@ msgstr ""
 
 #: src/components/Toaster.ts:47
 msgid "Error"
+msgstr ""
+
+#: src/components/TransactionTypes/Transfer.ts:43
+msgid "Gradido Academie"
 msgstr ""
 
 #: src/components/Toaster.ts:56
@@ -53,10 +61,22 @@ msgstr ""
 msgid "Loading...."
 msgstr ""
 
+#: src/components/TransactionTypes/Transfer.ts:33
+msgid "Received"
+msgstr ""
+
+#: src/components/TransactionTypes/Transfer.ts:35
+msgid "Received Back"
+msgstr ""
+
 #: src/components/NavBar.ts:72
 #: src/components/NavBar.ts:73
 #: src/components/NavBar.ts:79
 msgid "Search"
+msgstr ""
+
+#: src/components/TransactionTypes/Transfer.ts:30
+msgid "Sent"
 msgstr ""
 
 #: src/components/Toaster.ts:38
@@ -73,4 +93,12 @@ msgstr ""
 
 #: src/pages/LastTransactions.ts:56
 msgid "Transactions overview"
+msgstr ""
+
+#: src/components/TransactionTypes/Transfer.ts:37
+msgid "Unknown"
+msgstr ""
+
+#: src/components/TransactionTypes/Transfer.ts:71
+msgid "via Link"
 msgstr ""

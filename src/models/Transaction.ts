@@ -7,29 +7,25 @@ export class Transaction {
   amount: string 
   balance: string
   previousBalance: string
-  balanceDate: Date
+  balanceDate: string
   @Type(() => Decay)
   decay: Decay
   id: number
   @Type(() => LinkedUser)
   linkedUser: LinkedUser
   memo: string
-  @Exclude()
-  @Transform(({ value }) => {
-    return TransactionType[value as keyof typeof TransactionType]
-  })
-  typeId: TransactionType
+  typeId: string
 
   constructor(
     amount: string, 
     balance: string, 
     previousBalance: string,
-    balanceDate: Date, 
+    balanceDate: string, 
     decay: Decay, 
     id: number, 
     linkedUser: LinkedUser,
     memo: string,
-    typeId: TransactionType) {
+    typeId: string) {
       this.amount = amount
       this.balance = balance
       this.previousBalance = previousBalance

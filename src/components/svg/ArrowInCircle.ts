@@ -1,6 +1,6 @@
 import m from 'mithril'
 import { ArrowType } from '../../enum/ArrowType'
-import { combineElementWithClasses } from '../../utils/utils'
+import { Base } from './Base'
 
 interface Attrs {
   type: ArrowType,
@@ -17,9 +17,7 @@ export class ArrowInCircle implements m.ClassComponent<Attrs> {
         return begin + 'm-7.5 3.5a.5.5 0 0 1-1 0V5.707L5.354 7.854a.5.5 0 1 1-.708-.708l3-3a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 5.707z'
     }
   }
-  view({attrs}: m.CVnode<Attrs>) {    
-    return m(combineElementWithClasses('svg', attrs.classes), { viewBox: '0 0 16 16', width: '1.2em', height: '1.2em'},
-      m('g', {fill: 'currentColor', 'fill-rule': 'evenodd'}, m('path', {d: this.pickPath(attrs.type)}))
-    )
+  view({attrs: {classes, type}}: m.CVnode<Attrs>) {  
+    return m(Base, {classes, paths: [this.pickPath(type)], options: {fill: 'currentColor', 'fill-rule': 'evenodd'}})
   }
 }

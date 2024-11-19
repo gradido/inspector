@@ -36,6 +36,10 @@ msgstr "Berechnung der Vergänglichkeit"
 msgid "Close"
 msgstr "Schließen"
 
+#: src/components/TransactionTypes/Transfer.ts:36
+msgid "Created"
+msgstr "Geschöpft"
+
 #: src/components/TransactionTypes/DecayDetailsShort.ts:36
 msgid "Decay"
 msgstr "Vergänglichkeit"
@@ -47,6 +51,10 @@ msgstr "Vergänglichkeit seit der letzten Transaktion"
 #: src/components/Toaster.ts:47
 msgid "Error"
 msgstr "Fehler"
+
+#: src/components/TransactionTypes/Transfer.ts:43
+msgid "Gradido Academie"
+msgstr "Gradido Akademie"
 
 #: src/components/Toaster.ts:56
 msgid "Info"
@@ -60,10 +68,22 @@ msgstr "ungültige Eingabe"
 msgid "Loading...."
 msgstr "Wird geladen ..."
 
+#: src/components/TransactionTypes/Transfer.ts:33
+msgid "Received"
+msgstr "Empfangen"
+
+#: src/components/TransactionTypes/Transfer.ts:35
+msgid "Received Back"
+msgstr "Zurückbekommen"
+
 #: src/components/NavBar.ts:72 src/components/NavBar.ts:73
 #: src/components/NavBar.ts:79
 msgid "Search"
 msgstr "Suche"
+
+#: src/components/TransactionTypes/Transfer.ts:30
+msgid "Sent"
+msgstr "Gesendet"
 
 #: src/components/Toaster.ts:38
 msgid "Success"
@@ -80,3 +100,11 @@ msgstr "Transaktionen"
 #: src/pages/LastTransactions.ts:56
 msgid "Transactions overview"
 msgstr "Transaktionsübersicht"
+
+#: src/components/TransactionTypes/Transfer.ts:37
+msgid "Unknown"
+msgstr "Unbekannt"
+
+#: src/components/TransactionTypes/Transfer.ts:71
+msgid "via Link"
+msgstr "über einen Link"

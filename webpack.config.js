@@ -4,6 +4,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const CompressionPlugin = require('compression-webpack-plugin')
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin')
 const { PurgeCSSPlugin } = require('purgecss-webpack-plugin')
+const TerserPlugin = require('terser-webpack-plugin')
 
 const PATHS = {
   src: path.join(__dirname, 'src'),
@@ -59,9 +60,9 @@ module.exports = {
       filename: 'styles.min.css',
       chunkFilename: '[id].[contenthash].css',
     }),
-    new PurgeCSSPlugin({
-      paths: glob.sync(`${PATHS.src}/**/*`, { nodir: true }),
-    }),
+    //new PurgeCSSPlugin({
+      //paths: glob.sync(`${PATHS.src}/**/*`, { nodir: true }),
+    //}),
     new CompressionPlugin({
       algorithm: 'gzip',
       threshold: 10240,
@@ -82,6 +83,7 @@ module.exports = {
           ],
         },
       }),
+      new TerserPlugin()
     ],
     splitChunks: {
       cacheGroups: {

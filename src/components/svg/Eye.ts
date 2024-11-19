@@ -1,5 +1,5 @@
 import m from 'mithril'
-import { combineElementWithClasses } from '../../utils/utils'
+import { Base } from './Base'
 
 interface Attrs {
   visible: boolean
@@ -21,9 +21,7 @@ export class Eye implements m.ClassComponent<Attrs> {
       ]
     }
   }
-  view({attrs}: m.CVnode<Attrs>) {
-    return m(combineElementWithClasses('svg', attrs.classes), { viewBox: '0 0 16 16', width: '1.2em', height: '1.2em'},
-      m('g', {fill: 'currentColor'}, this.pickPaths(attrs.visible).map((path) => m('path', {d: path})))
-    )
+  view({attrs: {visible, classes}}: m.CVnode<Attrs>) {
+    return m(Base, {classes, paths: this.pickPaths(visible)})
   }
 }
