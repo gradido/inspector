@@ -11,19 +11,27 @@ interface Attrs {
 interface State {
   transactionList: TransactionList | undefined
   timeUsed: string
+  id: string | undefined
+  loading: boolean
 }
 
 export class Account implements m.ClassComponent<Attrs> {
   private state: State
   constructor() 
   {
-    this.state = { transactionList: undefined, timeUsed: '' }
+    this.state = { 
+      transactionList: undefined, 
+      timeUsed: '',
+      id: undefined,
+      loading: false
+    }
   }
 
   oninit({attrs}: m.CVnode<Attrs>) {
     this.fetchTransactions(attrs.id)
   }
   async fetchTransactions(pubkey: string) {
+    this.state.loading = true
     const response = await fetch(nodeServerUrl, {
         method: 'POST',
         headers: {
@@ -42,21 +50,33 @@ export class Account implements m.ClassComponent<Attrs> {
     })
     const r = await response.json()
     if (r.result) {
-      this.state.transactionList = plainToInstance(TransactionList, r.result.transactionList as TransactionList)
-      this.state.timeUsed = r.result.timeUsed
+      this.state = {
+        transactionList: plainToInstance(TransactionList, r.result.transactionList as TransactionList),
+        timeUsed: r.result.timeUsed,
+        id: pubkey,
+        loading: false
+      }
       console.log('response', this.state)
       m.redraw()
     } else if(r.error) {
       toaster.error(r.error.message)
       m.route.set('/')
+      this.state.loading = false
     }
     
     
   }
   view({attrs}: m.CVnode<Attrs>) {
-    if(this.state.transactionList) {
+    // check if update occurred and new id was given
+    if(this.state.id && attrs.id !== this.state.id) {
+      this.fetchTransactions(attrs.id)
+    }
+    //if(this.state.loading) {
+      //return m('div.container.pulse', t.__('Loading...'))
+    //}
+     if(this.state.transactionList) {
       return m('div.container', [
-        m(Title, {title: t.__('Transactions')}),
+        m(Title, {title: t.__('Transactions for'), subtitle: attrs.id}),
         m('.row.d-flex', [
           m('.col-2.d-none.d-lg-block'),
           m('.col', [

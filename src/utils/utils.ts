@@ -40,7 +40,15 @@ export function formatGDD(value: string): string {
 export function combineElementWithClasses(element: string, classes: string[]) {
   let elementWithClasses = element
     if(classes.length) {
-      elementWithClasses += '.' + classes.join('.')
+      elementWithClasses += combineClasses(classes)
     } 
     return elementWithClasses
+}
+
+export function combineClasses(classes: string[]) {
+  return '.' + classes.join('.')
+}
+
+export function stringToBoolean(str: string): boolean {
+  return str.toLowerCase() === 'true' || str === '1' || str.toLowerCase() === 'yes';
 }

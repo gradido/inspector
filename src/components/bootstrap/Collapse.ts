@@ -22,22 +22,28 @@ export class Collapse implements m.ClassComponent<Attrs> {
     this.state = { detailsVisible: false, id: Collapse.idsCounter++ }
   }
 
-  onupdate() {
+  /*onupdate() {
     const collapse = new BCollapse('#' + this.state.id)
     if(this.state.detailsVisible) {
       collapse.show()
     } else {
       collapse.hide()
     }
-  }
+  }*/
 
   view({attrs}: m.CVnode<Attrs>) {
+    const classAndId = '#' + this.state.id + '.collapse'
+    console.log(classAndId)
+    const detailClasses = attrs.detailClasses
+    if (this.state.detailsVisible) {
+      detailClasses.push('show')
+    }
     return m(combineElementWithClasses('', attrs.containerClasses), 
       {onclick: () => this.state.detailsVisible = !this.state.detailsVisible }, [
         attrs.info(this.state.detailsVisible), 
         m(
-          combineElementWithClasses('.collapse', attrs.detailClasses),
-           {id: this.state.id, 'is-nav': false},
+          combineElementWithClasses(classAndId, detailClasses),
+           {'is-nav': false},
            //this.state.detailsVisible ? attrs.details : undefined
            attrs.details
         )        

@@ -54,7 +54,7 @@ export class LastTransactions implements m.ClassComponent<{}> {
         return [
             m('div.container', [
                 m('h1',  t.__('Transactions overview')),
-                this.state.loading ? m('p', 'Lade...') : m(TransactionListRaw, { 
+                this.state.loading ? m('p.pulse', t.__('Loading...')) : m(TransactionListRaw, { 
                     transactions: this.state.transactions.map((transaction) => 
                         new TransactionExcerpt(transaction)
                     ) 
