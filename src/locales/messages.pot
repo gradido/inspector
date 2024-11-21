@@ -7,21 +7,22 @@ msgstr ""
 msgid "+"
 msgstr ""
 
-#: src/components/TransactionTypes/DecayDetailsShort.ts:19
+#: src/components/TransactionTypes/DecayDetailsShort.ts:18
 msgid "="
 msgstr ""
 
-#: src/components/TransactionTypes/DecayDetailsShort.ts:11
+#: src/components/TransactionTypes/DecayDetailsShort.ts:10
 #: src/utils/utils.ts:27
 msgid "− "
 msgstr ""
 
 #: src/components/NavBar.ts:66
-#: src/components/WalletSum.ts:28
+#: src/components/WalletSum.ts:49
 msgid "Account"
 msgstr ""
 
-#: src/components/TransactionTypes/DecayDetailsShort.ts:30
+#: src/components/TransactionTypes/DecayDetails.ts:17
+#: src/components/TransactionTypes/DecayDetailsShort.ts:28
 msgid "Calculation of Decay"
 msgstr ""
 
@@ -29,11 +30,12 @@ msgstr ""
 msgid "Close"
 msgstr ""
 
-#: src/components/TransactionTypes/Transfer.ts:36
+#: src/enum/TransactionType.ts:26
 msgid "Created"
 msgstr ""
 
-#: src/components/TransactionTypes/DecayDetailsShort.ts:36
+#: src/components/TransactionTypes/DecayDetails.ts:42
+#: src/components/TransactionTypes/DecayDetailsShort.ts:34
 msgid "Decay"
 msgstr ""
 
@@ -45,7 +47,7 @@ msgstr ""
 msgid "Error"
 msgstr ""
 
-#: src/components/TransactionTypes/Transfer.ts:43
+#: src/components/TransactionTypes/Transfer.ts:30
 msgid "Gradido Academie"
 msgstr ""
 
@@ -57,15 +59,27 @@ msgstr ""
 msgid "invalid input"
 msgstr ""
 
-#: src/pages/Account.ts:70
-msgid "Loading...."
+#: src/components/TransactionTypes/DecayDetails.ts:22
+msgid "Last Transaction"
 msgstr ""
 
-#: src/components/TransactionTypes/Transfer.ts:33
+#: src/components/TransactionTypes/TransferDetails.ts:11
+msgid "Message"
+msgstr ""
+
+#: src/components/TransactionTypes/DecayDetails.ts:50
+msgid "New balance"
+msgstr ""
+
+#: src/components/TransactionTypes/DecayDetails.ts:38
+msgid "Previous balance"
+msgstr ""
+
+#: src/enum/TransactionType.ts:23
 msgid "Received"
 msgstr ""
 
-#: src/components/TransactionTypes/Transfer.ts:35
+#: src/enum/TransactionType.ts:25
 msgid "Received Back"
 msgstr ""
 
@@ -75,30 +89,46 @@ msgstr ""
 msgid "Search"
 msgstr ""
 
-#: src/components/TransactionTypes/Transfer.ts:30
+#: src/enum/TransactionType.ts:20
 msgid "Sent"
+msgstr ""
+
+#: src/components/TransactionTypes/Signed.ts:7
+msgid "Signed..."
 msgstr ""
 
 #: src/components/Toaster.ts:38
 msgid "Success"
 msgstr ""
 
+#: src/components/TransactionTypes/DecayDetails.ts:56
+msgid "This transaction does not include decay."
+msgstr ""
+
+#: src/components/TransactionTypes/DecayDetails.ts:31
+msgid "Time passed"
+msgstr ""
+
 #: src/components/NavBar.ts:54
 msgid "Toggle navigation"
 msgstr ""
 
-#: src/pages/Account.ts:59
-msgid "Transactions"
+#: src/pages/Account.ts:72
+msgid "Transactions for"
 msgstr ""
 
-#: src/pages/LastTransactions.ts:56
+#: src/pages/LastTransactions.ts:53
 msgid "Transactions overview"
 msgstr ""
 
-#: src/components/TransactionTypes/Transfer.ts:37
+#: src/enum/TransactionType.ts:27
 msgid "Unknown"
 msgstr ""
 
-#: src/components/TransactionTypes/Transfer.ts:71
+#: src/components/TransactionTypes/Transfer.ts:64
 msgid "via Link"
+msgstr ""
+
+#: src/components/TransactionListView.ts:77
+msgid "You don't have any transactions on your account yet."
 msgstr ""

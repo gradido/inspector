@@ -10,7 +10,7 @@ export class CollapseArrow implements m.ClassComponent<Attrs> {
   view({attrs}: m.CVnode<Attrs>) {
     return m(ArrowInCircle, { 
       type: attrs.open ? ArrowType.UP : ArrowType.DOWN, 
-      classes: [attrs.open ? 'text-black' : 'text-muted', 'h1']
+      classes: [attrs.open ? 'text-black' : 'text-muted', 'h1', 'collapse-arrow']
     })
   }
 }

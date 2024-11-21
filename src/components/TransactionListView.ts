@@ -7,6 +7,8 @@ import { DecayDetailsShort } from './TransactionTypes/DecayDetailsShort'
 import { Transaction } from '../models/Transaction'
 import { Transfer } from './TransactionTypes/Transfer'
 import { combineElementWithClasses } from '../utils/utils'
+import { DecayDetails } from './TransactionTypes/DecayDetails'
+import { TransferDetails } from './TransactionTypes/TransferDetails'
 
 interface Attrs {
   transactionList: TransactionList
@@ -44,13 +46,13 @@ export class TransactionListView implements m.ClassComponent<Attrs> {
       case 'LINK_SEND':
       case 'LINK_RECEIVE':
       case 'LINK_DELETE':
-        /* return m(Collapse, {
+        return m(Collapse, {
           info: (isOpen) => m(Transfer, { isOpen, transaction }),
-          details: m(DecayDetailsShort, transaction),
+          details: m(TransferDetails, transaction),
           containerClasses,
-          detailClasses: ['pb-4 pt-lg-3']
-        })*/
-       return m(combineElementWithClasses('', containerClasses), m(Transfer, { isOpen: false, transaction }))
+          detailClasses: ['px-1']
+        })
+       // return m(combineElementWithClasses('', containerClasses), m(Transfer, { isOpen: false, transaction }))
       default: 
         return m('', transaction.typeId.toString())
     }
@@ -70,8 +72,10 @@ export class TransactionListView implements m.ClassComponent<Attrs> {
       ),
       m('.col-12', 
         m('.main-content.mt-lg-3.mt-0', 
-          m('.list-group.transactions-list', 
-            transactionList.transactions.map((transaction) => this.chooseTransactionTypeView(transaction))
+          m('.list-group.transactions-list',
+            transactionList.transactions.length === 0 ? 
+            m('.mt-4.text-center', t.__('You don\'t have any transactions on your account yet.'))
+            : transactionList.transactions.map((transaction) => this.chooseTransactionTypeView(transaction))
           )
         )
       )

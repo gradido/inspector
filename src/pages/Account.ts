@@ -12,7 +12,6 @@ interface State {
   transactionList: TransactionList | undefined
   timeUsed: string
   id: string | undefined
-  loading: boolean
 }
 
 export class Account implements m.ClassComponent<Attrs> {
@@ -23,7 +22,6 @@ export class Account implements m.ClassComponent<Attrs> {
       transactionList: undefined, 
       timeUsed: '',
       id: undefined,
-      loading: false
     }
   }
 
@@ -31,7 +29,6 @@ export class Account implements m.ClassComponent<Attrs> {
     this.fetchTransactions(attrs.id)
   }
   async fetchTransactions(pubkey: string) {
-    this.state.loading = true
     const response = await fetch(nodeServerUrl, {
         method: 'POST',
         headers: {
@@ -54,14 +51,12 @@ export class Account implements m.ClassComponent<Attrs> {
         transactionList: plainToInstance(TransactionList, r.result.transactionList as TransactionList),
         timeUsed: r.result.timeUsed,
         id: pubkey,
-        loading: false
       }
       console.log('response', this.state)
       m.redraw()
     } else if(r.error) {
       toaster.error(r.error.message)
       m.route.set('/')
-      this.state.loading = false
     }
     
     
@@ -69,11 +64,9 @@ export class Account implements m.ClassComponent<Attrs> {
   view({attrs}: m.CVnode<Attrs>) {
     // check if update occurred and new id was given
     if(this.state.id && attrs.id !== this.state.id) {
+      this.state.transactionList = undefined
       this.fetchTransactions(attrs.id)
     }
-    //if(this.state.loading) {
-      //return m('div.container.pulse', t.__('Loading...'))
-    //}
      if(this.state.transactionList) {
       return m('div.container', [
         m(Title, {title: t.__('Transactions for'), subtitle: attrs.id}),
@@ -84,10 +77,8 @@ export class Account implements m.ClassComponent<Attrs> {
             m('', this.state.timeUsed)
           ]),
           m('.col-3.d-none.d-lg-block')
+        ])
       ])
-      ])
-    } else {
-      return m('', t.__('Loading....'))
     }
   }
 }

@@ -6,7 +6,6 @@ import { plainToInstance } from 'class-transformer'
 
 interface State {
     transactions: ConfirmedTransaction[]
-    loading: boolean
 }
 
 export class LastTransactions implements m.ClassComponent<{}> {
@@ -14,7 +13,6 @@ export class LastTransactions implements m.ClassComponent<{}> {
     constructor() {
       this.state = {
         transactions: [],
-        loading: true
       }      
       this.fetchTransactions();
       // setInterval(() => this.fetchTransactions(), 10000); // 4 mal pro Sekunde
@@ -46,7 +44,6 @@ export class LastTransactions implements m.ClassComponent<{}> {
             return obj
           })
         }
-        this.state.loading = false;
         m.redraw()
     }
     view() {
@@ -54,7 +51,7 @@ export class LastTransactions implements m.ClassComponent<{}> {
         return [
             m('div.container', [
                 m('h1',  t.__('Transactions overview')),
-                this.state.loading ? m('p.pulse', t.__('Loading...')) : m(TransactionListRaw, { 
+                  m(TransactionListRaw, { 
                     transactions: this.state.transactions.map((transaction) => 
                         new TransactionExcerpt(transaction)
                     ) 

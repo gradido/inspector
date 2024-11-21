@@ -6,7 +6,6 @@ import { Transaction } from '../../models/Transaction'
 export class DecayDetailsShort implements m.ClassComponent<Transaction> {
   
   constructDecayString({ previousBalance, decay, balance }: Transaction): m.ChildArray {
-    console.log('decay: %o', decay)
     const formattedPrevious = formatGDD(previousBalance);
     const formattedDecay = decay.decay === '0' ? t.__('− ') : '' + formatGDD(decay.decay);
     const formattedBalance = formatGDD(balance);
@@ -23,7 +22,6 @@ export class DecayDetailsShort implements m.ClassComponent<Transaction> {
   }
 
   view({attrs}: m.CVnode<Transaction>) {
-    console.log('decay transaction: %o', attrs.decay)
     return [
       m('.mb-3.d-flex.align-items-center', [
         m(Droplet, { classes: ['me-2']}),

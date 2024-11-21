@@ -60,9 +60,9 @@ module.exports = {
       filename: 'styles.min.css',
       chunkFilename: '[id].[contenthash].css',
     }),
-    //new PurgeCSSPlugin({
-      //paths: glob.sync(`${PATHS.src}/**/*`, { nodir: true }),
-    //}),
+    new PurgeCSSPlugin({
+      paths: glob.sync(`${PATHS.src}/**/*`, { nodir: true }),
+    }),
     new CompressionPlugin({
       algorithm: 'gzip',
       threshold: 10240,

@@ -1,6 +1,5 @@
 import m, { Child } from 'mithril'
-import { Collapse as BCollapse } from 'bootstrap'
-import { combineElementWithClasses } from '../../utils/utils'
+import { combineClasses, combineElementWithClasses } from '../../utils/utils'
 
 interface Attrs {
   info: (isOpen: boolean) => Child //info is a function that maintains the state
@@ -11,40 +10,26 @@ interface Attrs {
 
 interface State {
   detailsVisible: boolean
-  id: number
 }
 
 export class Collapse implements m.ClassComponent<Attrs> {
   state: State 
-  static idsCounter: number = 1
-
   constructor() {
-    this.state = { detailsVisible: false, id: Collapse.idsCounter++ }
+    this.state = { detailsVisible: false}
   }
 
-  /*onupdate() {
-    const collapse = new BCollapse('#' + this.state.id)
-    if(this.state.detailsVisible) {
-      collapse.show()
-    } else {
-      collapse.hide()
-    }
-  }*/
-
   view({attrs}: m.CVnode<Attrs>) {
-    const classAndId = '#' + this.state.id + '.collapse'
-    console.log(classAndId)
     const detailClasses = attrs.detailClasses
+    detailClasses.push('collapse')
     if (this.state.detailsVisible) {
       detailClasses.push('show')
     }
-    return m(combineElementWithClasses('', attrs.containerClasses), 
+    return m(combineClasses(attrs.containerClasses), 
       {onclick: () => this.state.detailsVisible = !this.state.detailsVisible }, [
         attrs.info(this.state.detailsVisible), 
         m(
-          combineElementWithClasses(classAndId, detailClasses),
+          combineClasses(detailClasses),
            {'is-nav': false},
-           //this.state.detailsVisible ? attrs.details : undefined
            attrs.details
         )        
       ])    

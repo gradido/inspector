@@ -15,6 +15,7 @@
   "dependencies": {
     "bootstrap": "^5.3.3",
     "class-transformer": "^0.5.1",
+    "date-fns": "^4.1.0",
     "es6-shim": "^0.35.8",
     "gettext.js": "^2.0.3",
     "mithril": "^2.2.2",

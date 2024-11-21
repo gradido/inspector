@@ -15,20 +15,21 @@ msgstr ""
 msgid "+"
 msgstr "+"
 
-#: src/components/TransactionTypes/DecayDetailsShort.ts:19
+#: src/components/TransactionTypes/DecayDetailsShort.ts:18
 msgid "="
 msgstr "="
 
-#: src/components/TransactionTypes/DecayDetailsShort.ts:11
+#: src/components/TransactionTypes/DecayDetailsShort.ts:10
 #: src/utils/utils.ts:27
 msgid "− "
 msgstr "− "
 
-#: src/components/NavBar.ts:66 src/components/WalletSum.ts:28
+#: src/components/NavBar.ts:66 src/components/WalletSum.ts:49
 msgid "Account"
 msgstr "Konto"
 
-#: src/components/TransactionTypes/DecayDetailsShort.ts:30
+#: src/components/TransactionTypes/DecayDetails.ts:17
+#: src/components/TransactionTypes/DecayDetailsShort.ts:28
 msgid "Calculation of Decay"
 msgstr "Berechnung der Vergänglichkeit"
 
@@ -36,11 +37,12 @@ msgstr "Berechnung der Vergänglichkeit"
 msgid "Close"
 msgstr "Schließen"
 
-#: src/components/TransactionTypes/Transfer.ts:36
+#: src/enum/TransactionType.ts:26
 msgid "Created"
 msgstr "Geschöpft"
 
-#: src/components/TransactionTypes/DecayDetailsShort.ts:36
+#: src/components/TransactionTypes/DecayDetails.ts:42
+#: src/components/TransactionTypes/DecayDetailsShort.ts:34
 msgid "Decay"
 msgstr "Vergänglichkeit"
 
@@ -52,7 +54,7 @@ msgstr "Vergänglichkeit seit der letzten Transaktion"
 msgid "Error"
 msgstr "Fehler"
 
-#: src/components/TransactionTypes/Transfer.ts:43
+#: src/components/TransactionTypes/Transfer.ts:30
 msgid "Gradido Academie"
 msgstr "Gradido Akademie"
 
@@ -64,15 +66,27 @@ msgstr "Info"
 msgid "invalid input"
 msgstr "ungültige Eingabe"
 
-#: src/pages/Account.ts:70
-msgid "Loading...."
-msgstr "Wird geladen ..."
+#: src/components/TransactionTypes/DecayDetails.ts:22
+msgid "Last Transaction"
+msgstr "Letzte Transaktion"
 
-#: src/components/TransactionTypes/Transfer.ts:33
+#: src/components/TransactionTypes/TransferDetails.ts:11
+msgid "Message"
+msgstr "Nachricht"
+
+#: src/components/TransactionTypes/DecayDetails.ts:50
+msgid "New balance"
+msgstr "Neuer Kontostand"
+
+#: src/components/TransactionTypes/DecayDetails.ts:38
+msgid "Previous balance"
+msgstr "Vorheriger Kontostand"
+
+#: src/enum/TransactionType.ts:23
 msgid "Received"
 msgstr "Empfangen"
 
-#: src/components/TransactionTypes/Transfer.ts:35
+#: src/enum/TransactionType.ts:25
 msgid "Received Back"
 msgstr "Zurückbekommen"
 
@@ -81,30 +95,49 @@ msgstr "Zurückbekommen"
 msgid "Search"
 msgstr "Suche"
 
-#: src/components/TransactionTypes/Transfer.ts:30
+#: src/enum/TransactionType.ts:20
 msgid "Sent"
 msgstr "Gesendet"
+
+#: src/components/TransactionTypes/Signed.ts:7
+msgid "Signed..."
+msgstr "Signiert...."
 
 #: src/components/Toaster.ts:38
 msgid "Success"
 msgstr "Erfolg"
 
+#: src/components/TransactionTypes/DecayDetails.ts:56
+msgid "This transaction does not include decay."
+msgstr "Diese Transaktion beinhaltet keine Vergänglichkeit."
+
+#: src/components/TransactionTypes/DecayDetails.ts:31
+msgid "Time passed"
+msgstr "Vergangene Zeit"
+
 #: src/components/NavBar.ts:54
 msgid "Toggle navigation"
 msgstr "Navigation umschalten"
 
-#: src/pages/Account.ts:59
-msgid "Transactions"
-msgstr "Transaktionen"
+#: src/pages/Account.ts:72
+msgid "Transactions for"
+msgstr "Transaktionen für"
 
-#: src/pages/LastTransactions.ts:56
+#: src/pages/LastTransactions.ts:53
 msgid "Transactions overview"
 msgstr "Transaktionsübersicht"
 
-#: src/components/TransactionTypes/Transfer.ts:37
+#: src/enum/TransactionType.ts:27
 msgid "Unknown"
 msgstr "Unbekannt"
 
-#: src/components/TransactionTypes/Transfer.ts:71
+#: src/components/TransactionTypes/Transfer.ts:64
 msgid "via Link"
 msgstr "über einen Link"
+
+#: src/components/TransactionListView.ts:77
+msgid "You don't have any transactions on your account yet."
+msgstr "Du hast noch keine Transaktionen auf deinem Konto."
+
+#~ msgid "Loading...."
+#~ msgstr "Wird geladen ..."
