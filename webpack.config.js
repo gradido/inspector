@@ -12,7 +12,7 @@ const PATHS = {
 
 
 module.exports = {
-  mode: 'development',
+  mode: 'production',
   entry: './src/index.ts',
   output: {
     filename: 'bundle.js',

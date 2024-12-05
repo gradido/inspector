@@ -18,13 +18,15 @@ export function formatCurrency(value: string, currency: string = 'GDD'): string 
   if (isNaN(numericValue)) {
     return ''
   }
+
+  const truncatedValue = Math.floor(numericValue * 100) / 100;
   
   return new Intl.NumberFormat(t.getLocale(), {
     style: 'currency',
     currency,
     minimumFractionDigits: 2,
     maximumFractionDigits: 2,
-  }).format(numericValue).replace('-', t.__('− '))
+  }).format(truncatedValue).replace('-', t.__('− '))
 }
 
 export function formatGDD(value: string): string {

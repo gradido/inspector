@@ -2,17 +2,18 @@ import m from 'mithril'
 import { Droplet } from '../svg/Droplet'
 import { formatGDD } from '../../utils/utils'
 import { Transaction } from '../../models/Transaction'
-import { formatDistance } from 'date-fns'
-import { enUS as en, de, es, fr, nl } from 'date-fns/locale'
+//import { formatDistance } from 'date-fns'
+//import { enUS as en, de, es, fr, nl } from 'date-fns/locale'
 import { getTransactionTypeLabel } from '../../enum/TransactionType'
 
-const locales = { en, de, es, fr, nl }
+//const locales = { en, de, es, fr, nl }
 
 export class DecayDetails implements m.ClassComponent<Transaction> {
   view({attrs}: m.CVnode<Transaction>) {
     if(attrs.decay) {
       const userLocale = localStorage.getItem('language') ?? 'en'
-      return m('.mb-3', [
+      return [
+        m('.mb-3', [
         m(Droplet, { classes: ['me-2']}),
         m('b', t.__('Calculation of Decay'))
       ]),
@@ -30,9 +31,10 @@ export class DecayDetails implements m.ClassComponent<Transaction> {
           m('.row', [
             m('.col-sm-6.col-md-6.col-lg-4.col-6', t.__('Time passed')),
             m('.offset-0.col.offset-0.text-end.me-0', 
-              formatDistance(attrs.decay.end, attrs.decay.start, { 
+              attrs.decay.end + ' ' + attrs.decay.start)
+              /*formatDistance(attrs.decay.end, attrs.decay.start, { 
                 locale: locales[userLocale as keyof typeof locales] 
-              }))
+              }))*/
           ]),
           m('.row.mt-2', [
             m('.col-sm-6.col-md-6.col-lg-4.col-6', t.__('Previous balance')),
@@ -51,7 +53,7 @@ export class DecayDetails implements m.ClassComponent<Transaction> {
             m('.offset-0.col.offset-0.text-end.me-0', m('b', formatGDD(attrs.balance)))
           ])
         ])
-      )
+      )]
     } else {
       return m('.mt-3.mb-3.text-center', m('b', t.__('This transaction does not include decay.')))
     }
