@@ -1,6 +1,6 @@
 import m from 'mithril'
 import { Droplet } from '../svg/Droplet'
-import { formatGDD } from '../../utils/utils'
+import { formatDistance, formatGDD } from '../../utils/utils'
 import { Transaction } from '../../models/Transaction'
 //import { formatDistance } from 'date-fns'
 //import { enUS as en, de, es, fr, nl } from 'date-fns/locale'
@@ -31,10 +31,9 @@ export class DecayDetails implements m.ClassComponent<Transaction> {
           m('.row', [
             m('.col-sm-6.col-md-6.col-lg-4.col-6', t.__('Time passed')),
             m('.offset-0.col.offset-0.text-end.me-0', 
-              attrs.decay.end + ' ' + attrs.decay.start)
-              /*formatDistance(attrs.decay.end, attrs.decay.start, { 
-                locale: locales[userLocale as keyof typeof locales] 
-              }))*/
+              // attrs.decay.end + ' ' + attrs.decay.start,
+              formatDistance(new Date(attrs.decay.end), new Date(attrs.decay.start))
+            )
           ]),
           m('.row.mt-2', [
             m('.col-sm-6.col-md-6.col-lg-4.col-6', t.__('Previous balance')),

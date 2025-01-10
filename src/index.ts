@@ -13,7 +13,7 @@ i18nInit()
 global.toaster = new Toaster
 // TODO: move to config
 global.nodeServerUrl = 'http://127.0.0.1:8340/api'
-global.groupAlias = '77c8732a4584cb1e099ae0c4bcc3cad9b453895f1449a42d53f82174b0527da6'
+global.groupAlias = 'c00b210fc0a189df054eb9dafb584c527e9aeb537a62a35d44667f54529c73f5'
 localStorage.setItem('language', navigator.language)
 var root = document.getElementById('app')!
 
