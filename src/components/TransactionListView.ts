@@ -6,8 +6,6 @@ import { Decay } from './TransactionTypes/Decay'
 import { DecayDetailsShort } from './TransactionTypes/DecayDetailsShort'
 import { Transaction } from '../models/Transaction'
 import { Transfer } from './TransactionTypes/Transfer'
-import { combineElementWithClasses } from '../utils/utils'
-import { DecayDetails } from './TransactionTypes/DecayDetails'
 import { TransferDetails } from './TransactionTypes/TransferDetails'
 
 interface Attrs {
@@ -64,8 +62,8 @@ export class TransactionListView implements m.ClassComponent<Attrs> {
         m('.row.row-cols-12.d-lg-flex', 
           m('.col', 
             m('.row', [
-              m(WalletSum, {amount: transactionList.balance, name: 'GDD', active: true}),
-              m(WalletSum, {amount: transactionList.balanceGDT, name: 'GDT', active: false}),
+              m('.col-lg-6.col-12', m(WalletSum, {amount: transactionList.balance, unit: 'GDD', name: 'GDD', active: true})),
+              m('.col-lg-6.col-12', m(WalletSum, {amount: transactionList.balanceGDT, unit: 'GDT', name: 'GDT', active: false})),
             ])
           )
         )

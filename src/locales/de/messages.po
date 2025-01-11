@@ -9,9 +9,52 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Poedit 3.2.2\n"
 
-#: src/utils/utils.ts:35
+#: src/utils/utils.ts:73
+msgid "%1 day"
+msgid_plural "%1 days"
+msgstr[0] "1 Tag"
+msgstr[1] "%1 Tage"
+
+#: src/utils/utils.ts:74
+msgid "%1 hour"
+msgid_plural "%1 hours"
+msgstr[0] "1 Stunde"
+msgstr[1] "%1 Stunden"
+
+#: src/utils/utils.ts:75
+msgid "%1 minute"
+msgid_plural "%1 minutes"
+msgstr[0] "%1 Minute"
+msgstr[1] "%1 Minuten"
+
+#: src/utils/utils.ts:71
+msgid "%1 month"
+msgid_plural "%1 months"
+msgstr[0] "1 Monat"
+msgstr[1] "%1 Monate"
+
+#: src/utils/utils.ts:76
+msgid "%1 second"
+msgid_plural "%1 seconds"
+msgstr[0] "1 Sekunde"
+msgstr[1] "%1 Sekunden"
+
+#: src/utils/utils.ts:72
+msgid "%1 week"
+msgid_plural "%1 weeks"
+msgstr[0] "%1 Woche"
+msgstr[1] "%1 Wochen"
+
+#: src/utils/utils.ts:70
+msgid "%1 year"
+msgid_plural "%1 years"
+msgstr[0] "1 Jahr"
+msgstr[1] "%1 Jahre"
+
+#: src/utils/utils.ts:37
 msgid "+"
 msgstr "+"
 
@@ -20,7 +63,7 @@ msgid "="
 msgstr "="
 
 #: src/components/TransactionTypes/DecayDetailsShort.ts:10
-#: src/utils/utils.ts:27
+#: src/utils/utils.ts:29
 msgid "− "
 msgstr "− "
 
@@ -28,7 +71,11 @@ msgstr "− "
 msgid "Account"
 msgstr "Konto"
 
-#: src/components/TransactionTypes/DecayDetails.ts:17
+#: src/utils/utils.ts:91
+msgid "ago"
+msgstr "vor"
+
+#: src/components/TransactionTypes/DecayDetails.ts:18
 #: src/components/TransactionTypes/DecayDetailsShort.ts:28
 msgid "Calculation of Decay"
 msgstr "Berechnung der Vergänglichkeit"
@@ -41,7 +88,7 @@ msgstr "Schließen"
 msgid "Created"
 msgstr "Geschöpft"
 
-#: src/components/TransactionTypes/DecayDetails.ts:42
+#: src/components/TransactionTypes/DecayDetails.ts:43
 #: src/components/TransactionTypes/DecayDetailsShort.ts:34
 msgid "Decay"
 msgstr "Vergänglichkeit"
@@ -66,19 +113,27 @@ msgstr "Info"
 msgid "invalid input"
 msgstr "ungültige Eingabe"
 
-#: src/components/TransactionTypes/DecayDetails.ts:22
+#: src/components/TransactionTypes/DecayDetails.ts:23
 msgid "Last Transaction"
 msgstr "Letzte Transaktion"
+
+#: src/utils/utils.ts:89
+msgid "later"
+msgstr "später"
+
+#: src/utils/utils.ts:100
+msgid "less than 1 minute"
+msgstr "weniger als 1 Minute"
 
 #: src/components/TransactionTypes/TransferDetails.ts:11
 msgid "Message"
 msgstr "Nachricht"
 
-#: src/components/TransactionTypes/DecayDetails.ts:50
+#: src/components/TransactionTypes/DecayDetails.ts:51
 msgid "New balance"
 msgstr "Neuer Kontostand"
 
-#: src/components/TransactionTypes/DecayDetails.ts:38
+#: src/components/TransactionTypes/DecayDetails.ts:39
 msgid "Previous balance"
 msgstr "Vorheriger Kontostand"
 
@@ -107,11 +162,11 @@ msgstr "Signiert...."
 msgid "Success"
 msgstr "Erfolg"
 
-#: src/components/TransactionTypes/DecayDetails.ts:56
+#: src/components/TransactionTypes/DecayDetails.ts:57
 msgid "This transaction does not include decay."
 msgstr "Diese Transaktion beinhaltet keine Vergänglichkeit."
 
-#: src/components/TransactionTypes/DecayDetails.ts:31
+#: src/components/TransactionTypes/DecayDetails.ts:32
 msgid "Time passed"
 msgstr "Vergangene Zeit"
 
@@ -123,7 +178,7 @@ msgstr "Navigation umschalten"
 msgid "Transactions for"
 msgstr "Transaktionen für"
 
-#: src/pages/LastTransactions.ts:53
+#: src/pages/LastTransactions.ts:67
 msgid "Transactions overview"
 msgstr "Transaktionsübersicht"
 
@@ -135,7 +190,7 @@ msgstr "Unbekannt"
 msgid "via Link"
 msgstr "über einen Link"
 
-#: src/components/TransactionListView.ts:77
+#: src/components/TransactionListView.ts:75
 msgid "You don't have any transactions on your account yet."
 msgstr "Du hast noch keine Transaktionen auf deinem Konto."
 

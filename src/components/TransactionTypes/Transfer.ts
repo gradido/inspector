@@ -55,7 +55,7 @@ export class Transfer implements m.ClassComponent<Attrs> {
       m('.col', [
         this.getLinkedUserName(linkedUser, typeId),
         m('span.small', balanceDateObject.toLocaleDateString()),
-        m('span.ms-4.small', balanceDateObject.toLocaleTimeString())
+        m('span.ms-4.small', balanceDateObject.toLocaleTimeString(undefined, {timeStyle: 'short'}))
       ]),
       m('.col-sm-8.col-md-3.col-lg-3.offset-3.offset-lg-0.offset-md-0.col-8.offset-3', [
         m('.small.mb-2', getTransactionTypeLabel(typeId)),

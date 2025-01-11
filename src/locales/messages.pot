@@ -3,7 +3,50 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language: \n"
 
-#: src/utils/utils.ts:35
+#: src/utils/utils.ts:73
+msgid "%1 day"
+msgid_plural "%1 days"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/utils/utils.ts:74
+msgid "%1 hour"
+msgid_plural "%1 hours"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/utils/utils.ts:75
+msgid "%1 minute"
+msgid_plural "%1 minutes"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/utils/utils.ts:71
+msgid "%1 month"
+msgid_plural "%1 months"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/utils/utils.ts:76
+msgid "%1 second"
+msgid_plural "%1 seconds"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/utils/utils.ts:72
+#: src/utils/utils.ts:78
+msgid "%1 week"
+msgid_plural "%1 weeks"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/utils/utils.ts:70
+msgid "%1 year"
+msgid_plural "%1 years"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/utils/utils.ts:37
 msgid "+"
 msgstr ""
 
@@ -12,7 +55,7 @@ msgid "="
 msgstr ""
 
 #: src/components/TransactionTypes/DecayDetailsShort.ts:10
-#: src/utils/utils.ts:27
+#: src/utils/utils.ts:29
 msgid "− "
 msgstr ""
 
@@ -21,7 +64,11 @@ msgstr ""
 msgid "Account"
 msgstr ""
 
-#: src/components/TransactionTypes/DecayDetails.ts:17
+#: src/utils/utils.ts:88
+msgid "ago"
+msgstr ""
+
+#: src/components/TransactionTypes/DecayDetails.ts:18
 #: src/components/TransactionTypes/DecayDetailsShort.ts:28
 msgid "Calculation of Decay"
 msgstr ""
@@ -34,7 +81,7 @@ msgstr ""
 msgid "Created"
 msgstr ""
 
-#: src/components/TransactionTypes/DecayDetails.ts:42
+#: src/components/TransactionTypes/DecayDetails.ts:43
 #: src/components/TransactionTypes/DecayDetailsShort.ts:34
 msgid "Decay"
 msgstr ""
@@ -59,19 +106,27 @@ msgstr ""
 msgid "invalid input"
 msgstr ""
 
-#: src/components/TransactionTypes/DecayDetails.ts:22
+#: src/components/TransactionTypes/DecayDetails.ts:23
 msgid "Last Transaction"
+msgstr ""
+
+#: src/utils/utils.ts:88
+msgid "later"
+msgstr ""
+
+#: src/utils/utils.ts:96
+msgid "less than 1 minute"
 msgstr ""
 
 #: src/components/TransactionTypes/TransferDetails.ts:11
 msgid "Message"
 msgstr ""
 
-#: src/components/TransactionTypes/DecayDetails.ts:50
+#: src/components/TransactionTypes/DecayDetails.ts:51
 msgid "New balance"
 msgstr ""
 
-#: src/components/TransactionTypes/DecayDetails.ts:38
+#: src/components/TransactionTypes/DecayDetails.ts:39
 msgid "Previous balance"
 msgstr ""
 
@@ -101,11 +156,11 @@ msgstr ""
 msgid "Success"
 msgstr ""
 
-#: src/components/TransactionTypes/DecayDetails.ts:56
+#: src/components/TransactionTypes/DecayDetails.ts:57
 msgid "This transaction does not include decay."
 msgstr ""
 
-#: src/components/TransactionTypes/DecayDetails.ts:31
+#: src/components/TransactionTypes/DecayDetails.ts:32
 msgid "Time passed"
 msgstr ""
 
@@ -117,7 +172,7 @@ msgstr ""
 msgid "Transactions for"
 msgstr ""
 
-#: src/pages/LastTransactions.ts:53
+#: src/pages/LastTransactions.ts:67
 msgid "Transactions overview"
 msgstr ""
 
@@ -129,6 +184,6 @@ msgstr ""
 msgid "via Link"
 msgstr ""
 
-#: src/components/TransactionListView.ts:77
+#: src/components/TransactionListView.ts:75
 msgid "You don't have any transactions on your account yet."
 msgstr ""
