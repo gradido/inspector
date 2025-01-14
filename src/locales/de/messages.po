@@ -71,7 +71,11 @@ msgstr "− "
 msgid "Account"
 msgstr "Konto"
 
-#: src/utils/utils.ts:91
+#: src/components/TransactionListView.ts:63
+msgid "Address Type"
+msgstr "Kontotyp"
+
+#: src/utils/utils.ts:86
 msgid "ago"
 msgstr "vor"
 
@@ -80,11 +84,23 @@ msgstr "vor"
 msgid "Calculation of Decay"
 msgstr "Berechnung der Vergänglichkeit"
 
+#: src/enum/TransactionType.ts:31
+msgid "Charged"
+msgstr "Aufgeladen"
+
 #: src/components/Toaster.ts:86
 msgid "Close"
 msgstr "Schließen"
 
-#: src/enum/TransactionType.ts:26
+#: src/models/TransactionBody.ts:58
+msgid "Community Root Transaction"
+msgstr "Gemeinschaftsstarttransaktion"
+
+#: src/models/TransactionBody.ts:62
+msgid "Contribution Transaction"
+msgstr "Schöpfungstransaktion"
+
+#: src/enum/TransactionType.ts:33
 msgid "Created"
 msgstr "Geschöpft"
 
@@ -96,6 +112,10 @@ msgstr "Vergänglichkeit"
 #: src/components/TransactionTypes/Decay.ts:13
 msgid "Decay since the last transaction"
 msgstr "Vergänglichkeit seit der letzten Transaktion"
+
+#: src/models/TransactionBody.ts:66
+msgid "Deferred Transfer"
+msgstr "Transaktionslink"
 
 #: src/components/Toaster.ts:47
 msgid "Error"
@@ -117,11 +137,11 @@ msgstr "ungültige Eingabe"
 msgid "Last Transaction"
 msgstr "Letzte Transaktion"
 
-#: src/utils/utils.ts:89
+#: src/utils/utils.ts:86
 msgid "later"
 msgstr "später"
 
-#: src/utils/utils.ts:100
+#: src/utils/utils.ts:94
 msgid "less than 1 minute"
 msgstr "weniger als 1 Minute"
 
@@ -137,20 +157,32 @@ msgstr "Neuer Kontostand"
 msgid "Previous balance"
 msgstr "Vorheriger Kontostand"
 
-#: src/enum/TransactionType.ts:23
+#: src/enum/TransactionType.ts:25
 msgid "Received"
 msgstr "Empfangen"
 
-#: src/enum/TransactionType.ts:25
+#: src/enum/TransactionType.ts:27
 msgid "Received Back"
 msgstr "Zurückbekommen"
+
+#: src/enum/TransactionType.ts:29
+msgid "Received Change"
+msgstr "Rückgeld"
+
+#: src/models/TransactionBody.ts:68
+msgid "Redeem Deferred Transfer"
+msgstr "Transaktionslinkeinlösetransaktion"
+
+#: src/models/TransactionBody.ts:60
+msgid "Register Address Transaction"
+msgstr "Benutzerregistrierentransaktion"
 
 #: src/components/NavBar.ts:72 src/components/NavBar.ts:73
 #: src/components/NavBar.ts:79
 msgid "Search"
 msgstr "Suche"
 
-#: src/enum/TransactionType.ts:20
+#: src/enum/TransactionType.ts:22
 msgid "Sent"
 msgstr "Gesendet"
 
@@ -170,6 +202,10 @@ msgstr "Diese Transaktion beinhaltet keine Vergänglichkeit."
 msgid "Time passed"
 msgstr "Vergangene Zeit"
 
+#: src/models/TransactionBody.ts:70
+msgid "Timeout Deferred Transfer"
+msgstr "Transaktionslinkabgelaufentransaktion"
+
 #: src/components/NavBar.ts:54
 msgid "Toggle navigation"
 msgstr "Navigation umschalten"
@@ -178,19 +214,23 @@ msgstr "Navigation umschalten"
 msgid "Transactions for"
 msgstr "Transaktionen für"
 
-#: src/pages/LastTransactions.ts:67
+#: src/pages/LastTransactions.ts:74
 msgid "Transactions overview"
 msgstr "Transaktionsübersicht"
 
-#: src/enum/TransactionType.ts:27
+#: src/models/TransactionBody.ts:64
+msgid "Transfer Transaction"
+msgstr "Überweisungstransaktion"
+
+#: src/enum/TransactionType.ts:34
 msgid "Unknown"
 msgstr "Unbekannt"
 
-#: src/components/TransactionTypes/Transfer.ts:64
+#: src/components/TransactionTypes/Transfer.ts:65
 msgid "via Link"
 msgstr "über einen Link"
 
-#: src/components/TransactionListView.ts:75
+#: src/components/TransactionListView.ts:78
 msgid "You don't have any transactions on your account yet."
 msgstr "Du hast noch keine Transaktionen auf deinem Konto."
 

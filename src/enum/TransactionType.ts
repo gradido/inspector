@@ -6,7 +6,9 @@ export enum TransactionType {
   DECAY,
   LINK_SEND,
   LINK_RECEIVE,
-  LINK_DELETE
+  LINK_DELETE,
+  LINK_CHANGE,
+  LINK_CHARGE
 }
 
 export function transactionTypeFromString(typeId: string | TransactionType): TransactionType {
@@ -23,7 +25,12 @@ export function getTransactionTypeLabel(typeId: string | TransactionType): strin
       return t.__('Received')
     case TransactionType.LINK_DELETE:
       return t.__('Received Back')
-    case TransactionType.CREATE: return t.__('Created')
+    case TransactionType.LINK_CHANGE: 
+      return t.__('Received Change')
+    case TransactionType.LINK_CHARGE: 
+      return t.__('Charged')
+    case TransactionType.CREATE: 
+      return t.__('Created')
     default: return t.__('Unknown')
   }
 }
@@ -32,6 +39,7 @@ export function isTransactionTypeLink(typeId: string| TransactionType): boolean 
   return [
     TransactionType.LINK_RECEIVE, 
     TransactionType.LINK_SEND, 
-    TransactionType.LINK_DELETE
+    TransactionType.LINK_DELETE,
+    TransactionType.LINK_CHANGE
   ].includes(transactionTypeFromString(typeId))
 }

@@ -4,6 +4,8 @@ import { GradidoCreation } from './GradidoCreation'
 import { GradidoTransfer } from './GradidoTransfer'
 import { RegisterAddress } from './RegisterAddress'
 import { GradidoDeferredTransfer } from './GradidoDeferredTransfer'
+import { GradidoRedeemDeferredTransfer } from './GradidoRedeemDeferredTransfer'
+import { GradidoTimeoutDeferredTransfer } from './GradidoTimeoutDeferredTransfer'
 
 export class TransactionBody {
   memo: string
@@ -22,6 +24,10 @@ export class TransactionBody {
   transfer: GradidoTransfer | undefined
   @Type(() => GradidoDeferredTransfer)
   deferredTransfer: GradidoDeferredTransfer | undefined
+  @Type(() => GradidoRedeemDeferredTransfer)
+  redeemDeferredTransfer: GradidoRedeemDeferredTransfer | undefined
+  @Type(() => GradidoTimeoutDeferredTransfer)
+  timeoutDeferredTransfer: GradidoTimeoutDeferredTransfer | undefined
 
   parentMessageId: string = ''
 
@@ -40,18 +46,28 @@ export class TransactionBody {
   isDeferredTransfer(): boolean {
     return this.deferredTransfer !== undefined
   }
+  isRedeemDeferredTransfer(): boolean {
+    return this.redeemDeferredTransfer !== undefined
+  }
+  isTimeoutDeferredTransfer(): boolean {
+    return this.timeoutDeferredTransfer !== undefined
+  }
 
   getTransactionType(): string {
     if(this.isCommunityRoot()) {
-      return "Community Root Transaction"
+      return t.__("Community Root Transaction")
     } else if(this.isRegisterAddress()) {
-      return "Register Address Transaction"
+      return t.__("Register Address Transaction")
     } else if(this.isCreation()) {
-      return "Contribution Transaction"
+      return t.__("Contribution Transaction")
     } else if(this.isTransfer()) {
-      return "Transfer Transaction"
+      return t.__("Transfer Transaction")
     } else if(this.isDeferredTransfer()) {
-      return "Deferred Transfer"
+      return t.__("Deferred Transfer")
+    } else if(this.isRedeemDeferredTransfer()) {
+      return t.__("Redeem Deferred Transfer")
+    } else if(this.isTimeoutDeferredTransfer()) {
+      return t.__("Timeout Deferred Transfer")
     }
     return "unknown"
   }
@@ -63,6 +79,8 @@ export class TransactionBody {
       return this.transfer.sender.amount
     } else if(this.deferredTransfer) {
       return this.deferredTransfer.transfer.sender.amount
+    } else if(this.redeemDeferredTransfer) {
+      return this.redeemDeferredTransfer.transfer.sender.amount
     }
     return '0'
   }

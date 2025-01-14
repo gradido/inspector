@@ -6,7 +6,7 @@ import { Parcel } from '../svg/Parcel'
 import { LinkedUser } from '../../models/LinkedUser'
 import { Avatar } from '../Avatar'
 import { Link } from '../svg/Link'
-import { getTransactionTypeLabel, isTransactionTypeLink, TransactionType } from '../../enum/TransactionType'
+import { getTransactionTypeLabel, isTransactionTypeLink } from '../../enum/TransactionType'
 
 interface Attrs {
   isOpen: boolean
@@ -43,6 +43,7 @@ export class Transfer implements m.ClassComponent<Attrs> {
     switch(typeId) {
       case 'RECEIVE':
       case 'LINK_RECEIVE':
+      case 'LINK_CHARGE':
         return '.fw-bold.gradido-global-color-accent'
       default: return '.fw-bold'
     }

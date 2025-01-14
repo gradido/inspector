@@ -43,9 +43,9 @@ export class LastTransactions implements m.ClassComponent<{}> {
             })
         })
         const result = await response.json();
-        
+        const { aufBalance, gmwBalance, timeUsed, transactions } = result.result
         if (result.result.transactions.length !== this.state.transactions.length) {
-            const { aufBalance, gmwBalance, timeUsed, transactions } = result.result
+            
             this.state = {
                 aufBalance,
                 gmwBalance,
@@ -55,6 +55,13 @@ export class LastTransactions implements m.ClassComponent<{}> {
                     const obj = plainToInstance(ConfirmedTransaction, transaction)
                     return obj
                 })
+            }
+        } else {
+            this.state = {
+                aufBalance: '0',
+                gmwBalance: '0',
+                timeUsed,
+                transactions: []
             }
         }
         m.redraw()

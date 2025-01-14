@@ -44,6 +44,8 @@ export class TransactionListView implements m.ClassComponent<Attrs> {
       case 'LINK_SEND':
       case 'LINK_RECEIVE':
       case 'LINK_DELETE':
+      case 'LINK_CHANGE':
+      case 'LINK_CHARGE':
         return m(Collapse, {
           info: (isOpen) => m(Transfer, { isOpen, transaction }),
           details: m(TransferDetails, transaction),
@@ -58,6 +60,7 @@ export class TransactionListView implements m.ClassComponent<Attrs> {
 
   view({attrs: {transactionList}}: m.CVnode<Attrs>) {
     return m('.row.px-lg3', [
+      m('.col-12.mb-4', t.__('Address Type') + ': ' + transactionList.addressType),
       m('.col-12', 
         m('.row.row-cols-12.d-lg-flex', 
           m('.col', 

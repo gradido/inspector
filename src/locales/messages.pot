@@ -34,7 +34,6 @@ msgstr[0] ""
 msgstr[1] ""
 
 #: src/utils/utils.ts:72
-#: src/utils/utils.ts:78
 msgid "%1 week"
 msgid_plural "%1 weeks"
 msgstr[0] ""
@@ -64,7 +63,11 @@ msgstr ""
 msgid "Account"
 msgstr ""
 
-#: src/utils/utils.ts:88
+#: src/components/TransactionListView.ts:63
+msgid "Address Type"
+msgstr ""
+
+#: src/utils/utils.ts:86
 msgid "ago"
 msgstr ""
 
@@ -73,11 +76,23 @@ msgstr ""
 msgid "Calculation of Decay"
 msgstr ""
 
+#: src/enum/TransactionType.ts:31
+msgid "Charged"
+msgstr ""
+
 #: src/components/Toaster.ts:86
 msgid "Close"
 msgstr ""
 
-#: src/enum/TransactionType.ts:26
+#: src/models/TransactionBody.ts:58
+msgid "Community Root Transaction"
+msgstr ""
+
+#: src/models/TransactionBody.ts:62
+msgid "Contribution Transaction"
+msgstr ""
+
+#: src/enum/TransactionType.ts:33
 msgid "Created"
 msgstr ""
 
@@ -88,6 +103,10 @@ msgstr ""
 
 #: src/components/TransactionTypes/Decay.ts:13
 msgid "Decay since the last transaction"
+msgstr ""
+
+#: src/models/TransactionBody.ts:66
+msgid "Deferred Transfer"
 msgstr ""
 
 #: src/components/Toaster.ts:47
@@ -110,11 +129,11 @@ msgstr ""
 msgid "Last Transaction"
 msgstr ""
 
-#: src/utils/utils.ts:88
+#: src/utils/utils.ts:86
 msgid "later"
 msgstr ""
 
-#: src/utils/utils.ts:96
+#: src/utils/utils.ts:94
 msgid "less than 1 minute"
 msgstr ""
 
@@ -130,12 +149,24 @@ msgstr ""
 msgid "Previous balance"
 msgstr ""
 
-#: src/enum/TransactionType.ts:23
+#: src/enum/TransactionType.ts:25
 msgid "Received"
 msgstr ""
 
-#: src/enum/TransactionType.ts:25
+#: src/enum/TransactionType.ts:27
 msgid "Received Back"
+msgstr ""
+
+#: src/enum/TransactionType.ts:29
+msgid "Received Change"
+msgstr ""
+
+#: src/models/TransactionBody.ts:68
+msgid "Redeem Deferred Transfer"
+msgstr ""
+
+#: src/models/TransactionBody.ts:60
+msgid "Register Address Transaction"
 msgstr ""
 
 #: src/components/NavBar.ts:72
@@ -144,7 +175,7 @@ msgstr ""
 msgid "Search"
 msgstr ""
 
-#: src/enum/TransactionType.ts:20
+#: src/enum/TransactionType.ts:22
 msgid "Sent"
 msgstr ""
 
@@ -164,6 +195,10 @@ msgstr ""
 msgid "Time passed"
 msgstr ""
 
+#: src/models/TransactionBody.ts:70
+msgid "Timeout Deferred Transfer"
+msgstr ""
+
 #: src/components/NavBar.ts:54
 msgid "Toggle navigation"
 msgstr ""
@@ -172,18 +207,22 @@ msgstr ""
 msgid "Transactions for"
 msgstr ""
 
-#: src/pages/LastTransactions.ts:67
+#: src/pages/LastTransactions.ts:74
 msgid "Transactions overview"
 msgstr ""
 
-#: src/enum/TransactionType.ts:27
+#: src/models/TransactionBody.ts:64
+msgid "Transfer Transaction"
+msgstr ""
+
+#: src/enum/TransactionType.ts:34
 msgid "Unknown"
 msgstr ""
 
-#: src/components/TransactionTypes/Transfer.ts:64
+#: src/components/TransactionTypes/Transfer.ts:65
 msgid "via Link"
 msgstr ""
 
-#: src/components/TransactionListView.ts:75
+#: src/components/TransactionListView.ts:78
 msgid "You don't have any transactions on your account yet."
 msgstr ""
