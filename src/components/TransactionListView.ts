@@ -74,7 +74,7 @@ export class TransactionListView implements m.ClassComponent<Attrs> {
       m('.col-12', 
         m('.main-content.mt-lg-3.mt-0', 
           m('.list-group.transactions-list',
-            transactionList.transactions.length === 0 ? 
+            transactionList.transactions === undefined || transactionList.transactions.length === 0 ? 
             m('.mt-4.text-center', t.__('You don\'t have any transactions on your account yet.'))
             : transactionList.transactions.map((transaction) => this.chooseTransactionTypeView(transaction))
           )
