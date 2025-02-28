@@ -13,7 +13,6 @@ interface Toast {
 const defaultDelay = 5000
 
 export class Toaster implements m.ClassComponent<{}> {
- 
   constructor(private toasts: Toast[] = [], private counter = 0) {}
 
   public toast(toast: Toast) {
