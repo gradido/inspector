@@ -98,6 +98,13 @@ export const confirmedTransactionSchema = v.object({
 
 export type ConfirmedTransaction = v.InferOutput<typeof confirmedTransactionSchema>
 
+export const getTransactionResultSchema = v.object({
+  transaction: confirmedTransactionSchema,
+  timeUsed: v.string(),
+})
+
+export type GetTransactionResult = v.InferOutput<typeof getTransactionResultSchema>
+
 export const getTransactionsResultSchema = v.object({
   transactions: v.array(confirmedTransactionSchema),
   timeUsed: v.string(),

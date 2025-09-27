@@ -1,4 +1,34 @@
 import * as v from 'valibot'
+import { hieroTransactionIdRegex } from '../schemas/basic.schema'
+
+export const hieroTransactionIdSchema = v.pipe(
+  v.string('expect hiero transaction id type, for example 0.0.141760-1755138896-607329203 or 0.0.141760@1755138896.607329203'),
+  v.regex(hieroTransactionIdRegex), 
+)
+
+// allow TransactionIdentifier to only contain either transactionNr or iotaMessageId
+export const transactionIdentifierSchema = v.pipe(
+  v.object({
+    transactionId: v.nullish(
+      v.pipe(v.number('expect number type'), v.minValue(1, 'expect number >= 1')),
+      undefined,
+    ),
+    hieroTransactionId: v.nullish(hieroTransactionIdSchema, undefined),
+    communityId: v.string(),
+    format: v.optional(v.literal('json'), 'json'),
+  }),
+  v.custom((value: any) => {
+    const setFieldsCount =
+      Number(value.transactionId !== undefined) + Number(value.hieroTransactionId !== undefined)
+    if (setFieldsCount !== 1) {
+      return false
+    }
+    return true
+  }, 'expect transactionNr or hieroTransactionId not both'),
+)
+
+export type TransactionIdentifierInput = v.InferInput<typeof transactionIdentifierSchema>
+export type TransactionIdentifier = v.InferOutput<typeof transactionIdentifierSchema>
 
 export const transactionsRangeSchema = v.object({
   // default value is 1, from first transactions

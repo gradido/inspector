@@ -7,7 +7,7 @@ import { CONFIG } from '../config'
 
 interface Attrs {
   communityId: string
-  id: string  
+  pubkey: string  
 }
 
 export class Account implements m.ClassComponent<Attrs> {
@@ -18,7 +18,7 @@ export class Account implements m.ClassComponent<Attrs> {
   oninit({attrs}: m.CVnode<Attrs>) {
     clearTimeout(this.reloadTimerId)
     this.transactionListResponse = undefined
-    this.fetchTransactions(attrs.id, attrs.communityId)
+    this.fetchTransactions(attrs.pubkey, attrs.communityId)
   }
   async fetchTransactions(pubkey: string, communityId: string) {
     this.loading = true
@@ -48,7 +48,7 @@ export class Account implements m.ClassComponent<Attrs> {
 
   view({attrs}: m.CVnode<Attrs>) {    
     return m('div.container', [
-      m(Title, {title: t.__('Transactions for'), subtitle: attrs.id}),
+      m(Title, {title: t.__('Transactions for'), subtitle: attrs.pubkey}),
       m('.row.d-flex', [
         m('.col-2.d-none.d-lg-block'),
         m('.col', 

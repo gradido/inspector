@@ -2,10 +2,14 @@
 import m from 'mithril'
 import { NavBar } from './NavBar'
 
-export const Layout: m.Component = {
-  view: ({children}) => {
+interface Attrs {
+  communityId: string
+}
+
+export const Layout: m.Component<Attrs> = {
+  view: ({attrs, children}) => {
     return m('#app-wrapper', [
-      m(NavBar),
+      m(NavBar, {communityId: attrs.communityId}),
       m('#content', children),
       m('.toaster-wrapper', m(toaster))
     ])

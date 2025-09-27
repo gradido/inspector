@@ -7,6 +7,7 @@ import i18nInit from './utils/i18nInit'
 import { Layout } from './components/Layout'
 import { LastTransactions } from './pages/LastTransactions'
 import { Account } from './pages/Account'
+import { Transaction } from './pages/Transaction'
 import { Toaster } from './components/Toaster'
 
 i18nInit()
@@ -19,11 +20,17 @@ var root = document.getElementById('app')!
 
 // routes
 m.route(root, '/', {
-   '/': {
+  '/': {
     render: () => m(Layout, m(LastTransactions))
+   },
+   '/:communityId': {
+    render: ({attrs}) => m(Layout, attrs, m(LastTransactions, attrs))
   },
-  '/account/:communityId/:id': {
-    render: ({attrs}) => m(Layout, m(Account, attrs))
+  '/account/:communityId/:pubkey': {
+    render: ({attrs}) => m(Layout, attrs, m(Account, attrs))
+  },
+  '/transaction/:communityId/:search': {
+    render: ({attrs}) => m(Layout, attrs, m(Transaction, attrs))
   }
 })
 

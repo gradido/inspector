@@ -8,39 +8,38 @@ import 'bootstrap/js/src/collapse.js'
 import { detectSearchType } from '../utils/detectType'
 import { SearchType } from '../enum/SearchType'
 
-interface State {
-  search: string
-  searchError: string | undefined
-  validated: boolean
+interface Attrs {
+  communityId: string
 }
 
-export class NavBar implements m.ClassComponent<{}> {
-  state: State
-  constructor() {
-    this.state = {
-      search: '',
-      searchError: undefined,
-      validated: false
-    }
-  }
-  search(e: any) {
+export class NavBar implements m.ClassComponent<Attrs> {
+  searchString: string = ''
+  searchError: string | undefined = undefined
+  validated: boolean = false  
+
+  search(e: any, attrs: Attrs) {
     e.preventDefault()
-    const type = detectSearchType(this.state.search)
+    const type = detectSearchType(this.searchString)
     switch(type) {
       case SearchType.PUBLIC_KEY_HEX:
-        m.route.set('/account/'+ this.state.search)
+        m.route.set(`/account/${attrs.communityId}/${this.searchString}`)
+        break
+      case SearchType.TRANSACTION_NR:
+      case SearchType.HIERO_TRANSACTION_ID:
+        console.log(`new route: /transaction/${attrs.communityId}/${this.searchString}`)
+        m.route.set(`/transaction/${attrs.communityId}/${this.searchString}`)
         break
       default: 
-        this.state.searchError = t.__('invalid input')
+        this.searchError = t.__('invalid input')
     }
-    this.state.validated = true
-    console.log('search: ', this.state)
+    this.validated = true
+    console.log('search: ', this)
   }
-  view() {
+  view({attrs}: m.CVnode<Attrs>) {
     const isAccount = m.route.get().search(/.*account.*/) === 0
     const inactiveNavLink = 'a.nav-link'
     const activeNavLink = 'a.nav-link.active'
-    const searchValid = this.state.searchError === undefined
+    const searchValid = this.searchError === undefined
     return m('.component-navbar.wrapper-nav', 
       m('nav.navbar.bg-light-dark.navbar-expand-lg', {'data-bs-theme': 'dark'}, 
         m('.container-fluid', [
@@ -65,16 +64,16 @@ export class NavBar implements m.ClassComponent<{}> {
                     'aria-current': isAccount ? 'page' : undefined
                   }, t.__('Account')))
               ]),
-              m(`form.d-flex${this.state.validated ? '.was-validated' : ''}`, { role: 'search', onsubmit: (e: any) => this.search(e) }, [
+              m(`form.d-flex${this.validated ? '.was-validated' : ''}`, { role: 'search', onsubmit: (e: any) => this.search(e, attrs) }, [
                 m('.input-group', [
                   m(`input.form-control.me-2.${searchValid ? 'is_valid' : 'is-invalid' }`, {
                     type: 'search', 
                     placeholder: t.__('Search'), 
                     'aria-label': t.__('Search'),
                     style: { width: '45vw' },
-                    oninput: (e: any) => this.state.search = e.target.value
+                    oninput: (e: any) => this.searchString = e.target.value
                   }),
-                  this.state.searchError ? m('.invalid-feedback.show', this.state.searchError) : undefined,
+                  this.searchError ? m('.invalid-feedback.show', this.searchError) : undefined,
                 ]),
                 m('button.btn.btn-outline-light', {type: 'submit'}, t.__('Search'))
               ])

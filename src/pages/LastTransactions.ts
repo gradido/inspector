@@ -7,9 +7,19 @@ import { gradidoNodeClient } from '../client/gradidoNodeClient'
 import { GetTransactionsResult } from '../client/output.schema'
 import { CommunitySwitch } from '../components/CommunitySwitch'
 
-export class LastTransactions implements m.ClassComponent {
+interface Attrs {
+  communityId: string
+}
+
+export class LastTransactions implements m.ClassComponent<Attrs> {
   transactionsResult: GetTransactionsResult | undefined = undefined
   communityId: string | undefined = undefined
+  
+  oninit({attrs}: m.CVnode<Attrs>) {
+    if (attrs.communityId) {
+      this.updateCommunityId(attrs.communityId)
+    }
+  }
   
   async fetchTransactions() {
     if(!this.communityId) {
@@ -29,6 +39,12 @@ export class LastTransactions implements m.ClassComponent {
         setTimeout(() => this.fetchTransactions(), CONFIG.AUTO_POLL_INTERVAL)
       }
     }
+  }
+
+  updateCommunityId(communityId: string) {
+    this.communityId = communityId
+    m.route.set('/' + communityId)
+    this.fetchTransactions()
   }
 
   viewTransactions() {
@@ -60,10 +76,7 @@ export class LastTransactions implements m.ClassComponent {
         m('.row', [
             m('.col-lg-3.col-6', t.__('Community Selection')),
             m('.col-lg-6.col-9', m(CommunitySwitch, { 
-                setCommunityId: (communityId: string) => {
-                    this.communityId = communityId
-                    this.fetchTransactions()
-                },
+                setCommunityId: (communityId: string) => this.updateCommunityId(communityId),
                 defaultCommunityId: this.communityId,
             })),// m('.col-lg-6.col-md-0.col-0'),
         ]),
