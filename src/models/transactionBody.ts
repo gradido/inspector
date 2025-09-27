@@ -1,4 +1,4 @@
-import { TransactionBody } from '../client/output.schema'
+import { TransactionBody } from '../schemas/transaction.schema'
 
 export function getAmount(body: TransactionBody): string {
   if(body.creation) {

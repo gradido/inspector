@@ -1,9 +1,8 @@
 import i18n from 'gettext.js'
 import deMessages from '../locales/de/messages.json'
 
-globalThis.t = i18n()
-
 function i18nInit() {
+  
   const translations = [
     // require('./locales/en/messages.json'),
     {
@@ -12,11 +11,13 @@ function i18nInit() {
     }
     // require('./locales/fr/messages.json'),
   ];
+  const t = i18n()
   
   translations.forEach((j) => {
     j.messages['']['plural-forms'] = j.pluralForms
-    globalThis.t.loadJSON(j.messages, 'messages')
+    t.loadJSON(j.messages, 'messages')
   })
+  t.setLocale(localStorage.getItem('language') || 'de')
+  return t
 }
-
-export default i18nInit
+export const t = i18nInit()

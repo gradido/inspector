@@ -1,8 +1,8 @@
 
-
-import { LinkedUser } from '../client/output.schema'
-
 /// return first name and last name connected with a space 
+
+import { LinkedUser } from "../schemas/basic.schema"
+
 /// or if at least one of them is empty return pubkey
 export function getUsername(linkedUser: LinkedUser): string {
   if(linkedUser.firstName.length && linkedUser.lastName.length) {

@@ -1,0 +1,6 @@
+export enum MemoKeyType {
+  SHARED_SECRET = 'SHARED_SECRET',
+  COMMUNITY_SECRET = 'COMMUNITY_SECRET',
+  PLAIN = 'PLAIN',
+}
+  

@@ -6,6 +6,7 @@ import { CONFIG } from '../config'
 import { gradidoNodeClient } from '../client/gradidoNodeClient'
 import { GetTransactionsResult } from '../client/output.schema'
 import { CommunitySwitch } from '../components/CommunitySwitch'
+import { t } from '../utils/i18n'
 
 interface Attrs {
   communityId: string
@@ -73,8 +74,8 @@ export class LastTransactions implements m.ClassComponent<Attrs> {
     return [
       m('div.container', [
         m('h1',  t.__('Transactions overview')),
-        m('.row', [
-            m('.col-lg-3.col-6', t.__('Community Selection')),
+        m('.row.mt-3.mb-3', [
+            m('.col-lg-3.col-6', m('h2', t.__('Community Selection'))),
             m('.col-lg-6.col-9', m(CommunitySwitch, { 
                 setCommunityId: (communityId: string) => this.updateCommunityId(communityId),
                 defaultCommunityId: this.communityId,

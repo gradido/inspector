@@ -4,6 +4,7 @@ import { TransactionListView } from '../components/TransactionListView'
 import { Title } from '../components/Title'
 import { gradidoNodeClient } from '../client/gradidoNodeClient'
 import { CONFIG } from '../config'
+import { t } from '../utils/i18n'
 
 interface Attrs {
   communityId: string
@@ -16,6 +17,7 @@ export class Account implements m.ClassComponent<Attrs> {
   loading: boolean = false
   
   oninit({attrs}: m.CVnode<Attrs>) {
+    console.log(`Account.oninit: ${attrs.pubkey}, ${attrs.communityId}`)
     clearTimeout(this.reloadTimerId)
     this.transactionListResponse = undefined
     this.fetchTransactions(attrs.pubkey, attrs.communityId)

@@ -1,4 +1,4 @@
-import { ConfirmedTransaction } from '../client/output.schema'
+import { ConfirmedTransaction } from '../schemas/transaction.schema'
 import { getAmount } from './transactionBody'
 import { getTransactionTypeString, getTransactionType } from '../enum/TransactionType'
 

@@ -1,6 +1,8 @@
 import m from 'mithril'
 import { CONFIG } from '../config'
 import { gradidoNodeClient } from '../client/gradidoNodeClient'
+import 'bootstrap/js/src/dropdown'
+import { t } from '../utils/i18n'
 
 interface Attrs {
   setCommunityId: (communityId: string) => void
@@ -45,7 +47,7 @@ export class CommunitySwitch implements m.ClassComponent<Attrs> {
               this.communityId || t.__('select community')
             ),
             m(
-              'ul.dropdown-menu.overflow-auto.fade', 
+              'ul.dropdown-menu.overflow-auto', 
               { 'aria-labelledby': 'dropdownMenuButton', role: 'menu' },
               this.communities.map((communityId) => 
                 m('li', { role: 'presentation' }, 

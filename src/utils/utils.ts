@@ -1,3 +1,5 @@
+import { t } from './i18n'
+
 export function getEnumValue<T extends string | number>(
   value: string | null,
   defaultValue: T

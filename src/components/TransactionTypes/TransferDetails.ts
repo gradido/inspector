@@ -1,11 +1,10 @@
 import m from 'mithril'
-import { Transaction } from '../../models/Transaction'
-// import { Tabs } from '../bootstrap/Tabs'
+import { WalletTransaction } from '../../client/output.schema'
 import { DecayDetails } from './DecayDetails'
-// import { Signed } from './Signed'
+import { t } from '../../utils/i18n'
 
-export class TransferDetails implements m.ClassComponent<Transaction> {
-  view({attrs}: m.CVnode<Transaction>) {
+export class TransferDetails implements m.ClassComponent<WalletTransaction> {
+  view({attrs}: m.CVnode<WalletTransaction>) {
     return [
       m('.word-break.mb-5.mt-lg-3', [
         m('.fw-bold.pb-2', t.__('Message')),

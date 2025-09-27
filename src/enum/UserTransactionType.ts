@@ -1,15 +1,17 @@
+import { t } from '../utils/i18n'
+
 export enum UserTransactionType {
-  NONE,
-  CREATE,
-  SEND,
-  RECEIVE,
-  DECAY,
-  LINK_SEND,
-  LINK_RECEIVE,
-  LINK_CHARGE,
-  LINK_DELETE,
-  LINK_CHANGE,  
-  LINK_TIMEOUT
+  NONE = 'NONE',
+  CREATE = 'CREATE',
+  SEND = 'SEND',
+  RECEIVE = 'RECEIVE',
+  DECAY = 'DECAY',
+  LINK_SEND = 'LINK_SEND',
+  LINK_RECEIVE = 'LINK_RECEIVE',
+  LINK_CHARGE = 'LINK_CHARGE',
+  LINK_DELETE = 'LINK_DELETE',
+  LINK_CHANGE = 'LINK_CHANGE',  
+  LINK_TIMEOUT = 'LINK_TIMEOUT'
 }
 
 export function userTransactionTypeFromString(typeId: string | UserTransactionType): UserTransactionType {

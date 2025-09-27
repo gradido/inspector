@@ -13,7 +13,7 @@ export const dateSchema = v.pipe(
       date = new Date(input)
     }
     if (isNaN(date.getTime())) {
-      throw new Error('invalid date')
+      throw new Error(`invalid date: ${input}`)
     }
     return date
   }),
@@ -27,7 +27,7 @@ export const stringToNumberSchema = v.pipe(
     }
     const portNumber = parseInt(input)
     if (isNaN(portNumber)) {
-      throw new Error('invalid number')
+      throw new Error(`invalid number: ${input}`)
     }
     return portNumber
   }),

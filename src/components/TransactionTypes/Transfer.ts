@@ -5,8 +5,10 @@ import { Parcel } from '../svg/Parcel'
 import { Avatar } from '../Avatar'
 import { Link } from '../svg/Link'
 import { getUserTransactionTypeLabel, isUserTransactionTypeLink, UserTransactionType } from '../../enum/UserTransactionType'
-import { LinkedUser, WalletTransaction } from '../../client/output.schema'
+import { WalletTransaction } from '../../client/output.schema'
 import { getShortenPubkey } from '../../models/linkedUser'
+import { t } from '../../utils/i18n'
+import { LinkedUser } from '../../schemas/basic.schema'
 
 interface Attrs {
   isOpen: boolean

@@ -1,4 +1,5 @@
 import m from 'mithril'
+import { t } from '../utils/i18n'
 
 // Toast typ definition
 interface Toast {

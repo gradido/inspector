@@ -1,3 +1,5 @@
+import { t } from '../utils/i18n'
+
 export enum SearchType {
   PUBLIC_KEY_HEX,
   TRANSACTION_NR,

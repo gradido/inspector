@@ -1,5 +1,6 @@
 import m from 'mithril'
 import { TransactionExcerpt } from '../models/TransactionExcerpt'
+import { t } from '../utils/i18n'
 
 
 interface Attrs {
@@ -19,10 +20,10 @@ export const TransactionListRaw: m.Component<Attrs, State> = {
       return m('table.table.table-striped', [
           m('thead', [
               m('tr', [
-                  m('th', 'CreatedAt Date'),
-                  m('th', 'ConfirmedAt Date'),
-                  m('th', 'Transaction type'),
-                  m('th', 'amount')
+                  m('th', t.__('CreatedAt Date')),
+                  m('th', t.__('ConfirmedAt Date')),
+                  m('th', t.__('Transaction type')),
+                  m('th', t.__('amount'))
               ])
           ]),
           m('tbody', transactions.map((transaction, index) => {

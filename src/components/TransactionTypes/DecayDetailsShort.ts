@@ -1,11 +1,12 @@
 import m from 'mithril'
 import { Droplet } from '../svg/Droplet'
 import { formatGDD } from '../../utils/utils'
-import { Transaction } from '../../models/Transaction'
+import { WalletTransaction } from '../../client/output.schema'
+import { t } from '../../utils/i18n'
 
-export class DecayDetailsShort implements m.ClassComponent<Transaction> {
+export class DecayDetailsShort implements m.ClassComponent<WalletTransaction> {
   
-  constructDecayString({ previousBalance, decay, balance }: Transaction): m.ChildArray {
+  constructDecayString({ previousBalance, decay, balance }: WalletTransaction): m.ChildArray {
     const formattedPrevious = formatGDD(previousBalance);
     const formattedDecay = decay.decay === '0' ? t.__('− ') : '' + formatGDD(decay.decay);
     const formattedBalance = formatGDD(balance);
@@ -21,7 +22,7 @@ export class DecayDetailsShort implements m.ClassComponent<Transaction> {
     ];
   }
 
-  view({attrs}: m.CVnode<Transaction>) {
+  view({attrs}: m.CVnode<WalletTransaction>) {
     return [
       m('.mb-3.d-flex.align-items-center', [
         m(Droplet, { classes: ['me-2']}),
