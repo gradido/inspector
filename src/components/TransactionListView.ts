@@ -1,12 +1,12 @@
 import m from 'mithril'
-import { TransactionList } from '../models/TransactionList'
 import { WalletSum } from './WalletSum'
 import { Collapse } from './bootstrap/Collapse'
 import { Decay } from './TransactionTypes/Decay'
 import { DecayDetailsShort } from './TransactionTypes/DecayDetailsShort'
-import { Transaction } from '../models/Transaction'
 import { Transfer } from './TransactionTypes/Transfer'
 import { TransferDetails } from './TransactionTypes/TransferDetails'
+import { TransactionList, WalletTransaction } from '../client/output.schema'
+import { UserTransactionType } from '../enum/UserTransactionType'
 
 interface Attrs {
   transactionList: TransactionList
@@ -28,24 +28,24 @@ export class TransactionListView implements m.ClassComponent<Attrs> {
     )
   }
 
-  chooseTransactionTypeView(transaction: Transaction): m.Child {
+  chooseTransactionTypeView(transaction: WalletTransaction): m.Child {
     const containerClasses = ['pointer', 'mb-3', 'bg-white', 'app-box-shadow', 'gradido-border-radius', 'p-3']
     switch(transaction.typeId) {
-      case 'DECAY': 
+      case UserTransactionType.DECAY: 
         return m(Collapse, {
           info: (isOpen) => m(Decay, { isOpen }),
           details: m(DecayDetailsShort, transaction),
           containerClasses,
           detailClasses: ['pb-4', 'pt-5']
         })
-      case 'SEND':
-      case 'RECEIVE':
-      case 'CREATE':
-      case 'LINK_SEND':
-      case 'LINK_RECEIVE':
-      case 'LINK_DELETE':
-      case 'LINK_CHANGE':
-      case 'LINK_CHARGE':
+      case UserTransactionType.SEND:
+      case UserTransactionType.RECEIVE:
+      case UserTransactionType.CREATE:
+      case UserTransactionType.LINK_SEND:
+      case UserTransactionType.LINK_RECEIVE:
+      case UserTransactionType.LINK_DELETE:
+      case UserTransactionType.LINK_CHANGE:
+      case UserTransactionType.LINK_CHARGE:
         return m(Collapse, {
           info: (isOpen) => m(Transfer, { isOpen, transaction }),
           details: m(TransferDetails, transaction),
@@ -66,7 +66,6 @@ export class TransactionListView implements m.ClassComponent<Attrs> {
           m('.col', 
             m('.row', [
               m('.col-lg-6.col-12', m(WalletSum, {amount: transactionList.balance, unit: 'GDD', name: 'GDD', active: true})),
-              m('.col-lg-6.col-12', m(WalletSum, {amount: transactionList.balanceGDT, unit: 'GDT', name: 'GDT', active: false})),
             ])
           )
         )

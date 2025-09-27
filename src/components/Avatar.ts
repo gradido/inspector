@@ -1,6 +1,7 @@
 // color array taken from vue3-avatar to get the same results for the same input, else I would rather calculate the number
 import m from 'mithril'
-import { LinkedUser } from '../models/LinkedUser'
+import { LinkedUser } from '../client/output.schema'
+import { getUsername, getInitials } from '../models/linkedUser'
 
 interface Attrs {
   user: LinkedUser
@@ -16,7 +17,7 @@ const darkColors =
 
 export class Avatar implements m.ClassComponent<Attrs> {
   asciiValue(user: LinkedUser): number {
-    let input = user.getUsername()
+    let input = getUsername(user)
     let ascii = 0;
     for (let index = 0; index < input.length; index++)
       ascii += input.charCodeAt(index);
@@ -31,7 +32,7 @@ export class Avatar implements m.ClassComponent<Attrs> {
     return m(
       '.app-avatar.d-flex.justify-content-center.align-items-center.rounded-circle',
       {style: {width: '42px', height: '42px', 'background-color': this.lightColor(this.asciiValue(user)), 'text-transform': 'uppercase'}},
-      m('span.font-medium', {style: {'font-size': '16.8px', 'line-height': 1, color: 'white' }}, user.getInitials())
+      m('span.font-medium', {style: {'font-size': '16.8px', 'line-height': 1, color: 'white' }}, getInitials(user))
     )
   }
 }

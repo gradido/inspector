@@ -1,15 +1,11 @@
 import m from 'mithril'
 import { Droplet } from '../svg/Droplet'
 import { formatDistance, formatGDD } from '../../utils/utils'
-import { Transaction } from '../../models/Transaction'
-//import { formatDistance } from 'date-fns'
-//import { enUS as en, de, es, fr, nl } from 'date-fns/locale'
-import { getTransactionTypeLabel } from '../../enum/TransactionType'
+import { getUserTransactionTypeLabel } from '../../enum/UserTransactionType'
+import { WalletTransaction } from '../../client/output.schema'
 
-//const locales = { en, de, es, fr, nl }
-
-export class DecayDetails implements m.ClassComponent<Transaction> {
-  view({attrs}: m.CVnode<Transaction>) {
+export class DecayDetails implements m.ClassComponent<WalletTransaction> {
+  view({attrs}: m.CVnode<WalletTransaction>) {
     if(attrs.decay) {
       const userLocale = localStorage.getItem('language') ?? 'en'
       return [
@@ -44,7 +40,7 @@ export class DecayDetails implements m.ClassComponent<Transaction> {
             m('.offset-0.col.offset-0.text-end.me-0', formatGDD(attrs.decay.decay))
           ]),
           m('.row.mb-2', [
-            m('.col-sm-6.col-md-6.col-lg-3.col-6', getTransactionTypeLabel(attrs.typeId)),
+            m('.col-sm-6.col-md-6.col-lg-3.col-6', getUserTransactionTypeLabel(attrs.typeId)),
             m('.offset-0.col.offset-0.text-end.me-0', formatGDD(attrs.amount))
           ]),
           m('.row.border-top.pt-2', [

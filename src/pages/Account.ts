@@ -1,85 +1,66 @@
 import m from 'mithril'
-import { TransactionList } from '../models/TransactionList'
-import { plainToInstance } from 'class-transformer'
+import { ListTransactionsResult } from '../client/output.schema'
 import { TransactionListView } from '../components/TransactionListView'
 import { Title } from '../components/Title'
+import { gradidoNodeClient } from '../client/gradidoNodeClient'
+import { CONFIG } from '../config'
 
 interface Attrs {
-  id: string
-}
-
-interface State {
-  transactionList: TransactionList | undefined
-  timeUsed: string
-  id: string | undefined
+  communityId: string
+  id: string  
 }
 
 export class Account implements m.ClassComponent<Attrs> {
-  private state: State
-  constructor() 
-  {
-    this.state = { 
-      transactionList: undefined, 
-      timeUsed: '',
-      id: undefined,
+  transactionListResponse: ListTransactionsResult | undefined = undefined
+  reloadTimerId: ReturnType<typeof setTimeout> | undefined = undefined
+  loading: boolean = false
+  
+  oninit({attrs}: m.CVnode<Attrs>) {
+    clearTimeout(this.reloadTimerId)
+    this.transactionListResponse = undefined
+    this.fetchTransactions(attrs.id, attrs.communityId)
+  }
+  async fetchTransactions(pubkey: string, communityId: string) {
+    this.loading = true
+    try {
+      this.transactionListResponse = await gradidoNodeClient.listTransactions({
+        communityId,
+        pubkey,
+        pageSize: 10,
+      })
+      m.redraw()
+      if(CONFIG.AUTO_POLL_INTERVAL > 0) {
+        this.reloadTimerId = setTimeout(() => this.fetchTransactions(pubkey, communityId), CONFIG.AUTO_POLL_INTERVAL)
+      }
+    } catch (e) {
+      toaster.error(e)
+      m.route.set('/')
+    } finally {
+      this.loading = false
     }
+  }
+  viewData(data: ListTransactionsResult) {
+    return [
+      m(TransactionListView, {transactionList: data.transactionList}),
+      m('', data.timeUsed)
+    ]
   }
 
-  oninit({attrs}: m.CVnode<Attrs>) {
-    this.fetchTransactions(attrs.id)
-  }
-  async fetchTransactions(pubkey: string) {
-    const response = await fetch(nodeServerUrl, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-            jsonrpc: '2.0',
-            method: 'listtransactions',
-            params: {
-                groupAlias,
-                pageSize: 10,
-                pubkey
-            },
-            id: Math.random()
-        })
-    })
-    const r = await response.json()
-    if (r.result) {
-      this.state = {
-        transactionList: plainToInstance(TransactionList, r.result.transactionList as TransactionList),
-        timeUsed: r.result.timeUsed,
-        id: pubkey,
-      }
-      console.log('response', this.state)
-      m.redraw()
-    } else if(r.error) {
-      toaster.error(r.error.message)
-      m.route.set('/')
-    }
-    
-    
-  }
-  view({attrs}: m.CVnode<Attrs>) {
-    // check if update occurred and new id was given
-    if(this.state.id && attrs.id !== this.state.id) {
-      this.state.transactionList = undefined
-      this.fetchTransactions(attrs.id)
-    }
-     if(this.state.transactionList) {
-      return m('div.container', [
-        m(Title, {title: t.__('Transactions for'), subtitle: attrs.id}),
-        m('.row.d-flex', [
-          m('.col-2.d-none.d-lg-block'),
-          m('.col', [
-            m(TransactionListView, {transactionList: this.state.transactionList}),
-            m('', this.state.timeUsed)
-          ]),
-          m('.col-3.d-none.d-lg-block')
-        ])
+  view({attrs}: m.CVnode<Attrs>) {    
+    return m('div.container', [
+      m(Title, {title: t.__('Transactions for'), subtitle: attrs.id}),
+      m('.row.d-flex', [
+        m('.col-2.d-none.d-lg-block'),
+        m('.col', 
+          this.transactionListResponse 
+          ? this.viewData(this.transactionListResponse) 
+          : this.loading
+            ? t.__('Loading...')
+            : t.__('No transactions found')
+        ),
+        m('.col-3.d-none.d-lg-block')
       ])
-    }
+    ])
   }
 }
 

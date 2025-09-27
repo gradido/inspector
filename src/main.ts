@@ -10,10 +10,8 @@ import { Account } from './pages/Account'
 import { Toaster } from './components/Toaster'
 
 i18nInit()
-global.toaster = new Toaster
+globalThis.toaster = new Toaster()
 // TODO: move to config
-global.nodeServerUrl = 'http://127.0.0.1:8340/api'
-global.groupAlias = 'c00b210fc0a189df054eb9dafb584c527e9aeb537a62a35d44667f54529c73f5'
 localStorage.setItem('language', navigator.language)
 var root = document.getElementById('app')!
 
@@ -24,7 +22,7 @@ m.route(root, '/', {
    '/': {
     render: () => m(Layout, m(LastTransactions))
   },
-  '/account/:id': {
+  '/account/:communityId/:id': {
     render: ({attrs}) => m(Layout, m(Account, attrs))
   }
 })

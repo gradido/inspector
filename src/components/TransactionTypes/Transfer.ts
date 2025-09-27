@@ -1,23 +1,23 @@
 import m from 'mithril'
-import { Transaction } from '../../models/Transaction'
 import { CollapseArrow } from '../CollapseArrow'
 import { formatGDD } from '../../utils/utils'
 import { Parcel } from '../svg/Parcel'
-import { LinkedUser } from '../../models/LinkedUser'
 import { Avatar } from '../Avatar'
 import { Link } from '../svg/Link'
-import { getTransactionTypeLabel, isTransactionTypeLink } from '../../enum/TransactionType'
+import { getUserTransactionTypeLabel, isUserTransactionTypeLink, UserTransactionType } from '../../enum/UserTransactionType'
+import { LinkedUser, WalletTransaction } from '../../client/output.schema'
+import { getShortenPubkey } from '../../models/linkedUser'
 
 interface Attrs {
   isOpen: boolean
-  transaction: Transaction
+  transaction: WalletTransaction
 }
 
 export class Transfer implements m.ClassComponent<Attrs> {
   
-  getSymbol(typeId: string, user: LinkedUser): m.Child {
+  getSymbol(typeId: UserTransactionType, user: LinkedUser): m.Child {
     switch(typeId) {
-      case 'CREATE': 
+      case UserTransactionType.CREATE: 
         return m('.b-avatar.text-bg-success.rounded-5.badge', {style: {width: '42px', height: '42px'}},
           m('span.b-avatar-custom', m(Parcel, {style: {'--31d77598': 'var(--bs-white)'}, classes: ['icon-variant']}))
         )
@@ -25,25 +25,25 @@ export class Transfer implements m.ClassComponent<Attrs> {
     return m(Avatar, {user})
   }
 
-  getLinkedUserName(user: LinkedUser, typeId: string): m.Child {
-    if(typeId === 'CREATE') {
+  getLinkedUserName(user: LinkedUser, typeId: UserTransactionType): m.Child {
+    if(typeId === UserTransactionType.CREATE) {
       return m('.name.fw-bold', t.__('Gradido Academie'))
     } else {
       return m('.name.fw-bold',
         m(
           'a', 
           {href: '#!/account/' + user.pubkey, title: user.pubkey}, 
-          user.getShortenPubkey()
+          getShortenPubkey(user)
         )
       )
     }
   }
 
-  getClassesForAmount(typeId: string): string {
+  getClassesForAmount(typeId: UserTransactionType): string {
     switch(typeId) {
-      case 'RECEIVE':
-      case 'LINK_RECEIVE':
-      case 'LINK_CHARGE':
+      case UserTransactionType.RECEIVE:
+      case UserTransactionType.LINK_RECEIVE:
+      case UserTransactionType.LINK_CHARGE:
         return '.fw-bold.gradido-global-color-accent'
       default: return '.fw-bold'
     }
@@ -59,9 +59,9 @@ export class Transfer implements m.ClassComponent<Attrs> {
         m('span.ms-4.small', balanceDateObject.toLocaleTimeString(undefined, {timeStyle: 'short'}))
       ]),
       m('.col-sm-8.col-md-3.col-lg-3.offset-3.offset-lg-0.offset-md-0.col-8.offset-3', [
-        m('.small.mb-2', getTransactionTypeLabel(typeId)),
+        m('.small.mb-2', getUserTransactionTypeLabel(typeId)),
         m(this.getClassesForAmount(typeId), formatGDD(amount)),
-        isTransactionTypeLink(typeId) ? m('.small', [
+        isUserTransactionTypeLink(typeId) ? m('.small', [
           m('span', t.__('via Link')),
           m(Link, {style: {'--31d77598': 'var(--bs-muted)'}, classes: ['icon-variant']})
         ])
