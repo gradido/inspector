@@ -15,10 +15,10 @@ export class TransactionExcerpt {
     const gradidoTransaction = transaction.gradidoTransaction
     this.id = transaction.id
     this.confirmedAt = transaction.confirmedAt
-    const amountString = getAmount(gradidoTransaction.bodyBytes.json)
+    const amountString = getAmount(gradidoTransaction.bodyBytes)
     this.amount = parseFloat(amountString)
-    this.createdAt = gradidoTransaction.bodyBytes.json.createdAt
-    this.transactionType = getTransactionTypeString(getTransactionType(gradidoTransaction.bodyBytes.json))
+    this.createdAt = gradidoTransaction.bodyBytes.createdAt
+    this.transactionType = getTransactionTypeString(getTransactionType(gradidoTransaction.bodyBytes))
     this.details = 
       JSON.stringify(transaction, null, 2)
           .replace(/\n/g, '<br/>')

@@ -27,6 +27,8 @@ export function getTransactionType(body: TransactionBody): TransactionType {
     return TransactionType.CREATION
   } else if(body.transfer) {
     return TransactionType.TRANSFER
+  } else if(body.registerAddress) {
+    return TransactionType.REGISTER_ADDRESS
   } else if(body.deferredTransfer) {
     return TransactionType.DEFERRED_TRANSFER
   } else if(body.communityRoot) {

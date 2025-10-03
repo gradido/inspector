@@ -77,7 +77,7 @@ export type TransactionBody = v.InferOutput<typeof transactionBodySchema>
 
 export const gradidoTransactionSchema = v.object({
   signatureMap: v.array(signaturePairSchema),
-  bodyBytes: v.object({json: transactionBodySchema}),
+  bodyBytes: transactionBodySchema,
 })
 
 export const confirmedTransactionSchema = v.object({
