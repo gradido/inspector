@@ -5,6 +5,9 @@ import { Title } from '../components/Title'
 import { gradidoNodeClient } from '../client/gradidoNodeClient'
 import { CONFIG } from '../config'
 import { t } from '../utils/i18n'
+import { ValiError } from 'valibot'
+import { Modal } from '../components/bootstrap/Modal'
+import { ValibotError } from '../components/ValibotError'
 
 interface Attrs {
   communityId: string
@@ -15,30 +18,43 @@ export class Account implements m.ClassComponent<Attrs> {
   transactionListResponse: ListTransactionsResult | undefined = undefined
   reloadTimerId: ReturnType<typeof setTimeout> | undefined = undefined
   loading: boolean = false
+  errorView: m.Children | undefined = undefined
   
   oninit({attrs}: m.CVnode<Attrs>) {
     console.log(`Account.oninit: ${attrs.pubkey}, ${attrs.communityId}`)
-    clearTimeout(this.reloadTimerId)
+    if(this.reloadTimerId) {
+      clearTimeout(this.reloadTimerId)
+    }
     this.transactionListResponse = undefined
     this.fetchTransactions(attrs.pubkey, attrs.communityId)
   }
   async fetchTransactions(pubkey: string, communityId: string) {
     this.loading = true
+    console.log('fetchTransactions: ', pubkey, communityId)
     try {
       this.transactionListResponse = await gradidoNodeClient.listTransactions({
         communityId,
         pubkey,
         pageSize: 10,
       })
-      m.redraw()
+      console.log('fetchTransactions result: ', this.transactionListResponse)
+      // m.redraw()
       if(CONFIG.AUTO_POLL_INTERVAL > 0) {
         this.reloadTimerId = setTimeout(() => this.fetchTransactions(pubkey, communityId), CONFIG.AUTO_POLL_INTERVAL)
       }
     } catch (e) {
-      toaster.error(e)
-      m.route.set('/')
+      if (e instanceof ValiError) {
+        // console.error(e)
+        this.errorView = m(ValibotError, {error: e})
+        console.log('error view set', this.errorView)
+      } else {
+        console.error(e)
+        toaster.error(e)
+        m.route.set('/')
+      }
     } finally {
       this.loading = false
+      m.redraw()
     }
   }
   viewData(data: ListTransactionsResult) {
@@ -50,18 +66,20 @@ export class Account implements m.ClassComponent<Attrs> {
 
   view({attrs}: m.CVnode<Attrs>) {    
     return m('div.container', [
-      m(Title, {title: t.__('Transactions for'), subtitle: attrs.pubkey}),
-      m('.row.d-flex', [
-        m('.col-2.d-none.d-lg-block'),
-        m('.col', 
-          this.transactionListResponse 
-          ? this.viewData(this.transactionListResponse) 
-          : this.loading
-            ? t.__('Loading...')
-            : t.__('No transactions found')
-        ),
-        m('.col-3.d-none.d-lg-block')
-      ])
+      m(Title, {title: t.__('Transactions for'), subtitle: attrs.pubkey}), [
+        m('.row.d-flex.error-view', this.errorView),      
+        m('.row.d-flex', [
+          m('.col-2.d-none.d-lg-block'),
+          m('.col', 
+            this.transactionListResponse 
+            ? this.viewData(this.transactionListResponse) 
+            : this.loading
+              ? t.__('Loading...')
+              : t.__('No transactions found')
+          ),
+          m('.col-3.d-none.d-lg-block')
+        ])
+      ]
     ])
   }
 }

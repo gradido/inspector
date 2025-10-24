@@ -68,7 +68,7 @@ export default defineConfig({
     }),
     Icons({compiler:'raw'}),
     EnvironmentPlugin({
-      NODE_SERVER_URL: CONFIG.NODE_SERVER_URL,
+      DLT_NODE_SERVER_URL: CONFIG.DLT_NODE_SERVER_URL,
       AUTO_POLL_INTERVAL: CONFIG.AUTO_POLL_INTERVAL.toString(),
     }),
     // commonjs(),

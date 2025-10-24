@@ -28,7 +28,7 @@ async function sendRequest<Input>(method: string, params: Input): Promise<any> {
     method,
     params
   }
-  const response = await fetch(CONFIG.NODE_SERVER_URL, {
+  const response = await fetch(CONFIG.DLT_NODE_SERVER_URL, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(jsonRpc)

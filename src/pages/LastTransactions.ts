@@ -30,7 +30,7 @@ export class LastTransactions implements m.ClassComponent<Attrs> {
       this.transactionsResult = await gradidoNodeClient.getTransactions({
         fromTransactionId: 0,
         communityId: this.communityId,
-        maxResultCount: 10
+        maxResultCount: 100
       })
       m.redraw()  
     } catch(e) {

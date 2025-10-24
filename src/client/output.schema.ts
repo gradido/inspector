@@ -36,7 +36,7 @@ export const walletTransactionSchema = v.object({
   balance: v.string(),
   previousBalance: v.string(),
   memo: v.string(),
-  linkedUser: linkedUserSchema,
+  linkedUser: v.nullish(linkedUserSchema),
   balanceDate: dateSchema,
   decay: v.nullish(decaySchema),
 })

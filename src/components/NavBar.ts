@@ -27,7 +27,6 @@ export class NavBar implements m.ClassComponent<Attrs> {
         break
       case SearchType.TRANSACTION_NR:
       case SearchType.HIERO_TRANSACTION_ID:
-        console.log(`new route: /transaction/${attrs.communityId}/${this.searchString}`)
         m.route.set(`/transaction/${attrs.communityId}/${this.searchString}`)
         break
       default: 
@@ -44,7 +43,7 @@ export class NavBar implements m.ClassComponent<Attrs> {
     return m('.component-navbar.wrapper-nav', 
       m('nav.navbar.bg-light-dark.navbar-expand-lg', {'data-bs-theme': 'dark'}, 
         m('.container-fluid', [
-            m('a.navbar-brand.mb-2', {href: m.route.prefix + '/'},
+            m('a.navbar-brand.mb-2', {href: m.route.prefix + `/${attrs.communityId}`},
               m('img.navbar-brand-img.ps-2', {src: '/img/gradido_logo_w_s.png'})
             ),
             m('button.navbar-toggler', {
@@ -58,26 +57,30 @@ export class NavBar implements m.ClassComponent<Attrs> {
               m('span.navbar-toggler-icon')
             ),
             m('#nav-collapse.collapse.navbar-collapse', {'is-nav': true}, [
-              m('ul.navbar-nav', [
+              /*m('ul.navbar-nav', [
                 m('li.nav-item', 
                   m(isAccount ? activeNavLink : inactiveNavLink, {
                     href: m.route.prefix + '/account',
                     'aria-current': isAccount ? 'page' : undefined
                   }, t.__('Account')))
-              ]),
-              m(`form.d-flex${this.validated ? '.was-validated' : ''}`, { role: 'search', onsubmit: (e: any) => this.search(e, attrs) }, [
-                m('.input-group', [
-                  m(`input.form-control.me-2.${searchValid ? 'is_valid' : 'is-invalid' }`, {
-                    type: 'search', 
-                    placeholder: t.__('Search'), 
-                    'aria-label': t.__('Search'),
-                    style: { width: '45vw' },
-                    oninput: (e: any) => this.searchString = e.target.value
-                  }),
-                  this.searchError ? m('.invalid-feedback.show', this.searchError) : undefined,
-                ]),
-                m('button.btn.btn-outline-light', {type: 'submit'}, t.__('Search'))
-              ])
+              ]),*/
+              m(
+                `form.d-flex${this.validated ? '.was-validated' : ''}`, 
+                { role: 'search', onsubmit: (e: any) => this.search(e, attrs) }, 
+                [
+                  m('.input-group', [
+                    m(`input.form-control.me-2.${searchValid ? 'is_valid' : 'is-invalid' }`, {
+                      type: 'search', 
+                      placeholder: t.__('Search'), 
+                      'aria-label': t.__('Search'),
+                      style: { width: '45vw' },
+                      oninput: (e: any) => this.searchString = e.target.value
+                    }),
+                    this.searchError ? m('.invalid-feedback.show', this.searchError) : undefined,
+                  ]),
+                  m('button.btn.btn-outline-light', {type: 'submit'}, t.__('Search'))
+                ]
+              )
             ])
           ]
         )
