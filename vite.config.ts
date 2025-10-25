@@ -33,6 +33,7 @@ const metaTags = v.object({
 const metaTagsConfig = v.parse(metaTags, process.env)
 
 export default defineConfig({
+  base: '/inspector/',
   /*resolve: {
     alias: {
       'class-transformer': resolve(__dirname, 'node_modules/class-transformer/esm5/index.js'),
