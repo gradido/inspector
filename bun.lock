@@ -4,7 +4,7 @@
     "": {
       "name": "gradido-blockchain-inspector",
       "dependencies": {
-        "bootstrap": "^5.3.3",
+        "bootstrap": "^5.3.8",
         "cross-env": "^7.0.3",
         "gettext.js": "^2.0.3",
         "mithril": "^2.2.2",
