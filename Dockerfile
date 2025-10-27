@@ -88,6 +88,7 @@ RUN bun run build
 ##################################################################################
 FROM nginx:1.28.0-alpine3.21-slim as production
 
+EXPOSE ${PORT}
 COPY ./nginx/inspector.conf /etc/nginx/conf.d/default.conf
 
 WORKDIR /app
