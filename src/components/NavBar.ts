@@ -44,7 +44,7 @@ export class NavBar implements m.ClassComponent<Attrs> {
       m('nav.navbar.bg-light-dark.navbar-expand-lg', {'data-bs-theme': 'dark'}, 
         m('.container-fluid', [
             m('a.navbar-brand.mb-2', {href: m.route.prefix + `/${attrs.communityId}`},
-              m('img.navbar-brand-img.ps-2', {src: '/img/gradido_logo_w_s.png'})
+              m('img.navbar-brand-img.ps-2', {src: new URL('/img/gradido_logo_w_s.png', import.meta.url).href})
             ),
             m('button.navbar-toggler', {
               type: 'button',

@@ -7,12 +7,12 @@ import EnvironmentPlugin from 'vite-plugin-environment'
 import { createHtmlPlugin } from 'vite-plugin-html'
 import pluginPurgeCss from '@mojojoejo/vite-plugin-purgecss'
 import * as v from 'valibot'
+import { configSchema } from './src/config/schema'
 
 import dotenv from 'dotenv'
 
 dotenv.config() // load env vars from .env
 
-import { CONFIG } from  './src/config'
 import { stringToNumberSchema } from './src/schemas/typeConverter.schema'
 
 const inspectorPortSchema = v.exactOptional(v.config(
@@ -30,61 +30,58 @@ const metaTags = v.object({
   META_URL: v.pipe(v.string(), v.url()),
 })
 
-const metaTagsConfig = v.parse(metaTags, process.env)
-
-export default defineConfig({
-  base: '/inspector/',
-  /*resolve: {
-    alias: {
-      'class-transformer': resolve(__dirname, 'node_modules/class-transformer/esm5/index.js'),
+export default defineConfig(() => {
+  const config = v.parse(configSchema, process.env)
+  const metaTagsConfig = v.parse(metaTags, process.env)
+  return {
+    base: '/inspector/',
+    server: {
+      host: '0.0.0.0',
+      port: v.parse(inspectorPortSchema, process.env.INSPECTOR_PORT),
+      fs: {
+        strict: true,
+      },
     },
-  },*/
-  server: {
-    host: '0.0.0.0',
-    port: v.parse(inspectorPortSchema, process.env.INSPECTOR_PORT),
-    fs: {
-      strict: true,
-    },
-  },
-  plugins: [
-    createHtmlPlugin({
-      minify: CONFIG.PRODUCTION,
-      inject: {
-        data: {
-          VITE_META_TITLE_DE: metaTagsConfig.META_TITLE_DE,
-          VITE_META_TITLE_EN: metaTagsConfig.META_TITLE_EN,
-          VITE_META_DESCRIPTION_DE: metaTagsConfig.META_DESCRIPTION_DE,
-          VITE_META_DESCRIPTION_EN: metaTagsConfig.META_DESCRIPTION_EN,
-          VITE_META_AUTHOR: metaTagsConfig.META_AUTHOR,
-          VITE_META_URL: metaTagsConfig.META_URL,
+    plugins: [
+      createHtmlPlugin({
+        minify: config.PRODUCTION,
+        inject: {
+          data: {
+            VITE_META_TITLE_DE: metaTagsConfig.META_TITLE_DE,
+            VITE_META_TITLE_EN: metaTagsConfig.META_TITLE_EN,
+            VITE_META_DESCRIPTION_DE: metaTagsConfig.META_DESCRIPTION_DE,
+            VITE_META_DESCRIPTION_EN: metaTagsConfig.META_DESCRIPTION_EN,
+            VITE_META_AUTHOR: metaTagsConfig.META_AUTHOR,
+            VITE_META_URL: metaTagsConfig.META_URL,
+          },
+        },
+      }),
+      pluginPurgeCss({
+        variables: true,
+      }),
+      Components({
+        resolvers: [IconsResolve()],
+        dts: true,
+      }),
+      Icons({compiler:'raw'}),
+      EnvironmentPlugin({
+        DLT_NODE_SERVER_URL: config.DLT_NODE_SERVER_URL,
+        AUTO_POLL_INTERVAL: config.AUTO_POLL_INTERVAL.toString(),
+      }),
+      // commonjs(),
+    ],
+    css: {
+      preprocessorOptions: {
+        scss: {
+          // additionalData: `@use "@/assets/scss/custom/gradido-custom/color" as *;`,
         },
       },
-    }),
-    pluginPurgeCss({
-      variables: true,
-    }),
-    Components({
-      resolvers: [IconsResolve()],
-      dts: true,
-    }),
-    Icons({compiler:'raw'}),
-    EnvironmentPlugin({
-      DLT_NODE_SERVER_URL: CONFIG.DLT_NODE_SERVER_URL,
-      AUTO_POLL_INTERVAL: CONFIG.AUTO_POLL_INTERVAL.toString(),
-    }),
-    // commonjs(),
-  ],
-  css: {
-    preprocessorOptions: {
-      scss: {
-        // additionalData: `@use "@/assets/scss/custom/gradido-custom/color" as *;`,
-      },
     },
-  },
-  build: {
-    outDir: resolve(__dirname, './build'),
-    chunkSizeWarningLimit: 1600,
-    minify: CONFIG.PRODUCTION ? 'esbuild' : false,
-    sourcemap: true,
-  },
+    build: {
+      outDir: resolve(__dirname, './build'),
+      chunkSizeWarningLimit: 1600,
+      sourcemap: true,
+    },
+  }
 })
+

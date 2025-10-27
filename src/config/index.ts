@@ -6,6 +6,7 @@ type ConfigOutput = InferOutput<typeof configSchema>
 let config: ConfigOutput
 try {
   config = parse(configSchema, process.env)
+  console.log(config)
   config.PRODUCTION = config.NODE_ENV === NodeEnvironmentType.Production
 } catch (error: Error | unknown) {
   if (error instanceof ValiError) {
