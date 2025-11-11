@@ -6,12 +6,13 @@ import { gradidoNodeClient } from '../client/gradidoNodeClient'
 import { CONFIG } from '../config'
 import { t } from '../utils/i18n'
 import { ValiError } from 'valibot'
-import { Modal } from '../components/bootstrap/Modal'
 import { ValibotError } from '../components/ValibotError'
+import { Pagination } from '../components/bootstrap/Pagination'
 
 interface Attrs {
   communityId: string
   pubkey: string  
+  pageSize?: number
 }
 
 export class Account implements m.ClassComponent<Attrs> {
@@ -19,26 +20,34 @@ export class Account implements m.ClassComponent<Attrs> {
   reloadTimerId: ReturnType<typeof setTimeout> | undefined = undefined
   loading: boolean = false
   errorView: m.Children | undefined = undefined
+  currentPage: number = 1
+  pageSize: number = 5
   
   oninit({attrs}: m.CVnode<Attrs>) {
     console.log(`Account.oninit: ${attrs.pubkey}, ${attrs.communityId}`)
     if(this.reloadTimerId) {
       clearTimeout(this.reloadTimerId)
     }
+    if (attrs.pageSize && attrs.pageSize > 0) {
+      this.pageSize = attrs.pageSize
+    }
+    this.currentPage = 1
     this.transactionListResponse = undefined
     this.fetchTransactions(attrs.pubkey, attrs.communityId)
   }
   async fetchTransactions(pubkey: string, communityId: string) {
     this.loading = true
     console.log('fetchTransactions: ', pubkey, communityId)
+    if (this.reloadTimerId) {
+      clearTimeout(this.reloadTimerId)
+    }
     try {
       this.transactionListResponse = await gradidoNodeClient.listTransactions({
         communityId,
         pubkey,
-        pageSize: 10,
+        pageSize: this.pageSize,
+        currentPage: this.currentPage
       })
-      console.log('fetchTransactions result: ', this.transactionListResponse)
-      // m.redraw()
       if(CONFIG.AUTO_POLL_INTERVAL > 0) {
         this.reloadTimerId = setTimeout(() => this.fetchTransactions(pubkey, communityId), CONFIG.AUTO_POLL_INTERVAL)
       }
@@ -57,9 +66,19 @@ export class Account implements m.ClassComponent<Attrs> {
       m.redraw()
     }
   }
-  viewData(data: ListTransactionsResult) {
+  viewData(data: ListTransactionsResult, attrs: Attrs) {
     return [
       m(TransactionListView, {transactionList: data.transactionList}),
+      m(Pagination, {
+        currentPage: this.currentPage,
+        totalPages: Math.ceil(data.transactionList.count / this.pageSize),
+        ariaLabel: t.__('Pagination for transactions'),
+        onPageChange: (page: number) => {
+          this.currentPage = page
+          this.fetchTransactions(attrs.pubkey, attrs.communityId)
+        },
+        pill: true,
+      }),
       m('', data.timeUsed)
     ]
   }
@@ -72,7 +91,7 @@ export class Account implements m.ClassComponent<Attrs> {
           m('.col-2.d-none.d-lg-block'),
           m('.col', 
             this.transactionListResponse 
-            ? this.viewData(this.transactionListResponse) 
+            ? this.viewData(this.transactionListResponse, attrs) 
             : this.loading
               ? t.__('Loading...')
               : t.__('No transactions found')

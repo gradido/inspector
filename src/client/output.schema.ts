@@ -25,6 +25,7 @@ export const getTransactionsResultSchema = v.object({
   timeUsed: v.string(),
   aufBalance: v.string(),
   gmwBalance: v.string(),
+  totalCount: v.pipe(v.number(), v.minValue(0)),
 })
 
 export type GetTransactionsResult = v.InferOutput<typeof getTransactionsResultSchema>

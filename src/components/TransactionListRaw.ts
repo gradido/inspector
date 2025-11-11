@@ -20,10 +20,11 @@ export const TransactionListRaw: m.Component<Attrs, State> = {
       return m('table.table.table-striped', [
           m('thead', [
               m('tr', [
+                  m('th', t.__('Transaction Nr')),
                   m('th', t.__('CreatedAt Date')),
                   m('th', t.__('ConfirmedAt Date')),
-                  m('th', t.__('Transaction type')),
-                  m('th', t.__('amount'))
+                  m('th', t.__('Transaction Type')),
+                  m('th', t.__('Amount'))
               ])
           ]),
           m('tbody', transactions.map((transaction, index) => {
@@ -45,12 +46,13 @@ export const TransactionListRaw: m.Component<Attrs, State> = {
                       transactionsShowDetailState[index] = !transactionsShowDetailState[index]
                   }
                 }, [
+                  m('td', transaction.id),
                   m('td', transaction.createdAt.toLocaleString()),
                   m('td', transaction.confirmedAt.toLocaleString()),
                   m('td', transaction.transactionType),
                   m('td', transaction.amount + ' GDD')
               ]),
-              transactionsShowDetailState[index] ? m('tr', m('td', {colspan: 3}, m('div', m.trust(transaction.details)))): null
+              transactionsShowDetailState[index] ? m('tr', m('td', {colspan: 5}, m('div', m.trust(transaction.details)))): null
             ]
           }))
       ])

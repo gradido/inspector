@@ -1,6 +1,6 @@
 import 'bootstrap/scss/bootstrap.scss'
 import './styles/styles.less'
-import './styles/gradido-template.scss'
+import './styles/gradido.scss'
 import 'bootstrap/js/src/toast'
 import m from 'mithril'
 // import i18nInit from './utils/i18nInit'

@@ -34,13 +34,17 @@ export default defineConfig(() => {
   const config = v.parse(configSchema, process.env)
   const metaTagsConfig = v.parse(metaTags, process.env)
   return {
-    base: '/inspector/',
+    base: '/inspector',
     server: {
       host: '0.0.0.0',
       port: v.parse(inspectorPortSchema, process.env.INSPECTOR_PORT),
       fs: {
         strict: true,
       },
+    },
+    preview: {
+      host: '0.0.0.0',
+      port: v.parse(inspectorPortSchema, process.env.INSPECTOR_PORT),
     },
     plugins: [
       createHtmlPlugin({
