@@ -4,7 +4,6 @@ import { gradidoNodeClient } from '../client/gradidoNodeClient'
 import { GetTransactionResult } from '../client/output.schema'
 import { detectSearchType } from '../utils/detectType'
 import { SearchType, searchTypeToString } from '../enum/SearchType'
-import { t } from '../utils/i18n'
 
 interface Attrs {
   communityId: string

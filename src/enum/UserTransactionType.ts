@@ -1,5 +1,3 @@
-import { t } from '../utils/i18n'
-
 export enum UserTransactionType {
   NONE = 'NONE',
   CREATE = 'CREATE',

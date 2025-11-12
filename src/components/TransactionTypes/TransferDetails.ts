@@ -1,7 +1,6 @@
 import m from 'mithril'
 import { WalletTransaction } from '../../client/output.schema'
 import { DecayDetails } from './DecayDetails'
-import { t } from '../../utils/i18n'
 
 export class TransferDetails implements m.ClassComponent<WalletTransaction> {
   view({attrs}: m.CVnode<WalletTransaction>) {

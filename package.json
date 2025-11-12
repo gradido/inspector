@@ -5,16 +5,15 @@
   "author": "einhornimmond <info@einhornimmond.de>",
   "license": "MIT",
   "scripts": {
-    "predev": "bun locale:de",
+    "predev": "bun locale",
     "dev": "cross-env TZ=UTC bun --bun vite",
-    "prebuild": "bun locale:de",
+    "prebuild": "bun locale",
     "build": "NODE_ENV=production bun --bun vite build",
-    "preserve": "bun locale:de",
+    "preserve": "bun locale",
     "serve": "cross-env TZ=UTC bun --bun vite preview",
-    "typecheck": "bun --bun typecheck",
     "lint": "biome check --error-on-warnings .",
     "extract": "bun --bun gettext-extract",
-    "locale:de": "bun --bun po2json src/locales/de/messages.po src/locales/de/messages.json > /dev/null"
+    "locale": "bun scripts/localeJson.js"
   },
   "dependencies": {
     "bootstrap": "^5.3.8",

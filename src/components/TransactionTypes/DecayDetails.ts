@@ -3,7 +3,6 @@ import { Droplet } from '../svg/Droplet'
 import { formatDistance, formatGDD } from '../../utils/utils'
 import { getUserTransactionTypeLabel } from '../../enum/UserTransactionType'
 import { WalletTransaction } from '../../client/output.schema'
-import { t } from '../../utils/i18n'
 
 export class DecayDetails implements m.ClassComponent<WalletTransaction> {
   view({attrs}: m.CVnode<WalletTransaction>) {

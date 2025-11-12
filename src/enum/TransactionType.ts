@@ -1,5 +1,4 @@
 import { TransactionBody } from '../schemas/transaction.schema'
-import { t } from '../utils/i18n'
 
 export enum TransactionType {
   //! Invalid or Empty Transaction

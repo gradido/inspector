@@ -1,7 +1,5 @@
 import m from 'mithril'
 import { TransactionExcerpt } from '../models/TransactionExcerpt'
-import { t } from '../utils/i18n'
-
 
 interface Attrs {
     transactions: TransactionExcerpt[]

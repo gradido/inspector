@@ -9,6 +9,7 @@ import { LastTransactions } from './pages/LastTransactions'
 import { Account } from './pages/Account'
 import { Transaction } from './pages/Transaction'
 import { Toaster } from './components/Toaster'
+import { i18nInitAsync } from './utils/i18n'
 
 // i18nInit()
 globalThis.toaster = new Toaster()
@@ -17,20 +18,23 @@ localStorage.setItem('language', navigator.language)
 const root = document.getElementById('app')!
 
 // m.route.prefix = ''
-
-// routes
-m.route(root, '/', {
-  '/': {
-    render: () => m(Layout, m(LastTransactions))
-   },
-   '/:communityId': {
-    render: ({attrs}) => m(Layout, attrs, m(LastTransactions, attrs))
-  },
-  '/account/:communityId/:pubkey': {
-    render: ({attrs}) => m(Layout, attrs, m(Account, attrs))
-  },
-  '/transaction/:communityId/:search': {
-    render: ({attrs}) => m(Layout, attrs, m(Transaction, attrs))
-  }
+i18nInitAsync().then((t) => {
+  globalThis.t = t
+  // routes
+  m.route(root, '/', {
+    '/': {
+      render: () => m(Layout, m(LastTransactions))
+    },
+    '/:communityId': {
+      render: ({attrs}) => m(Layout, attrs, m(LastTransactions, attrs))
+    },
+    '/account/:communityId/:pubkey': {
+      render: ({attrs}) => m(Layout, attrs, m(Account, attrs))
+    },
+    '/transaction/:communityId/:search': {
+      render: ({attrs}) => m(Layout, attrs, m(Transaction, attrs))
+    }
+  })
 })
+
 

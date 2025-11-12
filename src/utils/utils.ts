@@ -1,5 +1,3 @@
-import { t } from './i18n'
-
 export function getEnumValue<T extends string | number>(
   value: string | null,
   defaultValue: T
@@ -78,7 +76,7 @@ export function formatDistance(
     { unit: (count: number) => t._n('%1 second', '%1 seconds', count, count), seconds: 1 },
   ]
   const diffInSeconds = Math.abs((date2.getTime() - date1.getTime()) / 1000)
-  console.log('diff in seconds', diffInSeconds)
+  // console.log('diff in seconds', diffInSeconds)
   for (const interval of intervals) {
     const count = Math.floor(diffInSeconds / interval.seconds)
     if (count >= 1) {

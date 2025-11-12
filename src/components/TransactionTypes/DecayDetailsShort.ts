@@ -2,7 +2,6 @@ import m from 'mithril'
 import { Droplet } from '../svg/Droplet'
 import { formatGDD } from '../../utils/utils'
 import { WalletTransaction } from '../../client/output.schema'
-import { t } from '../../utils/i18n'
 
 export class DecayDetailsShort implements m.ClassComponent<WalletTransaction> {
   

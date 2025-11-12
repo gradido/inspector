@@ -7,7 +7,6 @@ import { Transfer } from './TransactionTypes/Transfer'
 import { TransferDetails } from './TransactionTypes/TransferDetails'
 import { TransactionList, WalletTransaction } from '../client/output.schema'
 import { UserTransactionType } from '../enum/UserTransactionType'
-import { t } from '../utils/i18n'
 
 interface Attrs {
   transactionList: TransactionList
@@ -27,7 +26,6 @@ export class TransactionListView implements m.ClassComponent<Attrs> {
     attrs.transactionList.transactions.map((_value, index) => 
       this.state.transactionsShowDetailState[index] = false
     )
-    console.log(t)
   }
 
   chooseTransactionTypeView(transaction: WalletTransaction): m.Child {

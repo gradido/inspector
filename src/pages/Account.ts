@@ -4,7 +4,6 @@ import { TransactionListView } from '../components/TransactionListView'
 import { Title } from '../components/Title'
 import { gradidoNodeClient } from '../client/gradidoNodeClient'
 import { CONFIG } from '../config'
-import { t } from '../utils/i18n'
 import { ValiError } from 'valibot'
 import { ValibotError } from '../components/ValibotError'
 import { Pagination } from '../components/bootstrap/Pagination'
@@ -24,7 +23,7 @@ export class Account implements m.ClassComponent<Attrs> {
   pageSize: number = 5
   
   oninit({attrs}: m.CVnode<Attrs>) {
-    console.log(`Account.oninit: ${attrs.pubkey}, ${attrs.communityId}`)
+    // console.log(`Account.oninit: ${attrs.pubkey}, ${attrs.communityId}`)
     if(this.reloadTimerId) {
       clearTimeout(this.reloadTimerId)
     }
@@ -37,7 +36,7 @@ export class Account implements m.ClassComponent<Attrs> {
   }
   async fetchTransactions(pubkey: string, communityId: string) {
     this.loading = true
-    console.log('fetchTransactions: ', pubkey, communityId)
+    // console.log('fetchTransactions: ', pubkey, communityId)
     if (this.reloadTimerId) {
       clearTimeout(this.reloadTimerId)
     }
@@ -55,7 +54,7 @@ export class Account implements m.ClassComponent<Attrs> {
       if (e instanceof ValiError) {
         // console.error(e)
         this.errorView = m(ValibotError, {error: e})
-        console.log('error view set', this.errorView)
+        // console.log('error view set', this.errorView)
       } else {
         console.error(e)
         toaster.error(e)

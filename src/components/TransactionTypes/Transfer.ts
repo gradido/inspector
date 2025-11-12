@@ -7,7 +7,6 @@ import { Link } from '../svg/Link'
 import { getUserTransactionTypeLabel, isUserTransactionTypeLink, UserTransactionType } from '../../enum/UserTransactionType'
 import { WalletTransaction } from '../../client/output.schema'
 import { getShortenPubkey } from '../../models/linkedUser'
-import { t } from '../../utils/i18n'
 import { LinkedUser } from '../../schemas/basic.schema'
 
 interface Attrs {

@@ -2,7 +2,6 @@ import m from 'mithril'
 import { CONFIG } from '../config'
 import { gradidoNodeClient } from '../client/gradidoNodeClient'
 import 'bootstrap/js/src/dropdown'
-import { t } from '../utils/i18n'
 
 interface Attrs {
   setCommunityId: (communityId: string) => void

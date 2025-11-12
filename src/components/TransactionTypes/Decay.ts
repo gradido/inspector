@@ -1,7 +1,6 @@
 import m from 'mithril'
 import { Droplet } from '../svg/Droplet'
 import { CollapseArrow } from '../CollapseArrow'
-import { t } from '../../utils/i18n'
 
 interface Attrs {
   isOpen: boolean

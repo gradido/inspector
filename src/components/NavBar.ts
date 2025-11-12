@@ -1,5 +1,4 @@
 import m from 'mithril'
-import { t } from '../utils/i18n'
 
 /*import 'bootstrap/scss/_nav.scss'
 import 'bootstrap/scss/_navbar.scss'
