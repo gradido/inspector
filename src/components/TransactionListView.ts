@@ -12,22 +12,7 @@ interface Attrs {
   transactionList: TransactionList
 }
 
-interface State {
-    transactionsShowDetailState: boolean[]
-}
-
 export class TransactionListView implements m.ClassComponent<Attrs> {
-  state: State
-  constructor() {
-    this.state = { transactionsShowDetailState: [] }    
-  }
-
-  oninit({attrs}: m.CVnode<Attrs>) {
-    attrs.transactionList.transactions.map((_value, index) => 
-      this.state.transactionsShowDetailState[index] = false
-    )
-  }
-
   chooseTransactionTypeView(transaction: WalletTransaction): m.Child {
     const containerClasses = ['pointer', 'mb-3', 'bg-white', 'app-box-shadow', 'gradido-border-radius', 'p-3']
     switch(transaction.typeId) {
@@ -36,7 +21,8 @@ export class TransactionListView implements m.ClassComponent<Attrs> {
           info: (isOpen) => m(Decay, { isOpen }),
           details: m(DecayDetailsShort, transaction),
           containerClasses,
-          detailClasses: ['pb-4', 'pt-5']
+          detailClasses: ['pb-4', 'pt-5'],
+          id: transaction.id
         })
       case UserTransactionType.SEND:
       case UserTransactionType.RECEIVE:
@@ -50,7 +36,8 @@ export class TransactionListView implements m.ClassComponent<Attrs> {
           info: (isOpen) => m(Transfer, { isOpen, transaction }),
           details: m(TransferDetails, transaction),
           containerClasses,
-          detailClasses: ['px-1']
+          detailClasses: ['px-1'],
+          id: transaction.id
         })
        // return m(combineElementWithClasses('', containerClasses), m(Transfer, { isOpen: false, transaction }))
       default: 

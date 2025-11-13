@@ -1,32 +1,43 @@
 import m, { Child } from 'mithril'
-import { combineClasses, combineElementWithClasses } from '../../utils/utils'
+import { combineClasses } from '../../utils/utils'
 
 interface Attrs {
   info: (isOpen: boolean) => Child //info is a function that maintains the state
   details: Child
   containerClasses: string[]
   detailClasses: string[]
-}
-
-interface State {
-  detailsVisible: boolean
+  id: number
 }
 
 export class Collapse implements m.ClassComponent<Attrs> {
-  state: State 
+  detailsVisible: boolean
+  lastKnownId: number
   constructor() {
-    this.state = { detailsVisible: false}
+    this.detailsVisible = false
+    this.lastKnownId = 0
+  }
+
+  oninit({attrs}: m.CVnode<Attrs>) {
+    this.detailsVisible = false
+    this.lastKnownId = attrs.id
+  }
+  onupdate({attrs}: m.CVnode<Attrs>) {
+    if (attrs.id !== this.lastKnownId) {
+      this.detailsVisible = false
+      this.lastKnownId = attrs.id
+      m.redraw()
+    }
   }
 
   view({attrs}: m.CVnode<Attrs>) {
     const detailClasses = attrs.detailClasses
     detailClasses.push('collapse')
-    if (this.state.detailsVisible) {
+    if (this.detailsVisible) {
       detailClasses.push('show')
     }
     return m(combineClasses(attrs.containerClasses), 
-      {onclick: () => this.state.detailsVisible = !this.state.detailsVisible }, [
-        attrs.info(this.state.detailsVisible), 
+      { onclick: () => this.detailsVisible = !this.detailsVisible }, [
+        attrs.info(this.detailsVisible), 
         m(
           combineClasses(detailClasses),
            {'is-nav': false},
