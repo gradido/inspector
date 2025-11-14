@@ -35,6 +35,9 @@ export default defineConfig(() => {
   const metaTagsConfig = v.parse(metaTags, process.env)
   return {
     base: '/inspector',
+    esbuild: {
+      target: 'es2020'
+    },
     server: {
       host: '0.0.0.0',
       port: v.parse(inspectorPortSchema, process.env.INSPECTOR_PORT),
