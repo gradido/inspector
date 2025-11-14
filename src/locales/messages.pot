@@ -3,287 +3,321 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language: \n"
 
-#: src/utils/utils.ts:75
+#: src/utils/utils.ts:73
 msgid "%1 day"
 msgid_plural "%1 days"
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/utils/utils.ts:76
+#: src/utils/utils.ts:74
 msgid "%1 hour"
 msgid_plural "%1 hours"
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/utils/utils.ts:77
+#: src/utils/utils.ts:75
 msgid "%1 minute"
 msgid_plural "%1 minutes"
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/utils/utils.ts:73
+#: src/utils/utils.ts:71
 msgid "%1 month"
 msgid_plural "%1 months"
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/utils/utils.ts:78
+#: src/utils/utils.ts:76
 msgid "%1 second"
 msgid_plural "%1 seconds"
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/utils/utils.ts:74
+#: src/utils/utils.ts:72
 msgid "%1 week"
 msgid_plural "%1 weeks"
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/utils/utils.ts:72
+#: src/utils/utils.ts:70
 msgid "%1 year"
 msgid_plural "%1 years"
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/utils/utils.ts:39
+#: src/utils/utils.ts:37
 msgid "+"
 msgstr ""
 
-#: src/components/TransactionTypes/DecayDetailsShort.ts:19
+#: src/components/TransactionTypes/DecayDetailsShort.ts:18
 msgid "="
 msgstr ""
 
-#: src/components/TransactionTypes/DecayDetailsShort.ts:11
-#: src/utils/utils.ts:31
+#: src/components/TransactionTypes/DecayDetailsShort.ts:10
+#: src/utils/utils.ts:29
 msgid "− "
 msgstr ""
 
-#: src/components/WalletSum.ts:50
+#: src/components/WalletSum.ts:49
 msgid "Account"
 msgstr ""
 
-#: src/components/TransactionListView.ts:65
+#: src/components/TransactionListView.ts:50
 msgid "Address Type"
 msgstr ""
 
-#: src/utils/utils.ts:88
+#: src/utils/utils.ts:86
 msgid "ago"
 msgstr ""
 
-#: src/components/TransactionListRaw.ts:26
-msgid "amount"
+#: src/components/TransactionListRaw.ts:25
+msgid "Amount"
 msgstr ""
 
-#: src/components/TransactionTypes/DecayDetails.ts:15
-#: src/components/TransactionTypes/DecayDetailsShort.ts:29
+#: src/components/TransactionTypes/DecayDetails.ts:14
+#: src/components/TransactionTypes/DecayDetailsShort.ts:28
 msgid "Calculation of Decay"
 msgstr ""
 
-#: src/enum/UserTransactionType.ts:34
+#: src/enum/UserTransactionType.ts:32
 msgid "Charged"
 msgstr ""
 
-#: src/components/Toaster.ts:86
+#: src/components/Toaster.ts:85
 msgid "Close"
 msgstr ""
 
-#: src/enum/TransactionType.ts:49
+#: src/enum/TransactionType.ts:48
 msgid "Community Friends Update"
 msgstr ""
 
-#: src/enum/TransactionType.ts:52
+#: src/enum/TransactionType.ts:51
 msgid "Community Root Transaction"
 msgstr ""
 
-#: src/pages/LastTransactions.ts:78
+#: src/pages/LastTransactions.ts:111
 msgid "Community Selection"
 msgstr ""
 
-#: src/components/TransactionListRaw.ts:24
+#: src/components/TransactionListRaw.ts:23
 msgid "ConfirmedAt Date"
 msgstr ""
 
-#: src/enum/TransactionType.ts:47
+#: src/enum/TransactionType.ts:46
 msgid "Contribution Transaction"
 msgstr ""
 
-#: src/enum/UserTransactionType.ts:36
+#: src/enum/UserTransactionType.ts:34
 msgid "Created"
 msgstr ""
 
-#: src/components/TransactionListRaw.ts:23
+#: src/components/TransactionListRaw.ts:22
 msgid "CreatedAt Date"
 msgstr ""
 
-#: src/components/TransactionTypes/DecayDetails.ts:40
-#: src/components/TransactionTypes/DecayDetailsShort.ts:35
+#: src/components/TransactionTypes/DecayDetails.ts:39
+#: src/components/TransactionTypes/DecayDetailsShort.ts:34
 msgid "Decay"
 msgstr ""
 
-#: src/components/TransactionTypes/Decay.ts:14
+#: src/components/TransactionTypes/Decay.ts:13
 msgid "Decay since the last transaction"
 msgstr ""
 
-#: src/enum/TransactionType.ts:51
+#: src/enum/TransactionType.ts:50
 msgid "Deferred Transfer"
 msgstr ""
 
-#: src/components/Toaster.ts:47
+#: src/components/Toaster.ts:46
 msgid "Error"
 msgstr ""
 
-#: src/components/TransactionTypes/Transfer.ts:32
+#: src/components/bootstrap/Pagination.ts:118
+msgid "Go to first page"
+msgstr ""
+
+#: src/components/bootstrap/Pagination.ts:122
+msgid "Go to last page"
+msgstr ""
+
+#: src/components/bootstrap/Pagination.ts:121
+msgid "Go to next page"
+msgstr ""
+
+#: src/components/bootstrap/Pagination.ts:76
+msgid "Go to page %d"
+msgid_plural "Go to page %d"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/components/bootstrap/Pagination.ts:119
+msgid "Go to previous page"
+msgstr ""
+
+#: src/components/TransactionTypes/Transfer.ts:31
 msgid "Gradido Academie"
 msgstr ""
 
-#: src/enum/SearchType.ts:17
+#: src/enum/SearchType.ts:15
 msgid "Hiero Transaction ID"
 msgstr ""
 
-#: src/components/Toaster.ts:56
+#: src/components/Toaster.ts:55
 msgid "Info"
 msgstr ""
 
-#: src/components/NavBar.ts:33
+#: src/components/NavBar.ts:32
 msgid "invalid input"
 msgstr ""
 
-#: src/components/TransactionTypes/DecayDetails.ts:20
+#: src/components/TransactionTypes/DecayDetails.ts:19
 msgid "Last Transaction"
 msgstr ""
 
-#: src/utils/utils.ts:88
+#: src/utils/utils.ts:86
 msgid "later"
 msgstr ""
 
-#: src/utils/utils.ts:96
+#: src/utils/utils.ts:94
 msgid "less than 1 minute"
 msgstr ""
 
-#: src/pages/Account.ts:77
+#: src/pages/Account.ts:95
 msgid "Loading..."
 msgstr ""
 
-#: src/components/TransactionTypes/TransferDetails.ts:10
+#: src/components/TransactionTypes/TransferDetails.ts:9
 msgid "Message"
 msgstr ""
 
-#: src/components/TransactionTypes/DecayDetails.ts:48
+#: src/components/TransactionTypes/DecayDetails.ts:47
 msgid "New balance"
 msgstr ""
 
-#: src/pages/Transaction.ts:53
+#: src/pages/Transaction.ts:52
 msgid "No transaction found"
 msgstr ""
 
-#: src/pages/Account.ts:78
+#: src/pages/Account.ts:96
 msgid "No transactions found"
 msgstr ""
 
-#: src/enum/TransactionType.ts:46
+#: src/enum/TransactionType.ts:45
 msgid "None"
 msgstr ""
 
-#: src/components/TransactionTypes/DecayDetails.ts:36
+#: src/pages/Account.ts:74
+msgid "Pagination for transactions"
+msgstr ""
+
+#: src/pages/LastTransactions.ts:72
+msgid "Pagination for transactions overview"
+msgstr ""
+
+#: src/components/TransactionTypes/DecayDetails.ts:35
 msgid "Previous balance"
 msgstr ""
 
-#: src/enum/SearchType.ts:13
+#: src/enum/SearchType.ts:11
 msgid "Public Key"
 msgstr ""
 
-#: src/enum/UserTransactionType.ts:28
+#: src/enum/UserTransactionType.ts:26
 msgid "Received"
 msgstr ""
 
-#: src/enum/UserTransactionType.ts:30
+#: src/enum/UserTransactionType.ts:28
 msgid "Received Back"
 msgstr ""
 
-#: src/enum/UserTransactionType.ts:32
+#: src/enum/UserTransactionType.ts:30
 msgid "Received Change"
 msgstr ""
 
-#: src/enum/TransactionType.ts:53
+#: src/enum/TransactionType.ts:52
 msgid "Redeem Deferred Transfer"
 msgstr ""
 
-#: src/enum/TransactionType.ts:50
+#: src/enum/TransactionType.ts:49
 msgid "Register Address Transaction"
 msgstr ""
 
+#: src/components/NavBar.ts:73
 #: src/components/NavBar.ts:74
-#: src/components/NavBar.ts:75
-#: src/components/NavBar.ts:81
+#: src/components/NavBar.ts:80
 msgid "Search"
 msgstr ""
 
-#: src/pages/Transaction.ts:47
+#: src/pages/Transaction.ts:46
 msgid "Search Type: "
 msgstr ""
 
-#: src/components/CommunitySwitch.ts:47
+#: src/components/CommunitySwitch.ts:46
 msgid "select community"
 msgstr ""
 
-#: src/enum/UserTransactionType.ts:25
+#: src/enum/UserTransactionType.ts:23
 msgid "Sent"
 msgstr ""
 
-#: src/components/TransactionTypes/Signed.ts:8
+#: src/components/TransactionTypes/Signed.ts:7
 msgid "Signed..."
 msgstr ""
 
-#: src/components/Toaster.ts:38
+#: src/components/Toaster.ts:37
 msgid "Success"
 msgstr ""
 
-#: src/components/TransactionTypes/DecayDetails.ts:54
+#: src/components/TransactionTypes/DecayDetails.ts:53
 msgid "This transaction does not include decay."
 msgstr ""
 
-#: src/components/TransactionTypes/DecayDetails.ts:29
+#: src/components/TransactionTypes/DecayDetails.ts:28
 msgid "Time passed"
 msgstr ""
 
-#: src/enum/TransactionType.ts:54
+#: src/enum/TransactionType.ts:53
 msgid "Timeout Deferred Transfer"
 msgstr ""
 
-#: src/components/NavBar.ts:53
+#: src/components/NavBar.ts:52
 msgid "Toggle navigation"
 msgstr ""
 
-#: src/enum/SearchType.ts:15
+#: src/components/TransactionListRaw.ts:21
+msgid "Transaction Nr"
+msgstr ""
+
+#: src/enum/SearchType.ts:13
 msgid "Transaction Number"
 msgstr ""
 
-#: src/components/TransactionListRaw.ts:25
-msgid "Transaction type"
+#: src/components/TransactionListRaw.ts:24
+msgid "Transaction Type"
 msgstr ""
 
-#: src/pages/Account.ts:69
+#: src/pages/Account.ts:87
 msgid "Transactions for"
 msgstr ""
 
-#: src/pages/LastTransactions.ts:76
+#: src/pages/LastTransactions.ts:109
 msgid "Transactions overview"
 msgstr ""
 
-#: src/enum/TransactionType.ts:48
+#: src/enum/TransactionType.ts:47
 msgid "Transfer Transaction"
 msgstr ""
 
-#: src/enum/SearchType.ts:19
-#: src/enum/TransactionType.ts:55
-#: src/enum/UserTransactionType.ts:37
+#: src/enum/SearchType.ts:17
+#: src/enum/TransactionType.ts:54
+#: src/enum/UserTransactionType.ts:35
 msgid "Unknown"
 msgstr ""
 
-#: src/components/TransactionTypes/Transfer.ts:67
+#: src/components/TransactionTypes/Transfer.ts:66
 msgid "via Link"
 msgstr ""
 
-#: src/components/TransactionListView.ts:79
+#: src/components/TransactionListView.ts:64
 msgid "You don't have any transactions on your account yet."
 msgstr ""
