@@ -9,7 +9,7 @@ export class TransactionExcerpt {
   createdAt: Date
   transactionType: string
   details: string
-  isOpen: boolean // Neu hinzugefügt
+  isOpen: boolean
 
   constructor(transaction: ConfirmedTransaction) {
     const gradidoTransaction = transaction.gradidoTransaction

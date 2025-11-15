@@ -1,6 +1,5 @@
 import m from 'mithril'
-import { TransactionListRaw } from '../components/TransactionListRaw'
-import { TransactionExcerpt } from '../models/TransactionExcerpt'
+import { AllTransactionsList } from '../components/AllTransactionsList'
 import { WalletSum } from '../components/WalletSum'
 import { CONFIG } from '../config'
 import { gradidoNodeClient } from '../client/gradidoNodeClient'
@@ -91,14 +90,13 @@ export class LastTransactions implements m.ClassComponent<Attrs> {
         m('.col-lg-3.col-6', m(WalletSum, {amount: gmwBalance, unit: 'GDD', name: 'GMW', active: true})),
       ]),
       m('.mt-lg-3'),
-      this.getPagination(this.transactionsResult),
-      m(TransactionListRaw, { 
-        transactions: transactions.map((transaction) => 
-            new TransactionExcerpt(transaction)
-        ) 
-      }),
-      this.getPagination(this.transactionsResult),
-      m('', 'time used: ' + timeUsed)
+      m('.col-lg-6.col-md-9.col-12', [
+        this.getPagination(this.transactionsResult),
+        m(AllTransactionsList, { transactions }),
+        this.getPagination(this.transactionsResult),
+        m('', 'time used: ' + timeUsed)
+      ]),
+      
     ]
   } 
 
