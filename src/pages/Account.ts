@@ -1,12 +1,12 @@
 import m from 'mithril'
 import { ListTransactionsResult } from '../client/output.schema'
 import { TransactionListView } from '../components/TransactionListView'
-import { Title } from '../components/Title'
+import { Title } from '../components/view/Title'
 import { gradidoNodeClient } from '../client/gradidoNodeClient'
 import { CONFIG } from '../config'
 import { ValiError } from 'valibot'
 import { ValibotError } from '../components/ValibotError'
-import { Pagination } from '../components/bootstrap/Pagination'
+import { Pagination } from '../components/view/bootstrap/Pagination'
 
 interface Attrs {
   communityId: string

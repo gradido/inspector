@@ -1,11 +1,11 @@
 import m, { Child } from 'mithril'
-import { combineClasses } from '../../utils/utils'
+import { combineClasses } from '../../../utils/utils'
 
 interface Attrs {
   info: (isOpen: boolean) => Child //info is a function that maintains the state
   details: Child
-  containerClasses: string[]
-  detailClasses: string[]
+  containerClasses?: string[]
+  detailClasses?: string[]
   id: number
 }
 
@@ -30,12 +30,12 @@ export class Collapse implements m.ClassComponent<Attrs> {
   }
 
   view({attrs}: m.CVnode<Attrs>) {
-    const detailClasses = attrs.detailClasses
+    const detailClasses = attrs.detailClasses ?? []
     detailClasses.push('collapse')
     if (this.detailsVisible) {
       detailClasses.push('show')
     }
-    return m(combineClasses(attrs.containerClasses), 
+    return m(combineClasses(attrs.containerClasses ?? []), 
       { onclick: () => this.detailsVisible = !this.detailsVisible }, [
         attrs.info(this.detailsVisible), 
         m(

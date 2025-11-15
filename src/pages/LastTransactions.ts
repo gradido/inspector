@@ -6,7 +6,7 @@ import { CONFIG } from '../config'
 import { gradidoNodeClient } from '../client/gradidoNodeClient'
 import { GetTransactionsResult } from '../client/output.schema'
 import { CommunitySwitch } from '../components/CommunitySwitch'
-import { Pagination } from '../components/bootstrap/Pagination'
+import { Pagination } from '../components/view/bootstrap/Pagination'
 
 interface Attrs {
   communityId: string

@@ -39,15 +39,18 @@ export function formatGDD(value: string): string {
   }
   return firstStep  
 }
-export function combineElementWithClasses(element: string, classes: string[]) {
+export function combineElementWithClasses(element: string, classes?: string[]) {
   let elementWithClasses = element
-    if(classes.length) {
+    if(classes && classes.length) {
       elementWithClasses += combineClasses(classes)
     } 
     return elementWithClasses
 }
 
-export function combineClasses(classes: string[]) {
+export function combineClasses(classes?: string[]) {
+  if (!classes || classes.length === 0) {
+    return ''
+  }
   return '.' + classes.join('.')
 }
 

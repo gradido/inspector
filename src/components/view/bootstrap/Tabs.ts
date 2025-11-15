@@ -1,5 +1,5 @@
 import m from 'mithril'
-import { combineElementWithClasses } from '../../utils/utils'
+import { combineElementWithClasses } from '../../../utils/utils'
 
 interface Attrs {
   itemTitles: string[]

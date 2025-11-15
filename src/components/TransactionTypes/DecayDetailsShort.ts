@@ -1,5 +1,5 @@
 import m from 'mithril'
-import { Droplet } from '../svg/Droplet'
+import dropletHalfIcon from '~icons/bi/droplet-half'
 import { formatGDD } from '../../utils/utils'
 import { WalletTransaction } from '../../client/output.schema'
 
@@ -24,7 +24,7 @@ export class DecayDetailsShort implements m.ClassComponent<WalletTransaction> {
   view({attrs}: m.CVnode<WalletTransaction>) {
     return [
       m('.mb-3.d-flex.align-items-center', [
-        m(Droplet, { classes: ['me-2']}),
+        m('span.me-2', m.trust(dropletHalfIcon)),
         m('b', t.__('Calculation of Decay'))
       ]),
       m('.row', 

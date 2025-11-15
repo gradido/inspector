@@ -1,5 +1,5 @@
 import m from 'mithril'
-import { Droplet } from '../svg/Droplet'
+import dropletHalfIcon from '~icons/bi/droplet-half'
 import { formatDistance, formatGDD } from '../../utils/utils'
 import { getUserTransactionTypeLabel } from '../../enum/UserTransactionType'
 import { WalletTransaction } from '../../client/output.schema'
@@ -10,7 +10,7 @@ export class DecayDetails implements m.ClassComponent<WalletTransaction> {
       const userLocale = localStorage.getItem('language') ?? 'en'
       return [
         m('.mb-3', [
-        m(Droplet, { classes: ['me-2']}),
+        m('span.me-2', m.trust(dropletHalfIcon)),
         m('b', t.__('Calculation of Decay'))
       ]),
       m('.row',

@@ -1,10 +1,9 @@
 import m from 'mithril'
 import { WalletSum } from './WalletSum'
-import { Collapse } from './bootstrap/Collapse'
+import { Collapse } from './view/bootstrap/Collapse'
 import { Decay } from './TransactionTypes/Decay'
 import { DecayDetailsShort } from './TransactionTypes/DecayDetailsShort'
 import { Transfer } from './TransactionTypes/Transfer'
-import { TransferDetails } from './TransactionTypes/TransferDetails'
 import { TransactionList, WalletTransaction } from '../client/output.schema'
 import { UserTransactionType } from '../enum/UserTransactionType'
 
@@ -32,14 +31,7 @@ export class TransactionListView implements m.ClassComponent<Attrs> {
       case UserTransactionType.LINK_DELETE:
       case UserTransactionType.LINK_CHANGE:
       case UserTransactionType.LINK_CHARGE:
-        return m(Collapse, {
-          info: (isOpen) => m(Transfer, { isOpen, transaction }),
-          details: m(TransferDetails, transaction),
-          containerClasses,
-          detailClasses: ['px-1'],
-          id: transaction.id
-        })
-       // return m(combineElementWithClasses('', containerClasses), m(Transfer, { isOpen: false, transaction }))
+        return m(Transfer, {transaction})
       default: 
         return m('', transaction.typeId.toString())
     }
