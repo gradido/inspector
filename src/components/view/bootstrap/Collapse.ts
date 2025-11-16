@@ -36,11 +36,20 @@ export class Collapse implements m.ClassComponent<Attrs> {
       detailClasses.push('show')
     }
     return m(combineClasses(attrs.containerClasses ?? []), 
-      { onclick: () => this.detailsVisible = !this.detailsVisible }, [
+      { 
+        onclick: (e: MouseEvent) => {
+          const target = e.target as HTMLElement
+          if (target.closest('a') || target.closest('button') || target.classList.contains('btn')) {
+            return
+          }
+          this.detailsVisible = !this.detailsVisible 
+        }
+      }, 
+      [
         attrs.info(this.detailsVisible), 
         m(
           combineClasses(detailClasses),
-           {'is-nav': false},
+          { 'is-nav': false },
            attrs.details
         )        
       ])    

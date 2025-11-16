@@ -68,10 +68,7 @@ export class LastTransactions implements m.ClassComponent<Attrs> {
     return m(Pagination, { 
         currentPage: this.currentPage,
         totalPages: Math.ceil(transactionsResult.totalCount / this.pageSize),
-        ariaLabel: t.__(
-          'Pagination for transactions overview',
-          { communityId: this.communityId }
-        ),
+        ariaLabel: t.__('Pagination for transactions overview'),
         onPageChange: (page: number) => this.fetchTransactions(page),
         pill: true,
       }
@@ -90,9 +87,9 @@ export class LastTransactions implements m.ClassComponent<Attrs> {
         m('.col-lg-3.col-6', m(WalletSum, {amount: gmwBalance, unit: 'GDD', name: 'GMW', active: true})),
       ]),
       m('.mt-lg-3'),
-      m('.col-lg-6.col-md-9.col-12', [
+      m('.col-lg-8.col-md-10.col-12', [
         this.getPagination(this.transactionsResult),
-        m(AllTransactionsList, { transactions }),
+        m(AllTransactionsList, { transactions, communityId: this.communityId }),
         this.getPagination(this.transactionsResult),
         m('', 'time used: ' + timeUsed)
       ]),
