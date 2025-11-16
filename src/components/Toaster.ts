@@ -38,7 +38,7 @@ export class Toaster implements m.ClassComponent {
       message,
       variant: '.text-bg-success',
       timeout
-    });
+    })
   }
 
   public error(message: string, timeout?: number) {
@@ -47,7 +47,7 @@ export class Toaster implements m.ClassComponent {
       message,
       variant: '.text-bg-danger',
       timeout
-    });
+    })
   }
 
   public warning(message: string, timeout?: number) {
@@ -57,7 +57,7 @@ export class Toaster implements m.ClassComponent {
       variant: '.text-bg-warning',
       bodyClass: '.gdd-toaster-body-darken',
       timeout
-    });
+    })
   }
 
   view() {

@@ -5,6 +5,7 @@ import { Badge } from '../bootstrap/Badge'
 import boxesIcon from '~icons/bi/boxes'
 import { ViewAttrs } from './viewAttrs'
 import { PublicKeyLink } from '../PublicKeyLink'
+import { PublicKeyCopy } from '../PublicKeyCopy'
 
 export class CommunityRootView implements m.ClassComponent<ViewAttrs> {
 
@@ -12,7 +13,7 @@ export class CommunityRootView implements m.ClassComponent<ViewAttrs> {
     return m('', [
       m('.row.mt-3', [
         m('.col', t.__('Root Public Key')),
-        m('.col', communityRoot.pubkey)
+        m('.col', m(PublicKeyCopy, {publicKey: communityRoot.pubkey}))
       ]),
       m('.row.mt-1', [
         m('.col', t.__('GMW Public Key')),
