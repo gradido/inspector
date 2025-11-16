@@ -11,6 +11,7 @@ import timeoutIcon from '~icons/bi/clock-history'
 import deferredIcon from '~icons/bi/clock'
 import link45degIcon from '~icons/bi/link-45deg'
 import { getAmount } from '../models/transactionBody'
+import { Badge } from './view/bootstrap/Badge'
 
 interface Attrs {
     transactions: ConfirmedTransaction[]
@@ -19,14 +20,22 @@ interface Attrs {
 export class AllTransactionsList implements m.ClassComponent<Attrs> {  
   symbolForTransactionType(transactionType: TransactionType) : m.Child {
     switch(transactionType) {
-      case TransactionType.CREATION: return m.trust(giftIcon)
-      case TransactionType.TRANSFER: return m.trust(transferIcon)
-      case TransactionType.COMMUNITY_FRIENDS_UPDATE: return m.trust(friendsIcon)
-      case TransactionType.REGISTER_ADDRESS: return m.trust(registerIcon)
-      case TransactionType.DEFERRED_TRANSFER: return m.trust(deferredIcon)
-      case TransactionType.COMMUNITY_ROOT: return m.trust(boxesIcon)
-      case TransactionType.REDEEM_DEFERRED_TRANSFER: return m('span', [m.trust(deferredIcon), m.trust(transferIcon)])
-      case TransactionType.TIMEOUT_DEFERRED_TRANSFER: return m.trust(timeoutIcon)
+      case TransactionType.CREATION: 
+        return m(Badge, {icon: giftIcon, backgroundColor: 'RGBA(var(--bs-success-rgb),var(--bs-bg-opacity,1))'})
+      case TransactionType.TRANSFER: 
+        return m(Badge, {icon: transferIcon, backgroundColor: '#5e72e4'})
+      case TransactionType.COMMUNITY_FRIENDS_UPDATE: 
+        return m(Badge, {icon: friendsIcon, backgroundColor: '#c58d38'})
+      case TransactionType.REGISTER_ADDRESS: 
+        return m(Badge, {icon: registerIcon, backgroundColor: '#c58d38'})
+      case TransactionType.DEFERRED_TRANSFER: 
+        return m(Badge, {icon: deferredIcon, backgroundColor: 'RGBA(var(--bs-secondary-rgb),var(--bs-bg-opacity,1))'})
+      case TransactionType.COMMUNITY_ROOT: 
+        return m(Badge, {icon: boxesIcon, backgroundColor: 'RGBA(var(--bs-primary-rgb),var(--bs-bg-opacity,1))'})
+      case TransactionType.REDEEM_DEFERRED_TRANSFER: 
+        return m(Badge, {icon: transferIcon, backgroundColor: '#8965e0'})
+      case TransactionType.TIMEOUT_DEFERRED_TRANSFER: 
+        return m(Badge, {icon: timeoutIcon, backgroundColor: 'red'})
       default: throw new Error(t.__('Invalid Transaction Type, Please contact support'))
     }
   }
