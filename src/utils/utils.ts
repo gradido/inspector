@@ -96,3 +96,11 @@ export function formatDistance(
 
   return t.__('less than 1 minute')
 }
+
+export function formatDayMonthYear(date: Date): string {
+  return new Intl.DateTimeFormat(t.getLocale(), {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  }).format(date)
+}

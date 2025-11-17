@@ -5,28 +5,33 @@ import { Badge } from '../bootstrap/Badge'
 import boxesIcon from '~icons/bi/boxes'
 import { ViewAttrs } from './viewAttrs'
 import { PublicKeyLink } from '../PublicKeyLink'
-import { PublicKeyCopy } from '../PublicKeyCopy'
+import { CopyToClipboardLink } from '../CopyToClipboardLink'
+import { SignaturesView } from './Signatures.view'
+import { SignaturePair } from '../../../schemas/basic.schema'
 
 export class CommunityRootView implements m.ClassComponent<ViewAttrs> {
 
-  viewDetails(communityRoot: CommunityRoot, communityId: string) {
+  viewDetails(signaturePairs: SignaturePair[], communityRoot: CommunityRoot, communityId: string) {
     return m('', [
-      m('.row.mt-3', [
+      m(SignaturesView, {signaturePairs}),
+      m('.fw-bold.pb-2.mt-3', t.__('Community Root')),
+      m('.row', [
         m('.col', t.__('Root Public Key')),
-        m('.col', m(PublicKeyCopy, {publicKey: communityRoot.pubkey}))
+        m('.col', m(CopyToClipboardLink, { data: communityRoot.pubkey, name: t.__('Root Public Key') }))
       ]),
       m('.row.mt-1', [
         m('.col', t.__('GMW Public Key')),
-        m('.col', m(PublicKeyLink, {publicKey: communityRoot.gmwPubkey, communityId}))
+        m('.col', m(PublicKeyLink, { publicKey: communityRoot.gmwPubkey, communityId }))
       ]),
-      m('.row.mt-1.mb-2', [
+      m('.row.mt-1', [
         m('.col', t.__('AUF Public Key')),
-        m('.col', m(PublicKeyLink, {publicKey: communityRoot.aufPubkey, communityId}))
+        m('.col', m(PublicKeyLink, { publicKey: communityRoot.aufPubkey, communityId }))
       ])
     ])
   }
 
   view({attrs}: m.CVnode<ViewAttrs>) {
+    const gradidoTransaction = attrs.transaction.gradidoTransaction
     return m(DetailsBlock, {
       firstRow: m(Badge, {icon: boxesIcon, backgroundColor: 'RGBA(var(--bs-primary-rgb),var(--bs-bg-opacity,1))'}),
       secondRow: {
@@ -34,11 +39,14 @@ export class CommunityRootView implements m.ClassComponent<ViewAttrs> {
         date: attrs.transaction.confirmedAt
       },
       thirdRow: {
-        label: '',
-        amount: '0',
+        label: t.__('Started'),
       },
       id: attrs.transaction.id,
-      details: this.viewDetails(attrs.transaction.gradidoTransaction.bodyBytes.communityRoot, attrs.communityId),
+      details: this.viewDetails(
+        gradidoTransaction.signatureMap, 
+        gradidoTransaction.bodyBytes.communityRoot, attrs.communityId
+      ),
+      detailClasses: ['pt-lg-3', 'pb-4'],
     })
   }
 }

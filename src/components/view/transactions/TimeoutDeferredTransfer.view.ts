@@ -24,6 +24,7 @@ export class TimeoutDeferredTransferView implements m.ClassComponent<ViewAttrs> 
       },
       id: attrs.transaction.id,
       details: m('div', 'timeout deferred transfer details'),
+      detailClasses: ['pt-lg-3', 'pb-4'],
     })
   }
 }

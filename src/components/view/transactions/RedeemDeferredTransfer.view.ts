@@ -24,6 +24,7 @@ export class RedeemDeferredTransferView implements m.ClassComponent<ViewAttrs> {
       },
       id: attrs.transaction.id,
       details: m('div', 'redeem deferred transfer details'),
+      detailClasses: ['pt-lg-3', 'pb-4'],
     })
   }
 }

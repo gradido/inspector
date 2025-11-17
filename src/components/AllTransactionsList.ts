@@ -1,8 +1,8 @@
 import m from 'mithril'
 import { ConfirmedTransaction } from '../schemas/transaction.schema'
 import { getTransactionType, TransactionType } from '../enum/TransactionType'
-import { TransferView } from './view/transactions/Transfer.view'
-import { CreationView } from './view/transactions/Creation.view'
+import { GradidoTransferView } from './view/transactions/GradidoTransfer.view'
+import { GradidoCreationView } from './view/transactions/GradidoCreation.view'
 import { CommunityFriendsUpdateView } from './view/transactions/CommunityFriendsUpdate.view'
 import { RegisterAddressView } from './view/transactions/RegisterAddress.view'
 import { DeferredTransferView } from './view/transactions/DeferredTransfer.view'
@@ -20,9 +20,9 @@ export class AllTransactionsList implements m.ClassComponent<Attrs> {
     const viewAttrs = {transaction: confirmedTransaction, communityId} 
     switch(transactionType) {
       case TransactionType.CREATION: 
-        return m(CreationView, viewAttrs)
+        return m(GradidoCreationView, viewAttrs)
       case TransactionType.TRANSFER: 
-        return m(TransferView, viewAttrs)
+        return m(GradidoTransferView, viewAttrs)
       case TransactionType.COMMUNITY_FRIENDS_UPDATE: 
         return m(CommunityFriendsUpdateView, viewAttrs)
       case TransactionType.REGISTER_ADDRESS: 

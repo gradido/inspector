@@ -5,7 +5,7 @@ import transferIcon from '~icons/bi/cash-stack'
 import { getAmount } from '../../../models/transactionBody'
 import { ViewAttrs } from './viewAttrs'
 
-export class TransferView implements m.ClassComponent<ViewAttrs> {
+export class GradidoTransferView implements m.ClassComponent<ViewAttrs> {
   view({attrs}: m.CVnode<ViewAttrs>) {
     return m(DetailsBlock, {
       firstRow: m(Badge, {icon: transferIcon, backgroundColor: '#5e72e4'}),
@@ -19,6 +19,7 @@ export class TransferView implements m.ClassComponent<ViewAttrs> {
       },
       id: attrs.transaction.id,
       details: m('div', 'transfer details'),
+      detailClasses: ['pt-lg-3', 'pb-4'],
     })
   }
 }

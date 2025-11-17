@@ -2,6 +2,7 @@ import m from 'mithril'
 import { CollapseArrow } from './CollapseArrow'
 import { formatGDD } from '../../utils/utils'
 import { Collapse } from './bootstrap/Collapse'
+import { PublicKeyLink } from './PublicKeyLink'
 
 export interface DetailsBlockAttrs {
   firstRow: m.Child
@@ -12,7 +13,8 @@ export interface DetailsBlockAttrs {
   },
   thirdRow: {
     label: string
-    amount: string
+    amount?: string
+    publicKey?: string
     sub?: {
       label: string
       icon?: m.Child
@@ -21,6 +23,7 @@ export interface DetailsBlockAttrs {
   id: number
   details: m.Child
   detailClasses?: string[]
+  communityId?: string
 }
 
 export class DetailsBlock implements m.ClassComponent<DetailsBlockAttrs> {
@@ -52,7 +55,10 @@ export class DetailsBlock implements m.ClassComponent<DetailsBlockAttrs> {
         ]),
         m('.col-sm-8.col-md-3.col-lg-3.offset-3.offset-lg-0.offset-md-0.col-8.offset-3', [
           m('.small.mb-2', attrs.thirdRow.label),
-          this.amountView(attrs.thirdRow.amount),
+          attrs.thirdRow.amount ? this.amountView(attrs.thirdRow.amount) : undefined,
+          attrs.thirdRow.publicKey && attrs.communityId ? m('', [
+            m('span', m(PublicKeyLink, { publicKey: attrs.thirdRow.publicKey, communityId: attrs.communityId, maxLength: 16 })),
+          ]) : undefined,
           attrs.thirdRow.sub 
             ? m('.small', [
               m('span', attrs.thirdRow.sub.label),

@@ -6,24 +6,27 @@ import { ViewAttrs } from './viewAttrs'
 import { RegisterAddress } from '../../../schemas/transaction.schema'
 import { getAddressTypeString } from '../../../enum/AddressType'
 import { PublicKeyLink } from '../PublicKeyLink'
-import { PublicKeyCopy } from '../PublicKeyCopy'
+import { CopyToClipboardLink } from '../CopyToClipboardLink'
+import { SignaturesView } from './Signatures.view'
+import { SignaturePair } from '../../../schemas/basic.schema'
 
 export class RegisterAddressView implements m.ClassComponent<ViewAttrs> {
 
-  viewDetails(registerAddress: RegisterAddress, communityId: string) {
-    console.log(registerAddress)
+  viewDetails(signaturePairs: SignaturePair[], registerAddress: RegisterAddress, communityId: string) {
     return m('', [
-      m('.row.mt-3', [
+      m(SignaturesView, {signaturePairs}),
+      m('.fw-bold.pb-2.mt-3', t.__('Register Address')),
+      m('.row', [
         m('.col', t.__('Address Type')),
         m('.col.fw-bold.text-end', getAddressTypeString(registerAddress.addressType))
       ]),
       m('.row.mt-1', [
         m('.col', t.__('User Public Key')),
-        m('.col.text-end', m(PublicKeyCopy, {publicKey: registerAddress.userPubkey}))
+        m('.col.text-end', m(CopyToClipboardLink, { data: registerAddress.userPubkey, name: t.__('User Public Key') }))
       ]),
       m('.row.mt-1', [
         m('.col', t.__('Name Hash')),
-        m('.col.text-end', m(PublicKeyCopy, {publicKey: registerAddress.nameHash}))
+        m('.col.text-end', m(CopyToClipboardLink, { data: registerAddress.nameHash, name: t.__('Name Hash') }))
       ]),
       m('.row.mt-1', [
         m('.col', t.__('Account Public Key')),
@@ -33,11 +36,11 @@ export class RegisterAddressView implements m.ClassComponent<ViewAttrs> {
         m('.col', t.__('Account Number')),
         m('.col.text-end', registerAddress.derivationIndex)
       ]),
-      m('.row.mb-2'),
     ])
   }
 
   view({attrs}: m.CVnode<ViewAttrs>) {
+    const gradidoTransaction = attrs.transaction.gradidoTransaction
     return m(DetailsBlock, {
       firstRow: m(Badge, {icon: registerIcon, backgroundColor: '#c58d38'}),
       secondRow: {
@@ -46,10 +49,16 @@ export class RegisterAddressView implements m.ClassComponent<ViewAttrs> {
       },
       thirdRow: {
         label: t.__('Registered'),
-        amount: '0',
+        publicKey: gradidoTransaction.bodyBytes.registerAddress.accountPubkey,
       },
       id: attrs.transaction.id,
-      details: this.viewDetails(attrs.transaction.gradidoTransaction.bodyBytes.registerAddress, attrs.communityId),
+      details: this.viewDetails(
+        gradidoTransaction.signatureMap,
+        gradidoTransaction.bodyBytes.registerAddress,
+        attrs.communityId
+      ),
+      detailClasses: ['pt-lg-3', 'pb-4'],
+      communityId: attrs.communityId,
     })
   }
 }

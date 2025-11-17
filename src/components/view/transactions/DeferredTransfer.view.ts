@@ -24,6 +24,7 @@ export class DeferredTransferView implements m.ClassComponent<ViewAttrs> {
       },
       id: attrs.transaction.id,
       details: m('div', 'deferred transfer details'),
+      detailClasses: ['pt-lg-3', 'pb-4'],
     })
   }
 }

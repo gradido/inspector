@@ -94,6 +94,14 @@ export const gradidoTransactionSchema = v.object({
   bodyBytes: transactionBodySchema,
 })
 
+export const accountBalanceSchema = v.object({
+  pubkey: hex32Schema,
+  balance: v.string(),
+  communityId: v.nullish(v.string()),
+})
+
+export type AccountBalance = v.InferOutput<typeof accountBalanceSchema>
+
 export const confirmedTransactionSchema = v.object({
   id: v.number(),
   gradidoTransaction: gradidoTransactionSchema,
@@ -101,11 +109,7 @@ export const confirmedTransactionSchema = v.object({
   versionNumber: v.string(),
   runningHash: hex32Schema,
   messageId: v.string(),
-  accountBalances: v.array(v.object({
-    pubkey: hex32Schema,
-    balance: v.string(),
-    communityId: v.nullish(v.string()),
-  })),
+  accountBalances: v.array(accountBalanceSchema),
 })
 
 export type ConfirmedTransaction = v.InferOutput<typeof confirmedTransactionSchema>
