@@ -5,7 +5,6 @@ import Icons from 'unplugin-icons/vite'
 import IconsResolve from 'unplugin-icons/resolver'
 import EnvironmentPlugin from 'vite-plugin-environment'
 import { createHtmlPlugin } from 'vite-plugin-html'
-import pluginPurgeCss from '@mojojoejo/vite-plugin-purgecss'
 import * as v from 'valibot'
 import { configSchema } from './src/config/schema'
 
@@ -62,9 +61,6 @@ export default defineConfig(() => {
             VITE_META_URL: metaTagsConfig.META_URL,
           },
         },
-      }),
-      pluginPurgeCss({
-        variables: true,
       }),
       Components({
         resolvers: [IconsResolve()],
