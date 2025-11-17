@@ -9,10 +9,11 @@ import { UserTransactionType } from '../enum/UserTransactionType'
 
 interface Attrs {
   transactionList: TransactionList
+  communityId: string
 }
 
 export class TransactionListView implements m.ClassComponent<Attrs> {
-  chooseTransactionTypeView(transaction: WalletTransaction): m.Child {
+  chooseTransactionTypeView(transaction: WalletTransaction, communityId: string): m.Child {
     const containerClasses = ['pointer', 'mb-3', 'bg-white', 'app-box-shadow', 'gradido-border-radius', 'p-3']
     switch(transaction.typeId) {
       case UserTransactionType.DECAY: 
@@ -31,13 +32,13 @@ export class TransactionListView implements m.ClassComponent<Attrs> {
       case UserTransactionType.LINK_DELETE:
       case UserTransactionType.LINK_CHANGE:
       case UserTransactionType.LINK_CHARGE:
-        return m(Transfer, {transaction})
+        return m(Transfer, {transaction, communityId})
       default: 
         return m('', transaction.typeId.toString())
     }
   }
 
-  view({attrs: {transactionList}}: m.CVnode<Attrs>) {
+  view({attrs: {transactionList, communityId}}: m.CVnode<Attrs>) {
     return m('.row.px-lg3', [
       m('.col-12.mb-4', t.__('Address Type') + ': ' + transactionList.addressType),
       m('.col-12', 
@@ -54,7 +55,7 @@ export class TransactionListView implements m.ClassComponent<Attrs> {
           m('.list-group.transactions-list',
             transactionList.transactions === undefined || transactionList.transactions.length === 0 ? 
             m('.mt-4.text-center', t.__('You don\'t have any transactions on your account yet.'))
-            : transactionList.transactions.map((transaction) => this.chooseTransactionTypeView(transaction))
+            : transactionList.transactions.map((transaction) => this.chooseTransactionTypeView(transaction, communityId))
           )
         )
       )

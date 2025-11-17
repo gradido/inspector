@@ -16,8 +16,6 @@ export class GradidoCreationView implements m.ClassComponent<ViewAttrs> {
     const signaturePairs = attrs.transaction.gradidoTransaction.signatureMap
     const communityId = attrs.communityId
 
-    console.log(attrs.transaction.gradidoTransaction.bodyBytes.memos)
-
     return m('', [
       m(SignaturesView, {signaturePairs}),
       m('.fw-bold.pb-1.mt-3', t.__('Creation')),

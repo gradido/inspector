@@ -9,6 +9,7 @@ import { TransferDetails } from './TransferDetails'
 
 interface Attrs {
   transaction: WalletTransaction
+  communityId: string
 }
 
 export class Transfer implements m.ClassComponent<Attrs> {
@@ -25,7 +26,7 @@ export class Transfer implements m.ClassComponent<Attrs> {
     return m(Avatar, {user: transaction.linkedUser})
   }
 
-  getTitle(transaction: WalletTransaction) {
+  getTitle(transaction: WalletTransaction, communityId: string) {
     const balanceDateObject = new Date(transaction.balanceDate)
     if(transaction.typeId === UserTransactionType.CREATE) {
       return {
@@ -35,17 +36,17 @@ export class Transfer implements m.ClassComponent<Attrs> {
     } else {
       return {
         text: transaction.linkedUser.pubkey,
-        link: '#!/account/' + transaction.linkedUser.pubkey,
+        link: `#!/account/${communityId}/${transaction.linkedUser.pubkey}`,
         date: balanceDateObject
       }
     }
   }
   
   view({attrs}: m.CVnode<Attrs>) {
-    const {transaction} = attrs
+    const {transaction, communityId} = attrs
     return m(DetailsBlock, {
       firstRow: this.getSymbol(transaction),
-      secondRow: this.getTitle(transaction),
+      secondRow: this.getTitle(transaction, communityId),
       thirdRow: {
         label: getUserTransactionTypeLabel(transaction.typeId),
         amount: transaction.amount,

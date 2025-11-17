@@ -13,7 +13,7 @@ export class MemosView implements m.ClassComponent<ViewAttrs> {
       attrs.memos.map((memo) => [
         m('.row', [
           m('.col', t.__('Memo Encryption Type')),
-          m('.col.text-end', getMemoKeyTypeString(memo.type)),
+          m('.col.fw-bold.text-end', getMemoKeyTypeString(memo.type)),
         ]),
         m('.row', [
           m('.col', t.__('Encrypted Memo')),
