@@ -3,17 +3,26 @@ import { DetailsBlock } from '../DetailsBlock'
 import { Badge } from '../bootstrap/Badge'
 import registerIcon from '~icons/bi/card-checklist'
 import { ViewAttrs } from './viewAttrs'
-import { RegisterAddress } from '../../../schemas/transaction.schema'
 import { getAddressTypeString } from '../../../enum/AddressType'
 import { PublicKeyLink } from '../PublicKeyLink'
 import { CopyToClipboardLink } from '../CopyToClipboardLink'
 import { SignaturesView } from './Signatures.view'
-import { SignaturePair } from '../../../schemas/basic.schema'
 
 export class RegisterAddressView implements m.ClassComponent<ViewAttrs> {
 
-  viewDetails(signaturePairs: SignaturePair[], registerAddress: RegisterAddress, communityId: string) {
+  viewDetails(attrs: ViewAttrs) {
+    const gradidoTransaction = attrs.transaction.gradidoTransaction
+    const registerAddress = gradidoTransaction.bodyBytes.registerAddress
+    if (!registerAddress) {
+      throw new Error(`invalid transaction, expect registerAddress, but get: ${JSON.stringify(attrs)}`)
+    }
+    const signaturePairs = gradidoTransaction.signatureMap
+    const communityId = attrs.communityId
     return m('', [
+      m('.row.pb-2', [
+        m('.col', t.__('Transaction Number')),
+        m('.col.text-end', attrs.transaction.id)
+      ]),
       m(SignaturesView, {signaturePairs}),
       m('.fw-bold.pb-2.mt-3', t.__('Register Address')),
       m('.row', [
@@ -41,6 +50,9 @@ export class RegisterAddressView implements m.ClassComponent<ViewAttrs> {
 
   view({attrs}: m.CVnode<ViewAttrs>) {
     const gradidoTransaction = attrs.transaction.gradidoTransaction
+    if (!gradidoTransaction.bodyBytes.registerAddress) {
+      throw new Error(`invalid transaction, expect registerAddress, but get: ${JSON.stringify(attrs)}`)
+    }
     return m(DetailsBlock, {
       firstRow: m(Badge, {icon: registerIcon, backgroundColor: '#c58d38'}),
       secondRow: {
@@ -52,11 +64,7 @@ export class RegisterAddressView implements m.ClassComponent<ViewAttrs> {
         publicKey: gradidoTransaction.bodyBytes.registerAddress.accountPubkey,
       },
       id: attrs.transaction.id,
-      details: this.viewDetails(
-        gradidoTransaction.signatureMap,
-        gradidoTransaction.bodyBytes.registerAddress,
-        attrs.communityId
-      ),
+      details: this.viewDetails(attrs),
       detailClasses: ['pt-lg-3', 'pb-4'],
       communityId: attrs.communityId,
     })

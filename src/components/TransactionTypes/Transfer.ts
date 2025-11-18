@@ -1,4 +1,5 @@
 import m from 'mithril'
+import * as v from 'valibot'
 import { Avatar } from '../view/Avatar'
 import { getUserTransactionTypeLabel, isUserTransactionTypeLink, UserTransactionType } from '../../enum/UserTransactionType'
 import { WalletTransaction } from '../../client/output.schema'
@@ -6,6 +7,7 @@ import { DetailsBlock } from '../view/DetailsBlock'
 import giftIcon from '~icons/bi/gift' 
 import link45degIcon from '~icons/bi/link-45deg'
 import { TransferDetails } from './TransferDetails'
+import { linkedUserSchema } from '../../schemas/basic.schema'
 
 interface Attrs {
   transaction: WalletTransaction
@@ -23,7 +25,7 @@ export class Transfer implements m.ClassComponent<Attrs> {
           m('span.b-avatar-custom', m.trust(giftIcon))
         )
     }
-    return m(Avatar, {user: transaction.linkedUser})
+    return m(Avatar, {user: v.parse(linkedUserSchema, transaction.linkedUser)})
   }
 
   getTitle(transaction: WalletTransaction, communityId: string) {
@@ -34,9 +36,10 @@ export class Transfer implements m.ClassComponent<Attrs> {
         date: balanceDateObject
       }
     } else {
+      const linkedUser = v.parse(linkedUserSchema, transaction.linkedUser)
       return {
-        text: transaction.linkedUser.pubkey,
-        link: `#!/account/${communityId}/${transaction.linkedUser.pubkey}`,
+        text: linkedUser.pubkey,
+        link: `#!/account/${communityId}/${linkedUser.pubkey}`,
         date: balanceDateObject
       }
     }

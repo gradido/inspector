@@ -39,11 +39,15 @@ export class DecayDetails implements m.ClassComponent<WalletTransaction> {
               m('.col-sm-6.col-md-6.col-lg-3.col-6', t.__('Decay')),
               m('.offset-0.col.offset-0.text-end.me-0', formatGDD(attrs.decay.decay))
             ]),
-            m('.row.mb-2', [
+            m('.row', [
               m('.col-sm-6.col-md-6.col-lg-3.col-6', getUserTransactionTypeLabel(attrs.typeId)),
               m('.offset-0.col.offset-0.text-end.me-0', formatGDD(attrs.amount))
             ]),
-            m('.row.border-top.pt-2', [
+            attrs.change ? m('.row.mt-0', [
+              m('.col-sm-6.col-md-6.col-lg-4.col-6', t.__('Change')),
+              m('.offset-0.col.offset-0.text-end.me-0', formatGDD(attrs.change.amount))
+            ]) : undefined,
+            m('.row.border-top.pt-2.mt-2', [
               m('.col-sm-6.col-md-6.col-lg-3.col-6', t.__('New balance')),
               m('.offset-0.col.offset-0.text-end.me-0', m('b', formatGDD(attrs.balance)))
             ])

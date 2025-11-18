@@ -14,11 +14,19 @@ import { PublicKeyLink } from '../PublicKeyLink'
 export class RedeemDeferredTransferView implements m.ClassComponent<ViewAttrs> {
 
   viewDetails(attrs: ViewAttrs) {
-    const transfer = attrs.transaction.gradidoTransaction.bodyBytes.redeemDeferredTransfer.transfer
+    const redeemDeferredTransfer = attrs.transaction.gradidoTransaction.bodyBytes.redeemDeferredTransfer
+    if (!redeemDeferredTransfer) {
+      throw new Error(`invalid transaction, expect redeemDeferredTransfer, but get: ${JSON.stringify(attrs)}`)
+    }
+    const transfer = redeemDeferredTransfer.transfer
     const signaturePairs = attrs.transaction.gradidoTransaction.signatureMap
     const communityId = attrs.communityId
 
     return m('', [
+      m('.row.pb-2', [
+        m('.col', t.__('Transaction Number')),
+        m('.col.text-end', attrs.transaction.id)
+      ]),
       m(SignaturesView, {signaturePairs}),
       m('.fw-bold.pb-1.mt-3', t.__('Redeem Deferred Transfer')),
       m(MemosView, { memos: attrs.transaction.gradidoTransaction.bodyBytes.memos }),

@@ -1,5 +1,4 @@
 import m from 'mithril'
-import { CommunityRoot } from '../../../schemas/transaction.schema'
 import { DetailsBlock } from '../DetailsBlock'
 import { Badge } from '../bootstrap/Badge'
 import boxesIcon from '~icons/bi/boxes'
@@ -7,12 +6,22 @@ import { ViewAttrs } from './viewAttrs'
 import { PublicKeyLink } from '../PublicKeyLink'
 import { CopyToClipboardLink } from '../CopyToClipboardLink'
 import { SignaturesView } from './Signatures.view'
-import { SignaturePair } from '../../../schemas/basic.schema'
 
 export class CommunityRootView implements m.ClassComponent<ViewAttrs> {
 
-  viewDetails(signaturePairs: SignaturePair[], communityRoot: CommunityRoot, communityId: string) {
+  viewDetails(attrs: ViewAttrs) {
+    const gradidoTransaction = attrs.transaction.gradidoTransaction
+    const communityRoot = gradidoTransaction.bodyBytes.communityRoot
+    if (!communityRoot) {
+      throw new Error(`invalid transaction, expect CommunityRoot, but get: ${JSON.stringify(attrs)}`)
+    }
+    const signaturePairs = gradidoTransaction.signatureMap
+    const communityId = attrs.communityId
     return m('', [
+      m('.row.pb-2', [
+        m('.col', t.__('Transaction Number')),
+        m('.col.text-end', attrs.transaction.id)
+      ]),
       m(SignaturesView, {signaturePairs}),
       m('.fw-bold.pb-2.mt-3', t.__('Community Root')),
       m('.row', [
@@ -42,10 +51,7 @@ export class CommunityRootView implements m.ClassComponent<ViewAttrs> {
         label: t.__('Started'),
       },
       id: attrs.transaction.id,
-      details: this.viewDetails(
-        gradidoTransaction.signatureMap, 
-        gradidoTransaction.bodyBytes.communityRoot, attrs.communityId
-      ),
+      details: this.viewDetails(attrs),
       detailClasses: ['pt-lg-3', 'pb-4'],
     })
   }

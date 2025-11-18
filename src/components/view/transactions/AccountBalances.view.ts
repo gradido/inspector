@@ -2,7 +2,7 @@ import m from 'mithril'
 import { AccountBalance } from '../../../schemas/transaction.schema'
 import { PublicKeyLink } from '../PublicKeyLink'
 import { CommunityLink } from '../CommunityLink'
-import { formatCurrency } from '../../../utils/utils'
+import { formatCurrency4 } from '../../../utils/utils'
 
 interface ViewAttrs {
   accountBalances: AccountBalance[]
@@ -21,7 +21,7 @@ export class AccountBalancesView implements m.ClassComponent<ViewAttrs> {
         ]),
         m('.row', [
           m('.col', t.__('Balance')),
-          m('.col.text-end', formatCurrency(accountBalance.balance)),
+          m('.col.text-end', formatCurrency4(accountBalance.balance)),
         ]),
         accountBalance.communityId ? m('.row', [
           m('.col', t.__('Origin Community')),

@@ -17,6 +17,10 @@ export class GradidoTransferView implements m.ClassComponent<ViewAttrs> {
     const communityId = attrs.communityId
 
     return m('', [
+      m('.row.pb-2', [
+        m('.col', t.__('Transaction Number')),
+        m('.col.text-end', attrs.transaction.id)
+      ]),
       m(SignaturesView, {signaturePairs}),
       m('.fw-bold.pb-1.mt-3', t.__('Transfer')),
       m(MemosView, { memos: attrs.transaction.gradidoTransaction.bodyBytes.memos }),

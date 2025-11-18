@@ -29,6 +29,22 @@ export function formatCurrency(value: string, currency: string = 'GDD'): string 
   }).format(truncatedValue).replace('-', t.__('− '))
 }
 
+export function formatCurrency4(value: string, currency: string = 'GDD'): string {
+  const numericValue = parseFloat(value)
+  if (isNaN(numericValue)) {
+    return ''
+  }
+
+  const truncatedValue = Math.floor(numericValue * 10000) / 10000;
+  
+  return new Intl.NumberFormat(t.getLocale(), {
+    style: 'currency',
+    currency,
+    minimumFractionDigits: 4,
+    maximumFractionDigits: 4,
+  }).format(truncatedValue).replace('-', t.__('− '))
+}
+
 export function formatGDD(value: string): string {
   const firstStep = formatCurrency(value)
   if(firstStep.length) {

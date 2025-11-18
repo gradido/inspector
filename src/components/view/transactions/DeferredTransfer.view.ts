@@ -13,12 +13,19 @@ import { MemosView } from './Memos.view'
 
 export class DeferredTransferView implements m.ClassComponent<ViewAttrs> {
   viewDetails(attrs: ViewAttrs) {
+    if (!attrs.transaction.gradidoTransaction.bodyBytes.deferredTransfer) {
+      throw new Error(`invalid transaction, expect DeferredTransfer, but get: ${JSON.stringify(attrs)}`)
+    }
     const transfer = attrs.transaction.gradidoTransaction.bodyBytes.deferredTransfer.transfer
     const timeout = attrs.transaction.gradidoTransaction.bodyBytes.deferredTransfer.timeout
     const signaturePairs = attrs.transaction.gradidoTransaction.signatureMap
     const communityId = attrs.communityId
 
     return m('', [
+      m('.row.pb-2', [
+        m('.col', t.__('Transaction Number')),
+        m('.col.text-end', attrs.transaction.id)
+      ]),
       m(SignaturesView, {signaturePairs}),
       m('.fw-bold.pb-1.mt-3', t.__('Deferred Transfer')),
       m(MemosView, { memos: attrs.transaction.gradidoTransaction.bodyBytes.memos }),

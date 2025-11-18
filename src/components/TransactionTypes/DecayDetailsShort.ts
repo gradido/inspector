@@ -7,7 +7,7 @@ export class DecayDetailsShort implements m.ClassComponent<WalletTransaction> {
   
   constructDecayString({ previousBalance, decay, balance }: WalletTransaction): m.ChildArray {
     const formattedPrevious = formatGDD(previousBalance);
-    const formattedDecay = decay.decay === '0' ? t.__('− ') : '' + formatGDD(decay.decay);
+    const formattedDecay = decay ? decay.decay === '0' ? t.__('− ') : '' + formatGDD(decay.decay) : '';
     const formattedBalance = formatGDD(balance);
 
     return [

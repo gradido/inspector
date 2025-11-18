@@ -2,7 +2,7 @@ import m from 'mithril'
 import { TransferAmount } from '../../../schemas/basic.schema'
 import { PublicKeyLink } from '../PublicKeyLink'
 import { CommunityLink } from '../CommunityLink'
-import { formatGDD } from '../../../utils/utils'
+import { formatCurrency4 } from '../../../utils/utils'
 
 interface ViewAttrs {
   transferAmount: TransferAmount
@@ -11,6 +11,9 @@ interface ViewAttrs {
 }
 
 export class TransferAmountView implements m.ClassComponent<ViewAttrs> {
+
+  
+
   view({attrs}: m.CVnode<ViewAttrs>) {
     return [
       m('.row', [
@@ -19,7 +22,7 @@ export class TransferAmountView implements m.ClassComponent<ViewAttrs> {
       ]),
       m('.row', [
         m('.col', t.__('Amount')),
-        m('.col.text-end', formatGDD(attrs.transferAmount.amount)),
+        m('.col.text-end', formatCurrency4(attrs.transferAmount.amount)),
       ]),
       attrs.transferAmount.communityId ? m('.row', [
         m('.col', t.__('Origin Community')),

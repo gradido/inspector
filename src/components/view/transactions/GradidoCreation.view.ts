@@ -13,10 +13,17 @@ import { MemosView } from './Memos.view'
 export class GradidoCreationView implements m.ClassComponent<ViewAttrs> {
   viewDetails(attrs: ViewAttrs) {
     const creation = attrs.transaction.gradidoTransaction.bodyBytes.creation
+    if (!creation) {
+      throw new Error(`invalid transaction, expect creation, but get: ${JSON.stringify(attrs)}`)
+    }
     const signaturePairs = attrs.transaction.gradidoTransaction.signatureMap
     const communityId = attrs.communityId
 
     return m('', [
+      m('.row.pb-2', [
+        m('.col', t.__('Transaction Number')),
+        m('.col.text-end', attrs.transaction.id)
+      ]),
       m(SignaturesView, {signaturePairs}),
       m('.fw-bold.pb-1.mt-3', t.__('Creation')),
       m(MemosView, { memos: attrs.transaction.gradidoTransaction.bodyBytes.memos }),

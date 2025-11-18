@@ -3,7 +3,7 @@ import { dateSchema } from '../schemas/typeConverter.schema'
 import { AddressType } from '../enum/AddressType'
 import { UserTransactionType } from '../enum/UserTransactionType'
 import { confirmedTransactionSchema } from '../schemas/transaction.schema'
-import { decaySchema, linkedUserSchema } from '../schemas/basic.schema'
+import { decaySchema, hex32Schema, linkedUserSchema } from '../schemas/basic.schema'
 
 export const listCommunitiesResultSchema = v.object({
   communities: v.array(v.string()),
@@ -40,6 +40,10 @@ export const walletTransactionSchema = v.object({
   linkedUser: v.nullish(linkedUserSchema),
   balanceDate: dateSchema,
   decay: v.nullish(decaySchema),
+  change: v.nullish(v.object({
+    amount: v.string(),
+    pubkey: hex32Schema
+  })),
 })
 
 export type WalletTransaction = v.InferOutput<typeof walletTransactionSchema>
