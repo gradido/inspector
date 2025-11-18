@@ -29,6 +29,22 @@ export function formatCurrency(value: string, currency: string = 'GDD'): string 
   }).format(truncatedValue).replace('-', t.__('− '))
 }
 
+export function formatCurrency4(value: string, currency: string = 'GDD'): string {
+  const numericValue = parseFloat(value)
+  if (isNaN(numericValue)) {
+    return ''
+  }
+
+  const truncatedValue = Math.floor(numericValue * 10000) / 10000;
+  
+  return new Intl.NumberFormat(t.getLocale(), {
+    style: 'currency',
+    currency,
+    minimumFractionDigits: 4,
+    maximumFractionDigits: 4,
+  }).format(truncatedValue).replace('-', t.__('− '))
+}
+
 export function formatGDD(value: string): string {
   const firstStep = formatCurrency(value)
   if(firstStep.length) {
@@ -39,15 +55,18 @@ export function formatGDD(value: string): string {
   }
   return firstStep  
 }
-export function combineElementWithClasses(element: string, classes: string[]) {
+export function combineElementWithClasses(element: string, classes?: string[]) {
   let elementWithClasses = element
-    if(classes.length) {
+    if(classes && classes.length) {
       elementWithClasses += combineClasses(classes)
     } 
     return elementWithClasses
 }
 
-export function combineClasses(classes: string[]) {
+export function combineClasses(classes?: string[]) {
+  if (!classes || classes.length === 0) {
+    return ''
+  }
   return '.' + classes.join('.')
 }
 
@@ -92,4 +111,12 @@ export function formatDistance(
   }
 
   return t.__('less than 1 minute')
+}
+
+export function formatDayMonthYear(date: Date): string {
+  return new Intl.DateTimeFormat(t.getLocale(), {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  }).format(date)
 }

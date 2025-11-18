@@ -1,12 +1,11 @@
 import m from 'mithril'
-import { TransactionListRaw } from '../components/TransactionListRaw'
-import { TransactionExcerpt } from '../models/TransactionExcerpt'
+import { AllTransactionsList } from '../components/AllTransactionsList'
 import { WalletSum } from '../components/WalletSum'
 import { CONFIG } from '../config'
 import { gradidoNodeClient } from '../client/gradidoNodeClient'
 import { GetTransactionsResult } from '../client/output.schema'
 import { CommunitySwitch } from '../components/CommunitySwitch'
-import { Pagination } from '../components/bootstrap/Pagination'
+import { Pagination } from '../components/view/bootstrap/Pagination'
 
 interface Attrs {
   communityId: string
@@ -69,10 +68,7 @@ export class LastTransactions implements m.ClassComponent<Attrs> {
     return m(Pagination, { 
         currentPage: this.currentPage,
         totalPages: Math.ceil(transactionsResult.totalCount / this.pageSize),
-        ariaLabel: t.__(
-          'Pagination for transactions overview',
-          { communityId: this.communityId }
-        ),
+        ariaLabel: t.__('Pagination for transactions overview'),
         onPageChange: (page: number) => this.fetchTransactions(page),
         pill: true,
       }
@@ -91,14 +87,13 @@ export class LastTransactions implements m.ClassComponent<Attrs> {
         m('.col-lg-3.col-6', m(WalletSum, {amount: gmwBalance, unit: 'GDD', name: 'GMW', active: true})),
       ]),
       m('.mt-lg-3'),
-      this.getPagination(this.transactionsResult),
-      m(TransactionListRaw, { 
-        transactions: transactions.map((transaction) => 
-            new TransactionExcerpt(transaction)
-        ) 
-      }),
-      this.getPagination(this.transactionsResult),
-      m('', 'time used: ' + timeUsed)
+      m('.col-lg-8.col-md-10.col-12', [
+        this.getPagination(this.transactionsResult),
+        m(AllTransactionsList, { transactions, communityId: this.communityId }),
+        this.getPagination(this.transactionsResult),
+        m('', 'time used: ' + timeUsed)
+      ]),
+      
     ]
   } 
 

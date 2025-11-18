@@ -16,6 +16,7 @@
     "locale": "bun scripts/localeJson.js"
   },
   "dependencies": {
+    "@iconify-json/bi": "^1.2.6",
     "bootstrap": "^5.3.8",
     "cross-env": "^7.0.3",
     "gettext.js": "^2.0.3",
@@ -24,7 +25,7 @@
   },
   "devDependencies": {
     "@biomejs/biome": "2.0.0",
-    "@mojojoejo/vite-plugin-purgecss": "^1.1.0",
+    "@fullhuman/postcss-purgecss": "^7.0.2",
     "@popperjs/core": "^2.11.8",
     "@types/bootstrap": "^5.2.10",
     "@types/gettext.js": "^1.0.3",

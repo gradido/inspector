@@ -1,5 +1,5 @@
 import m from 'mithril'
-import { Title } from '../components/Title'
+import { Title } from '../components/view/Title'
 import { gradidoNodeClient } from '../client/gradidoNodeClient'
 import { GetTransactionResult } from '../client/output.schema'
 import { detectSearchType } from '../utils/detectType'

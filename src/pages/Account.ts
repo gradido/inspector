@@ -1,12 +1,12 @@
 import m from 'mithril'
 import { ListTransactionsResult } from '../client/output.schema'
 import { TransactionListView } from '../components/TransactionListView'
-import { Title } from '../components/Title'
+import { Title } from '../components/view/Title'
 import { gradidoNodeClient } from '../client/gradidoNodeClient'
 import { CONFIG } from '../config'
 import { ValiError } from 'valibot'
 import { ValibotError } from '../components/ValibotError'
-import { Pagination } from '../components/bootstrap/Pagination'
+import { Pagination } from '../components/view/bootstrap/Pagination'
 
 interface Attrs {
   communityId: string
@@ -21,19 +21,34 @@ export class Account implements m.ClassComponent<Attrs> {
   errorView: m.Children | undefined = undefined
   currentPage: number = 1
   pageSize: number = 5
-  
+  lastPubkey: string = ''
+  lastCommunityId: string = ''
+
   oninit({attrs}: m.CVnode<Attrs>) {
-    // console.log(`Account.oninit: ${attrs.pubkey}, ${attrs.communityId}`)
+    if (attrs.pageSize && attrs.pageSize > 0) {
+      this.pageSize = attrs.pageSize
+    }
+    this.lastPubkey = attrs.pubkey
+    this.lastCommunityId = attrs.communityId
+    this.fetchTransactions(attrs.pubkey, attrs.communityId)
+  }
+  
+  onupdate({attrs}: m.CVnode<Attrs>) {
     if(this.reloadTimerId) {
       clearTimeout(this.reloadTimerId)
     }
     if (attrs.pageSize && attrs.pageSize > 0) {
       this.pageSize = attrs.pageSize
     }
-    this.currentPage = 1
-    this.transactionListResponse = undefined
-    this.fetchTransactions(attrs.pubkey, attrs.communityId)
+    if (attrs.pubkey !== this.lastPubkey || attrs.communityId !== this.lastCommunityId) {
+      this.lastPubkey = attrs.pubkey
+      this.lastCommunityId = attrs.communityId
+      this.currentPage = 1
+      this.transactionListResponse = undefined
+      this.fetchTransactions(attrs.pubkey, attrs.communityId)
+    }
   }
+
   async fetchTransactions(pubkey: string, communityId: string) {
     this.loading = true
     // console.log('fetchTransactions: ', pubkey, communityId)
@@ -67,7 +82,7 @@ export class Account implements m.ClassComponent<Attrs> {
   }
   viewData(data: ListTransactionsResult, attrs: Attrs) {
     return [
-      m(TransactionListView, {transactionList: data.transactionList}),
+      m(TransactionListView, {transactionList: data.transactionList, communityId: attrs.communityId}),
       m(Pagination, {
         currentPage: this.currentPage,
         totalPages: Math.ceil(data.transactionList.count / this.pageSize),

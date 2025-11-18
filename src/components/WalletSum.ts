@@ -1,6 +1,6 @@
 import m from 'mithril'
 import { combineElementWithClasses, formatCurrency, stringToBoolean } from '../utils/utils'
-import { Eye } from './svg/Eye'
+import { Eye } from './view/Eye'
 
 interface Attrs {
   amount: string

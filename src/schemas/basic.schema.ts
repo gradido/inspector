@@ -18,6 +18,8 @@ export const transferAmountSchema = v.object({
   communityId: v.nullish(v.string()),
 })
 
+export type TransferAmount = v.InferOutput<typeof transferAmountSchema>
+
 export const signaturePairSchema = v.object({
   pubkey: hex32Schema,
   signature: v.pipe(
@@ -27,10 +29,14 @@ export const signaturePairSchema = v.object({
   ),
 })
 
+export type SignaturePair = v.InferOutput<typeof signaturePairSchema>
+
 export const encryptedMemoSchema = v.object({
   type: v.enum(MemoKeyType),
   memo: v.string(),
 })
+
+export type EncryptedMemo = v.InferOutput<typeof encryptedMemoSchema>
 
 export const linkedUserSchema = v.object({
   pubkey: hex32Schema,

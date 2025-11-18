@@ -1,7 +1,7 @@
 // color array taken from vue3-avatar to get the same results for the same input, else I would rather calculate the number
 import m from 'mithril'
-import { LinkedUser } from '../client/output.schema'
-import { getUsername, getInitials } from '../models/linkedUser'
+import { getUsername, getInitials } from '../../models/linkedUser'
+import { LinkedUser } from '../../schemas/basic.schema'
 
 interface Attrs {
   user: LinkedUser

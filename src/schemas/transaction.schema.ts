@@ -10,6 +10,8 @@ export const communityRootSchema = v.object({
   aufPubkey: hex32Schema,
 })
 
+export type CommunityRoot = v.InferOutput<typeof communityRootSchema>
+
 export const registerAddressSchema = v.object({
   userPubkey: hex32Schema,
   addressType: v.enum(AddressType),
@@ -18,29 +20,41 @@ export const registerAddressSchema = v.object({
   derivationIndex: v.number(),
 })
 
+export type RegisterAddress = v.InferOutput<typeof registerAddressSchema>
+
 export const gradidoTransferSchema = v.object({
   sender: transferAmountSchema,
   recipient: hex32Schema,
 })
+
+export type GradidoTransfer = v.InferOutput<typeof gradidoTransferSchema> 
 
 export const gradidoCreationSchema = v.object({
   recipient: transferAmountSchema,
   targetDate: dateSchema,
 })
 
+export type GradidoCreation = v.InferOutput<typeof gradidoCreationSchema>
+
 export const gradidoDeferredTransferSchema = v.object({
   transfer: gradidoTransferSchema,
   timeout: v.string(),
 })
+
+export type GradidoDeferredTransfer = v.InferOutput<typeof gradidoDeferredTransferSchema>
 
 export const gradidoRedeemDeferredTransferSchema = v.object({
   deferredTransferTransactionNr: v.number(),
   transfer: gradidoTransferSchema,
 })
 
+export type GradidoRedeemDeferredTransfer = v.InferOutput<typeof gradidoRedeemDeferredTransferSchema>
+
 export const gradidoTimeoutDeferredTransferSchema = v.object({
   deferredTransferTransactionNr: v.number(),
 })
+
+export type GradidoTimeoutDeferredTransfer = v.InferOutput<typeof gradidoTimeoutDeferredTransferSchema>
 
 export const transactionBodySchema = v.pipe(
   v.object({
@@ -80,6 +94,14 @@ export const gradidoTransactionSchema = v.object({
   bodyBytes: transactionBodySchema,
 })
 
+export const accountBalanceSchema = v.object({
+  pubkey: hex32Schema,
+  balance: v.string(),
+  communityId: v.nullish(v.string()),
+})
+
+export type AccountBalance = v.InferOutput<typeof accountBalanceSchema>
+
 export const confirmedTransactionSchema = v.object({
   id: v.number(),
   gradidoTransaction: gradidoTransactionSchema,
@@ -87,11 +109,7 @@ export const confirmedTransactionSchema = v.object({
   versionNumber: v.string(),
   runningHash: hex32Schema,
   messageId: v.string(),
-  accountBalances: v.array(v.object({
-    pubkey: hex32Schema,
-    balance: v.string(),
-    communityId: v.nullish(v.string()),
-  })),
+  accountBalances: v.array(accountBalanceSchema),
 })
 
 export type ConfirmedTransaction = v.InferOutput<typeof confirmedTransactionSchema>

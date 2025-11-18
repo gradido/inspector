@@ -3,49 +3,49 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language: \n"
 
-#: src/utils/utils.ts:73
+#: src/utils/utils.ts:92
 msgid "%1 day"
 msgid_plural "%1 days"
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/utils/utils.ts:74
+#: src/utils/utils.ts:93
 msgid "%1 hour"
 msgid_plural "%1 hours"
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/utils/utils.ts:75
+#: src/utils/utils.ts:94
 msgid "%1 minute"
 msgid_plural "%1 minutes"
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/utils/utils.ts:71
+#: src/utils/utils.ts:90
 msgid "%1 month"
 msgid_plural "%1 months"
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/utils/utils.ts:76
+#: src/utils/utils.ts:95
 msgid "%1 second"
 msgid_plural "%1 seconds"
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/utils/utils.ts:72
+#: src/utils/utils.ts:91
 msgid "%1 week"
 msgid_plural "%1 weeks"
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/utils/utils.ts:70
+#: src/utils/utils.ts:89
 msgid "%1 year"
 msgid_plural "%1 years"
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/utils/utils.ts:37
+#: src/utils/utils.ts:53
 msgid "+"
 msgstr ""
 
@@ -55,23 +55,49 @@ msgstr ""
 
 #: src/components/TransactionTypes/DecayDetailsShort.ts:10
 #: src/utils/utils.ts:29
+#: src/utils/utils.ts:45
 msgid "− "
 msgstr ""
 
+#: src/components/view/transactions/DeferredTransfer.view.ts:42
+#: src/components/view/transactions/GradidoCreation.view.ts:36
+#: src/components/view/transactions/GradidoTransfer.view.ts:33
+#: src/components/view/transactions/RedeemDeferredTransfer.view.ts:39
 #: src/components/WalletSum.ts:49
 msgid "Account"
 msgstr ""
 
-#: src/components/TransactionListView.ts:50
+#: src/components/view/transactions/AccountBalances.view.ts:16
+msgid "Account Balances"
+msgstr ""
+
+#: src/components/view/transactions/RegisterAddress.view.ts:45
+msgid "Account Number"
+msgstr ""
+
+#: src/components/view/transactions/RegisterAddress.view.ts:41
+msgid "Account Public Key"
+msgstr ""
+
+#: src/components/TransactionListView.ts:43
+#: src/components/view/transactions/RegisterAddress.view.ts:29
 msgid "Address Type"
 msgstr ""
 
-#: src/utils/utils.ts:86
+#: src/utils/utils.ts:105
 msgid "ago"
 msgstr ""
 
-#: src/components/TransactionListRaw.ts:25
+#: src/components/view/transactions/TransferAmount.view.ts:24
 msgid "Amount"
+msgstr ""
+
+#: src/components/view/transactions/CommunityRoot.view.ts:36
+msgid "AUF Public Key"
+msgstr ""
+
+#: src/components/view/transactions/AccountBalances.view.ts:23
+msgid "Balance"
 msgstr ""
 
 #: src/components/TransactionTypes/DecayDetails.ts:14
@@ -79,6 +105,11 @@ msgstr ""
 msgid "Calculation of Decay"
 msgstr ""
 
+#: src/components/TransactionTypes/DecayDetails.ts:47
+msgid "Change"
+msgstr ""
+
+#: src/components/view/transactions/DeferredTransfer.view.ts:54
 #: src/enum/UserTransactionType.ts:32
 msgid "Charged"
 msgstr ""
@@ -87,32 +118,74 @@ msgstr ""
 msgid "Close"
 msgstr ""
 
+#: src/enum/AddressType.ts:15
+msgid "Community AUF"
+msgstr ""
+
 #: src/enum/TransactionType.ts:48
 msgid "Community Friends Update"
 msgstr ""
 
+#: src/components/view/transactions/CommunityFriendsUpdate.view.ts:12
+msgid "Community Friends Update Transaction"
+msgstr ""
+
+#: src/enum/AddressType.ts:16
+msgid "Community GMW"
+msgstr ""
+
+#: src/enum/AddressType.ts:17
+msgid "Community Human"
+msgstr ""
+
+#: src/enum/AddressType.ts:18
+msgid "Community Project"
+msgstr ""
+
+#: src/components/view/transactions/CommunityRoot.view.ts:26
+msgid "Community Root"
+msgstr ""
+
+#: src/components/view/transactions/CommunityRoot.view.ts:47
 #: src/enum/TransactionType.ts:51
 msgid "Community Root Transaction"
 msgstr ""
 
-#: src/pages/LastTransactions.ts:111
-msgid "Community Selection"
+#: src/enum/MemoKeyType.ts:10
+msgid "Community Secret"
 msgstr ""
 
-#: src/components/TransactionListRaw.ts:23
-msgid "ConfirmedAt Date"
+#: src/pages/LastTransactions.ts:106
+msgid "Community Selection"
 msgstr ""
 
 #: src/enum/TransactionType.ts:46
 msgid "Contribution Transaction"
 msgstr ""
 
+#: src/components/view/CopyToClipboardLink.ts:19
+msgid "copied to clipboard"
+msgstr ""
+
+#: src/components/view/transactions/GradidoCreation.view.ts:50
 #: src/enum/UserTransactionType.ts:34
 msgid "Created"
 msgstr ""
 
-#: src/components/TransactionListRaw.ts:22
-msgid "CreatedAt Date"
+#: src/components/view/transactions/GradidoCreation.view.ts:28
+msgid "Creation"
+msgstr ""
+
+#: src/components/view/transactions/GradidoCreation.view.ts:31
+msgid "Creation Date"
+msgstr ""
+
+#: src/components/view/transactions/GradidoCreation.view.ts:46
+msgid "Creation Transaction"
+msgstr ""
+
+#: src/enum/AddressType.ts:19
+msgid "Crypto Account"
 msgstr ""
 
 #: src/components/TransactionTypes/DecayDetails.ts:39
@@ -124,37 +197,56 @@ msgstr ""
 msgid "Decay since the last transaction"
 msgstr ""
 
+#: src/components/view/transactions/DeferredTransfer.view.ts:30
+#: src/enum/AddressType.ts:21
 #: src/enum/TransactionType.ts:50
 msgid "Deferred Transfer"
+msgstr ""
+
+#: src/components/view/transactions/DeferredTransfer.view.ts:50
+msgid "Deferred Transfer Transaction"
+msgstr ""
+
+#: src/components/view/transactions/Memos.view.ts:19
+#: src/components/view/transactions/Memos.view.ts:20
+msgid "Encrypted Memo"
 msgstr ""
 
 #: src/components/Toaster.ts:46
 msgid "Error"
 msgstr ""
 
-#: src/components/bootstrap/Pagination.ts:118
+#: src/components/view/transactions/CommunityFriendsUpdate.view.ts:16
+msgid "Friends"
+msgstr ""
+
+#: src/components/view/transactions/CommunityRoot.view.ts:32
+msgid "GMW Public Key"
+msgstr ""
+
+#: src/components/view/bootstrap/Pagination.ts:118
 msgid "Go to first page"
 msgstr ""
 
-#: src/components/bootstrap/Pagination.ts:122
+#: src/components/view/bootstrap/Pagination.ts:122
 msgid "Go to last page"
 msgstr ""
 
-#: src/components/bootstrap/Pagination.ts:121
+#: src/components/view/bootstrap/Pagination.ts:121
 msgid "Go to next page"
 msgstr ""
 
-#: src/components/bootstrap/Pagination.ts:76
+#: src/components/view/bootstrap/Pagination.ts:76
 msgid "Go to page %d"
 msgid_plural "Go to page %d"
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/components/bootstrap/Pagination.ts:119
+#: src/components/view/bootstrap/Pagination.ts:119
 msgid "Go to previous page"
 msgstr ""
 
-#: src/components/TransactionTypes/Transfer.ts:31
+#: src/components/TransactionTypes/Transfer.ts:35
 msgid "Gradido Academie"
 msgstr ""
 
@@ -170,27 +262,40 @@ msgstr ""
 msgid "invalid input"
 msgstr ""
 
+#: src/components/AllTransactionsList.ts:38
+msgid "Invalid Transaction Type, Please contact support"
+msgstr ""
+
 #: src/components/TransactionTypes/DecayDetails.ts:19
 msgid "Last Transaction"
 msgstr ""
 
-#: src/utils/utils.ts:86
+#: src/utils/utils.ts:105
 msgid "later"
 msgstr ""
 
-#: src/utils/utils.ts:94
+#: src/utils/utils.ts:113
 msgid "less than 1 minute"
 msgstr ""
 
-#: src/pages/Account.ts:95
+#: src/pages/Account.ts:110
 msgid "Loading..."
+msgstr ""
+
+#: src/components/view/transactions/Memos.view.ts:15
+msgid "Memo Encryption Type"
 msgstr ""
 
 #: src/components/TransactionTypes/TransferDetails.ts:9
 msgid "Message"
 msgstr ""
 
-#: src/components/TransactionTypes/DecayDetails.ts:47
+#: src/components/view/transactions/RegisterAddress.view.ts:37
+#: src/components/view/transactions/RegisterAddress.view.ts:38
+msgid "Name Hash"
+msgstr ""
+
+#: src/components/TransactionTypes/DecayDetails.ts:51
 msgid "New balance"
 msgstr ""
 
@@ -198,26 +303,40 @@ msgstr ""
 msgid "No transaction found"
 msgstr ""
 
-#: src/pages/Account.ts:96
+#: src/pages/Account.ts:111
 msgid "No transactions found"
 msgstr ""
 
+#: src/enum/AddressType.ts:14
 #: src/enum/TransactionType.ts:45
 msgid "None"
 msgstr ""
 
-#: src/pages/Account.ts:74
+#: src/components/view/transactions/AccountBalances.view.ts:27
+#: src/components/view/transactions/TransferAmount.view.ts:28
+msgid "Origin Community"
+msgstr ""
+
+#: src/pages/Account.ts:89
 msgid "Pagination for transactions"
 msgstr ""
 
-#: src/pages/LastTransactions.ts:72
+#: src/pages/LastTransactions.ts:71
 msgid "Pagination for transactions overview"
+msgstr ""
+
+#: src/enum/MemoKeyType.ts:11
+msgid "Plain"
 msgstr ""
 
 #: src/components/TransactionTypes/DecayDetails.ts:35
 msgid "Previous balance"
 msgstr ""
 
+#: src/components/view/transactions/AccountBalances.view.ts:19
+#: src/components/view/transactions/Signatures.view.ts:15
+#: src/components/view/transactions/Signatures.view.ts:16
+#: src/components/view/transactions/TransferAmount.view.ts:20
 #: src/enum/SearchType.ts:11
 msgid "Public Key"
 msgstr ""
@@ -226,6 +345,7 @@ msgstr ""
 msgid "Received"
 msgstr ""
 
+#: src/components/view/transactions/TimeoutDeferredTransfer.view.ts:18
 #: src/enum/UserTransactionType.ts:28
 msgid "Received Back"
 msgstr ""
@@ -234,12 +354,38 @@ msgstr ""
 msgid "Received Change"
 msgstr ""
 
+#: src/components/view/transactions/DeferredTransfer.view.ts:34
+#: src/components/view/transactions/GradidoCreation.view.ts:34
+#: src/components/view/transactions/GradidoTransfer.view.ts:29
+#: src/components/view/transactions/RedeemDeferredTransfer.view.ts:35
+msgid "Recipient"
+msgstr ""
+
+#: src/components/view/transactions/RedeemDeferredTransfer.view.ts:31
 #: src/enum/TransactionType.ts:52
 msgid "Redeem Deferred Transfer"
 msgstr ""
 
+#: src/components/view/transactions/RedeemDeferredTransfer.view.ts:47
+msgid "Redeem Deferred Transfer Transaction"
+msgstr ""
+
+#: src/components/view/transactions/RegisterAddress.view.ts:27
+msgid "Register Address"
+msgstr ""
+
+#: src/components/view/transactions/RegisterAddress.view.ts:59
 #: src/enum/TransactionType.ts:49
 msgid "Register Address Transaction"
+msgstr ""
+
+#: src/components/view/transactions/RegisterAddress.view.ts:63
+msgid "Registered"
+msgstr ""
+
+#: src/components/view/transactions/CommunityRoot.view.ts:28
+#: src/components/view/transactions/CommunityRoot.view.ts:29
+msgid "Root Public Key"
 msgstr ""
 
 #: src/components/NavBar.ts:73
@@ -256,19 +402,46 @@ msgstr ""
 msgid "select community"
 msgstr ""
 
+#: src/components/view/transactions/DeferredTransfer.view.ts:32
+#: src/components/view/transactions/GradidoTransfer.view.ts:27
+#: src/components/view/transactions/RedeemDeferredTransfer.view.ts:33
+msgid "Sender"
+msgstr ""
+
 #: src/enum/UserTransactionType.ts:23
 msgid "Sent"
+msgstr ""
+
+#: src/enum/MemoKeyType.ts:9
+msgid "Shared Secret"
+msgstr ""
+
+#: src/components/view/transactions/Signatures.view.ts:19
+#: src/components/view/transactions/Signatures.view.ts:20
+msgid "Signature"
+msgstr ""
+
+#: src/components/view/transactions/Signatures.view.ts:12
+msgid "Signature - Public Key Pairs"
 msgstr ""
 
 #: src/components/TransactionTypes/Signed.ts:7
 msgid "Signed..."
 msgstr ""
 
+#: src/components/view/transactions/CommunityRoot.view.ts:51
+msgid "Started"
+msgstr ""
+
+#: src/enum/AddressType.ts:20
+msgid "Subaccount"
+msgstr ""
+
 #: src/components/Toaster.ts:37
 msgid "Success"
 msgstr ""
 
-#: src/components/TransactionTypes/DecayDetails.ts:53
+#: src/components/TransactionTypes/DecayDetails.ts:57
 msgid "This transaction does not include decay."
 msgstr ""
 
@@ -280,44 +453,70 @@ msgstr ""
 msgid "Timeout Deferred Transfer"
 msgstr ""
 
+#: src/components/view/transactions/TimeoutDeferredTransfer.view.ts:14
+msgid "Timeout Deferred Transfer Transaction"
+msgstr ""
+
 #: src/components/NavBar.ts:52
 msgid "Toggle navigation"
 msgstr ""
 
-#: src/components/TransactionListRaw.ts:21
-msgid "Transaction Nr"
-msgstr ""
-
+#: src/components/view/transactions/CommunityRoot.view.ts:22
+#: src/components/view/transactions/DeferredTransfer.view.ts:26
+#: src/components/view/transactions/GradidoCreation.view.ts:24
+#: src/components/view/transactions/GradidoTransfer.view.ts:21
+#: src/components/view/transactions/RedeemDeferredTransfer.view.ts:27
+#: src/components/view/transactions/RegisterAddress.view.ts:23
 #: src/enum/SearchType.ts:13
 msgid "Transaction Number"
 msgstr ""
 
-#: src/components/TransactionListRaw.ts:24
-msgid "Transaction Type"
-msgstr ""
-
-#: src/pages/Account.ts:87
+#: src/pages/Account.ts:102
 msgid "Transactions for"
 msgstr ""
 
-#: src/pages/LastTransactions.ts:109
+#: src/pages/LastTransactions.ts:104
 msgid "Transactions overview"
 msgstr ""
 
+#: src/components/view/transactions/GradidoTransfer.view.ts:25
+msgid "Transfer"
+msgstr ""
+
+#: src/components/view/transactions/GradidoTransfer.view.ts:41
 #: src/enum/TransactionType.ts:47
 msgid "Transfer Transaction"
 msgstr ""
 
+#: src/components/view/transactions/GradidoTransfer.view.ts:45
+#: src/components/view/transactions/RedeemDeferredTransfer.view.ts:51
+msgid "Transferred"
+msgstr ""
+
+#: src/enum/AddressType.ts:22
+#: src/enum/MemoKeyType.ts:12
 #: src/enum/SearchType.ts:17
 #: src/enum/TransactionType.ts:54
 #: src/enum/UserTransactionType.ts:35
 msgid "Unknown"
 msgstr ""
 
-#: src/components/TransactionTypes/Transfer.ts:66
+#: src/components/view/transactions/RegisterAddress.view.ts:33
+#: src/components/view/transactions/RegisterAddress.view.ts:34
+msgid "User Public Key"
+msgstr ""
+
+#: src/components/view/transactions/DeferredTransfer.view.ts:38
+msgid "Valid for"
+msgstr ""
+
+#: src/components/TransactionTypes/Transfer.ts:57
+#: src/components/view/transactions/DeferredTransfer.view.ts:57
+#: src/components/view/transactions/RedeemDeferredTransfer.view.ts:54
+#: src/components/view/transactions/TimeoutDeferredTransfer.view.ts:21
 msgid "via Link"
 msgstr ""
 
-#: src/components/TransactionListView.ts:64
+#: src/components/TransactionListView.ts:57
 msgid "You don't have any transactions on your account yet."
 msgstr ""
