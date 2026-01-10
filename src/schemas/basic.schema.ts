@@ -1,5 +1,6 @@
 import * as v from 'valibot'
 import { dateSchema } from './typeConverter.schema'
+import { LedgerAnchorType } from '../enum/LedgerAnchorType'
 import { MemoKeyType } from '../enum/MemoKeyType'
 
 export const hieroTransactionIdRegex = new RegExp(/^[0-9]+\.[0-9]+\.[0-9]+(-[0-9]+-[0-9]+|@[0-9]+\.[0-9]+)$/)
@@ -12,9 +13,19 @@ export const hex32Schema = v.pipe(
   )
 )
 
+export const positiveNumberSchema = v.pipe(
+  v.number('expect number type'),
+  v.minValue(0),
+)
+
+export const hieroTransactionIdSchema = v.pipe(
+  v.string('expect string type'),
+  v.regex(hieroTransactionIdRegex, 'expect hiero transaction id'),
+)
+
 export const transferAmountSchema = v.object({
   pubkey: hex32Schema,
-  amount: v.string(),
+  amount: positiveNumberSchema,
   communityId: v.nullish(v.string()),
 })
 
@@ -47,11 +58,39 @@ export const linkedUserSchema = v.object({
 export type LinkedUser = v.InferOutput<typeof linkedUserSchema>
 
 export const decaySchema = v.object({
-  decay: v.string(),
-  duration: v.number(),
+  decay: positiveNumberSchema,
+  duration: positiveNumberSchema,
   end: dateSchema,
   start: dateSchema,
 })
 
 export type Decay = v.InferOutput<typeof decaySchema>
 
+export const ledgerAnchorSchema = v.pipe(v.object({
+  type: v.enum(LedgerAnchorType),
+  iotaMessageId: v.nullish(hex32Schema),
+  hieroTransactionId: v.nullish(hieroTransactionIdSchema),
+  legacyTransactionId: v.nullish(positiveNumberSchema),
+  nodeTriggeredTransactionId: v.nullish(positiveNumberSchema),
+  legacyCommunityId: v.nullish(positiveNumberSchema),
+  legacyUserId: v.nullish(positiveNumberSchema),
+  legacyContributionId: v.nullish(positiveNumberSchema),
+  legacyTransactionLinkId: v.nullish(positiveNumberSchema),
+}), v.custom((value: any) => {
+  if (
+    (LedgerAnchorType.IOTA_MESSAGE_ID === value.type && value.iotaMessageId != null) ||
+    (LedgerAnchorType.HIERO_TRANSACTION_ID === value.type && value.hieroTransactionId != null) ||
+    (LedgerAnchorType.NODE_TRIGGER_TRANSACTION_ID === value.type && value.nodeTriggeredTransactionId != null) ||
+    (LedgerAnchorType.LEGACY_GRADIDO_DB_TRANSACTION_ID === value.type && value.legacyTransactionId != null) ||
+    (LedgerAnchorType.LEGACY_GRADIDO_DB_COMMUNITY_ID === value.type && value.legacyCommunityId != null) ||
+    (LedgerAnchorType.LEGACY_GRADIDO_DB_USER_ID === value.type && value.legacyUserId != null) ||
+    (LedgerAnchorType.LEGACY_GRADIDO_DB_CONTRIBUTION_ID === value.type && value.legacyContributionId != null) ||
+    (LedgerAnchorType.LEGACY_GRADIDO_DB_TRANSACTION_LINK_ID === value.type && value.legacyTransactionLinkId != null)
+  ) {
+    return true
+  }
+  if (LedgerAnchorType.UNSPECIFIED === value.type && value.iotaMessageId == null && value.hieroTransactionId == null && value.legacyTransactionId == null && value.nodeTriggeredTransactionId == null && value.legacyCommunityId == null && value.legacyUserId == null && value.legacyContributionId == null && value.legacyTransactionLinkId == null) {
+    return true
+  }
+  return false
+}, 'type doesn\'t match value type'))

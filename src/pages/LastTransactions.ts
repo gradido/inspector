@@ -6,6 +6,7 @@ import { gradidoNodeClient } from '../client/gradidoNodeClient'
 import { GetTransactionsResult } from '../client/output.schema'
 import { CommunitySwitch } from '../components/CommunitySwitch'
 import { Pagination } from '../components/view/bootstrap/Pagination'
+import * as v from 'valibot'
 
 interface Attrs {
   communityId: string
@@ -45,7 +46,11 @@ export class LastTransactions implements m.ClassComponent<Attrs> {
       this.currentPage = page
       m.redraw()  
     } catch(e) {
-      console.warn(`fetchTransactions: ${e}`)
+      if (e instanceof v.ValiError) {
+        console.warn(`fetchTransactions: ${JSON.stringify(e.issues, null, 2)}`)
+      } else {
+        console.warn(`fetchTransactions: ${e}`)
+      }
     } finally {
       if(CONFIG.AUTO_POLL_INTERVAL > 0) {
         this.autoPollTimeout = setTimeout(() => this.fetchTransactions(this.currentPage), CONFIG.AUTO_POLL_INTERVAL)

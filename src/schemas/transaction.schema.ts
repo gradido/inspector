@@ -1,8 +1,9 @@
 import * as v from 'valibot'
 import { AddressType } from '../enum/AddressType'
 import { dateSchema } from './typeConverter.schema'
-import { encryptedMemoSchema, hex32Schema, signaturePairSchema, transferAmountSchema } from './basic.schema'
+import { encryptedMemoSchema, hex32Schema, ledgerAnchorSchema, signaturePairSchema, transferAmountSchema } from './basic.schema'
 import { CrossGroupType } from '../enum/CrossGroupType'
+import { BalanceDerivationType } from '../enum/BalanceDerivationType'
 
 export const communityRootSchema = v.object({
   pubkey: hex32Schema,
@@ -92,6 +93,7 @@ export type TransactionBody = v.InferOutput<typeof transactionBodySchema>
 export const gradidoTransactionSchema = v.object({
   signatureMap: v.array(signaturePairSchema),
   bodyBytes: transactionBodySchema,
+  pairingLedgerAnchor: v.nullish(ledgerAnchorSchema),
 })
 
 export const accountBalanceSchema = v.object({
@@ -108,8 +110,9 @@ export const confirmedTransactionSchema = v.object({
   confirmedAt: dateSchema,
   versionNumber: v.string(),
   runningHash: hex32Schema,
-  messageId: v.string(),
+  ledgerAnchor: ledgerAnchorSchema,
   accountBalances: v.array(accountBalanceSchema),
+  balanceDerivation: v.enum(BalanceDerivationType),
 })
 
 export type ConfirmedTransaction = v.InferOutput<typeof confirmedTransactionSchema>
