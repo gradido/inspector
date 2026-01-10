@@ -14,9 +14,11 @@ try {
     DLT_NODE_SERVER_URL: process.env.DLT_NODE_SERVER_URL,
     AUTO_POLL_INTERVAL: process.env.AUTO_POLL_INTERVAL,
   })
-} catch (error: Error | unknown) {
+} catch (error: unknown) {
   if (error instanceof v.ValiError) {
-    throw new Error(`${error.issues[0].path[0].key}: ${error.message} received: ${error.issues[0].received}`)
+    throw new Error(
+      `${error.issues[0].path[0].key}: ${error.message} received: ${error.issues[0].received}`,
+    )
   } else {
     throw error
   }

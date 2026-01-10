@@ -1,16 +1,16 @@
 import m from 'mithril'
-import { ListTransactionsResult } from '../client/output.schema'
-import { TransactionListView } from '../components/TransactionListView'
-import { Title } from '../components/view/Title'
-import { gradidoNodeClient } from '../client/gradidoNodeClient'
-import { CONFIG } from '../config'
 import { ValiError } from 'valibot'
+import { gradidoNodeClient } from '../client/gradidoNodeClient'
+import type { ListTransactionsResult } from '../client/output.schema'
+import { TransactionListView } from '../components/TransactionListView'
 import { ValibotError } from '../components/ValibotError'
 import { Pagination } from '../components/view/bootstrap/Pagination'
+import { Title } from '../components/view/Title'
+import { CONFIG } from '../config'
 
 interface Attrs {
   communityId: string
-  pubkey: string  
+  pubkey: string
   pageSize?: number
 }
 
@@ -24,7 +24,7 @@ export class Account implements m.ClassComponent<Attrs> {
   lastPubkey: string = ''
   lastCommunityId: string = ''
 
-  oninit({attrs}: m.CVnode<Attrs>) {
+  oninit({ attrs }: m.CVnode<Attrs>) {
     if (attrs.pageSize && attrs.pageSize > 0) {
       this.pageSize = attrs.pageSize
     }
@@ -32,9 +32,9 @@ export class Account implements m.ClassComponent<Attrs> {
     this.lastCommunityId = attrs.communityId
     this.fetchTransactions(attrs.pubkey, attrs.communityId)
   }
-  
-  onupdate({attrs}: m.CVnode<Attrs>) {
-    if(this.reloadTimerId) {
+
+  onupdate({ attrs }: m.CVnode<Attrs>) {
+    if (this.reloadTimerId) {
       clearTimeout(this.reloadTimerId)
     }
     if (attrs.pageSize && attrs.pageSize > 0) {
@@ -60,15 +60,18 @@ export class Account implements m.ClassComponent<Attrs> {
         communityId,
         pubkey,
         pageSize: this.pageSize,
-        currentPage: this.currentPage
+        currentPage: this.currentPage,
       })
-      if(CONFIG.AUTO_POLL_INTERVAL > 0) {
-        this.reloadTimerId = setTimeout(() => this.fetchTransactions(pubkey, communityId), CONFIG.AUTO_POLL_INTERVAL)
+      if (CONFIG.AUTO_POLL_INTERVAL > 0) {
+        this.reloadTimerId = setTimeout(
+          () => this.fetchTransactions(pubkey, communityId),
+          CONFIG.AUTO_POLL_INTERVAL,
+        )
       }
     } catch (e) {
       if (e instanceof ValiError) {
         // console.error(e)
-        this.errorView = m(ValibotError, {error: e})
+        this.errorView = m(ValibotError, { error: e })
         // console.log('error view set', this.errorView)
       } else {
         console.error(e)
@@ -82,7 +85,10 @@ export class Account implements m.ClassComponent<Attrs> {
   }
   viewData(data: ListTransactionsResult, attrs: Attrs) {
     return [
-      m(TransactionListView, {transactionList: data.transactionList, communityId: attrs.communityId}),
+      m(TransactionListView, {
+        transactionList: data.transactionList,
+        communityId: attrs.communityId,
+      }),
       m(Pagination, {
         currentPage: this.currentPage,
         totalPages: Math.ceil(data.transactionList.count / this.pageSize),
@@ -93,27 +99,28 @@ export class Account implements m.ClassComponent<Attrs> {
         },
         pill: true,
       }),
-      m('', data.timeUsed)
+      m('', data.timeUsed),
     ]
   }
 
-  view({attrs}: m.CVnode<Attrs>) {    
+  view({ attrs }: m.CVnode<Attrs>) {
     return m('div.container', [
-      m(Title, {title: t.__('Transactions for'), subtitle: attrs.pubkey}), [
-        m('.row.d-flex.error-view', this.errorView),      
+      m(Title, { title: t.__('Transactions for'), subtitle: attrs.pubkey }),
+      [
+        m('.row.d-flex.error-view', this.errorView),
         m('.row.d-flex', [
           m('.col-2.d-none.d-lg-block'),
-          m('.col', 
-            this.transactionListResponse 
-            ? this.viewData(this.transactionListResponse, attrs) 
-            : this.loading
-              ? t.__('Loading...')
-              : t.__('No transactions found')
+          m(
+            '.col',
+            this.transactionListResponse
+              ? this.viewData(this.transactionListResponse, attrs)
+              : this.loading
+                ? t.__('Loading...')
+                : t.__('No transactions found'),
           ),
-          m('.col-3.d-none.d-lg-block')
-        ])
-      ]
+          m('.col-3.d-none.d-lg-block'),
+        ]),
+      ],
     ])
   }
 }
-

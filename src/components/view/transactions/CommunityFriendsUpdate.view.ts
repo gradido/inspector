@@ -1,16 +1,19 @@
 import m from 'mithril'
-import { DetailsBlock } from '../DetailsBlock'
-import { Badge } from '../bootstrap/Badge'
 import friendsIcon from '~icons/bi/bezier2'
-import { ViewAttrs } from './viewAttrs'
+import { Badge } from '../bootstrap/Badge'
+import { DetailsBlock } from '../DetailsBlock'
+import type { ViewAttrs } from './viewAttrs'
 
 export class CommunityFriendsUpdateView implements m.ClassComponent<ViewAttrs> {
-  view({attrs}: m.CVnode<ViewAttrs>) {
+  view({ attrs }: m.CVnode<ViewAttrs>) {
     return m(DetailsBlock, {
-      firstRow: m(Badge, {icon: friendsIcon, backgroundColor: 'RGBA(var(--bs-primary-rgb),var(--bs-bg-opacity,1))'}),
+      firstRow: m(Badge, {
+        icon: friendsIcon,
+        backgroundColor: 'RGBA(var(--bs-primary-rgb),var(--bs-bg-opacity,1))',
+      }),
       secondRow: {
         text: t.__('Community Friends Update Transaction'),
-        date: attrs.transaction.confirmedAt
+        date: attrs.transaction.confirmedAt,
       },
       thirdRow: {
         label: t.__('Friends'),

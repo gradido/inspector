@@ -6,5 +6,3 @@ declare global {
   var t: i18n.Gettext
   var toaster: Toaster
 }
-
-export {}

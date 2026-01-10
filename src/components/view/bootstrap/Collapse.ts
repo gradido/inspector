@@ -1,4 +1,4 @@
-import m, { Child } from 'mithril'
+import m, { type Child } from 'mithril'
 import { combineClasses } from '../../../utils/utils'
 
 interface Attrs {
@@ -17,11 +17,11 @@ export class Collapse implements m.ClassComponent<Attrs> {
     this.lastKnownId = 0
   }
 
-  oninit({attrs}: m.CVnode<Attrs>) {
+  oninit({ attrs }: m.CVnode<Attrs>) {
     this.detailsVisible = false
     this.lastKnownId = attrs.id
   }
-  onupdate({attrs}: m.CVnode<Attrs>) {
+  onupdate({ attrs }: m.CVnode<Attrs>) {
     if (attrs.id !== this.lastKnownId) {
       this.detailsVisible = false
       this.lastKnownId = attrs.id
@@ -29,29 +29,27 @@ export class Collapse implements m.ClassComponent<Attrs> {
     }
   }
 
-  view({attrs}: m.CVnode<Attrs>) {
+  view({ attrs }: m.CVnode<Attrs>) {
     const detailClasses = attrs.detailClasses ?? []
     detailClasses.push('collapse')
     if (this.detailsVisible) {
       detailClasses.push('show')
     }
-    return m(combineClasses(attrs.containerClasses ?? []), 
-      { 
+    return m(
+      combineClasses(attrs.containerClasses ?? []),
+      {
         onclick: (e: MouseEvent) => {
           const target = e.target as HTMLElement
           if (target.closest('a') || target.closest('button') || target.classList.contains('btn')) {
             return
           }
-          this.detailsVisible = !this.detailsVisible 
-        }
-      }, 
+          this.detailsVisible = !this.detailsVisible
+        },
+      },
       [
-        attrs.info(this.detailsVisible), 
-        m(
-          combineClasses(detailClasses),
-          { 'is-nav': false },
-           attrs.details
-        )        
-      ])    
+        attrs.info(this.detailsVisible),
+        m(combineClasses(detailClasses), { 'is-nav': false }, attrs.details),
+      ],
+    )
   }
 }

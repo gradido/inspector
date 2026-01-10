@@ -2,8 +2,10 @@ import * as v from 'valibot'
 import { hieroTransactionIdRegex } from '../schemas/basic.schema'
 
 export const hieroTransactionIdSchema = v.pipe(
-  v.string('expect hiero transaction id type, for example 0.0.141760-1755138896-607329203 or 0.0.141760@1755138896.607329203'),
-  v.regex(hieroTransactionIdRegex), 
+  v.string(
+    'expect hiero transaction id type, for example 0.0.141760-1755138896-607329203 or 0.0.141760@1755138896.607329203',
+  ),
+  v.regex(hieroTransactionIdRegex),
 )
 
 // allow TransactionIdentifier to only contain either transactionNr or iotaMessageId
@@ -17,6 +19,7 @@ export const transactionIdentifierSchema = v.pipe(
     communityId: v.string(),
     format: v.optional(v.literal('json'), 'json'),
   }),
+  // biome-ignore lint/suspicious/noExplicitAny: cannot use TransactionIdentifierInput at this place
   v.custom((value: any) => {
     const setFieldsCount =
       Number(value.transactionId !== undefined) + Number(value.hieroTransactionId !== undefined)
@@ -45,7 +48,13 @@ export type TransactionsRange = v.InferOutput<typeof transactionsRangeSchema>
 export const listTransactionsQuerySchema = v.object({
   communityId: v.string(),
   pubkey: v.string(),
-  pageSize: v.nullish(v.pipe(v.number(), v.minValue(1, 'expect number >= 1'), v.maxValue(100, 'expect number <= 100'))),
+  pageSize: v.nullish(
+    v.pipe(
+      v.number(),
+      v.minValue(1, 'expect number >= 1'),
+      v.maxValue(100, 'expect number <= 100'),
+    ),
+  ),
   currentPage: v.nullish(v.pipe(v.number(), v.minValue(1, 'expect number >= 1'))),
   orderDESC: v.nullish(v.union([v.literal('ASC'), v.literal('DESC')])),
   onlyCreations: v.nullish(v.boolean()),

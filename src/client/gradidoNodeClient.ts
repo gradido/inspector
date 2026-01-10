@@ -1,40 +1,48 @@
 import * as v from 'valibot'
 import { CONFIG } from '../config'
-import { 
-  ListTransactionsQueryInput, listTransactionsQuerySchema, 
-  TransactionIdentifierInput, 
-  transactionIdentifierSchema, 
-  TransactionsRangeInput, transactionsRangeSchema 
-} from './input.schema'
-import { 
-  listTransactionsResultSchema, getTransactionsResultSchema, 
-  ListTransactionsResult, GetTransactionsResult, 
-  ListCommunitiesResult, listCommunitiesResultSchema, 
-  GetTransactionResult,
-  getTransactionResultSchema
-} from './output.schema'
 import { GradidoNodeErrorCodes } from '../enum/GradidoNodeErrorCodes'
+import {
+  type ListTransactionsQueryInput,
+  listTransactionsQuerySchema,
+  type TransactionIdentifierInput,
+  type TransactionsRangeInput,
+  transactionIdentifierSchema,
+  transactionsRangeSchema,
+} from './input.schema'
+import {
+  type GetTransactionResult,
+  type GetTransactionsResult,
+  getTransactionResultSchema,
+  getTransactionsResultSchema,
+  type ListCommunitiesResult,
+  type ListTransactionsResult,
+  listCommunitiesResultSchema,
+  listTransactionsResultSchema,
+} from './output.schema'
 
 class JsonRpcError extends Error {
-  constructor(public readonly code: number, public readonly message: string) {
+  constructor(
+    public readonly code: number,
+    public readonly message: string,
+  ) {
     super(message)
   }
 }
 
-async function sendRequest<Input>(method: string, params: Input): Promise<any> {
+async function sendRequest<Input>(method: string, params: Input): Promise<unknown> {
   const jsonRpc = {
     jsonrpc: '2.0',
     id: Math.random(),
     method,
-    params
+    params,
   }
   const response = await fetch(CONFIG.DLT_NODE_SERVER_URL, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(jsonRpc)
+    body: JSON.stringify(jsonRpc),
   })
   const result = await response.json()
-  if(result.error) {
+  if (result.error) {
     throw new JsonRpcError(result.error.code, result.error.message)
   }
   return result.result
@@ -47,7 +55,10 @@ class Client {
   }
 
   async listTransactions(params: ListTransactionsQueryInput): Promise<ListTransactionsResult> {
-    const response = await sendRequest('listTransactions', v.parse(listTransactionsQuerySchema, params))
+    const response = await sendRequest(
+      'listTransactions',
+      v.parse(listTransactionsQuerySchema, params),
+    )
     return v.parse(listTransactionsResultSchema, response)
   }
 
@@ -56,9 +67,14 @@ class Client {
     return v.parse(getTransactionsResultSchema, response)
   }
 
-  async getTransaction(params: TransactionIdentifierInput): Promise<GetTransactionResult | undefined> {
+  async getTransaction(
+    params: TransactionIdentifierInput,
+  ): Promise<GetTransactionResult | undefined> {
     try {
-      const response = await sendRequest('getTransaction', v.parse(transactionIdentifierSchema, params))
+      const response = await sendRequest(
+        'getTransaction',
+        v.parse(transactionIdentifierSchema, params),
+      )
       return v.parse(getTransactionResultSchema, response)
     } catch (e) {
       if (e instanceof JsonRpcError) {
@@ -73,4 +89,3 @@ class Client {
 }
 
 export const gradidoNodeClient = new Client()
-

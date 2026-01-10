@@ -1,13 +1,10 @@
-export function getEnumValue<T extends string | number>(
-  value: string | null,
-  defaultValue: T
-): T {
+export function getEnumValue<T extends string | number>(value: string | null, defaultValue: T): T {
   if (!value) {
-    return defaultValue;
+    return defaultValue
   }
 
   if (Object.values(defaultValue).includes(value as T)) {
-    return value as T;
+    return value as T
   }
 
   return defaultValue
@@ -15,84 +12,108 @@ export function getEnumValue<T extends string | number>(
 
 export function formatCurrency(value: string, currency: string = 'GDD'): string {
   const numericValue = parseFloat(value)
-  if (isNaN(numericValue)) {
+  if (Number.isNaN(numericValue)) {
     return ''
   }
 
-  const truncatedValue = Math.floor(numericValue * 100) / 100;
-  
+  const truncatedValue = Math.floor(numericValue * 100) / 100
+
   return new Intl.NumberFormat(t.getLocale(), {
     style: 'currency',
     currency,
     minimumFractionDigits: 2,
     maximumFractionDigits: 2,
-  }).format(truncatedValue).replace('-', t.__('− '))
+  })
+    .format(truncatedValue)
+    .replace('-', t.__('− '))
 }
 
 export function formatCurrency4(value: string, currency: string = 'GDD'): string {
   const numericValue = parseFloat(value)
-  if (isNaN(numericValue)) {
+  if (Number.isNaN(numericValue)) {
     return ''
   }
 
-  const truncatedValue = Math.floor(numericValue * 10000) / 10000;
-  
+  const truncatedValue = Math.floor(numericValue * 10000) / 10000
+
   return new Intl.NumberFormat(t.getLocale(), {
     style: 'currency',
     currency,
     minimumFractionDigits: 4,
     maximumFractionDigits: 4,
-  }).format(truncatedValue).replace('-', t.__('− '))
+  })
+    .format(truncatedValue)
+    .replace('-', t.__('− '))
 }
 
 export function formatGDD(value: string): string {
   const firstStep = formatCurrency(value)
-  if(firstStep.length) {
+  if (firstStep.length) {
     const numericValue = parseFloat(value)
-    if(numericValue > 0) {
-      return t.__('+') + ' ' + firstStep
-    } 
+    if (numericValue > 0) {
+      return `${t.__('+')} ${firstStep}`
+    }
   }
-  return firstStep  
+  return firstStep
 }
 export function combineElementWithClasses(element: string, classes?: string[]) {
   let elementWithClasses = element
-    if(classes && classes.length) {
-      elementWithClasses += combineClasses(classes)
-    } 
-    return elementWithClasses
+  if (classes?.length) {
+    elementWithClasses += combineClasses(classes)
+  }
+  return elementWithClasses
 }
 
 export function combineClasses(classes?: string[]) {
   if (!classes || classes.length === 0) {
     return ''
   }
-  return '.' + classes.join('.')
+  return `.${classes.join('.')}`
 }
 
 export function stringToBoolean(str: string): boolean {
-  return str.toLowerCase() === 'true' || str === '1' || str.toLowerCase() === 'yes';
+  return str.toLowerCase() === 'true' || str === '1' || str.toLowerCase() === 'yes'
 }
 
 // formatDistance from chatgpt without using date-fns
 type FormatDistanceOptions = {
-  addSuffix?: boolean, // "before x minutes" or "x minutes later"
+  addSuffix?: boolean // "before x minutes" or "x minutes later"
 }
 
 export function formatDistance(
   date1: Date,
   date2: Date,
-  options: FormatDistanceOptions = {}
+  options: FormatDistanceOptions = {},
 ): string {
-
   const intervals = [
-    { unit: (count: number) => t._n('%1 year', '%1 years', count, count), seconds: 31536000 },
-    { unit: (count: number) => t._n('%1 month', '%1 months', count, count), seconds: 2592000 },
-    { unit: (count: number) => t._n('%1 week', '%1 weeks', count, count), seconds: 604800 },
-    { unit: (count: number) => t._n('%1 day', '%1 days', count, count), seconds: 86400 },
-    { unit: (count: number) => t._n('%1 hour', '%1 hours', count, count), seconds: 3600 },
-    { unit: (count: number) => t._n('%1 minute', '%1 minutes', count, count), seconds: 60 },
-    { unit: (count: number) => t._n('%1 second', '%1 seconds', count, count), seconds: 1 },
+    {
+      unit: (count: number) => t._n('%1 year', '%1 years', count, count),
+      seconds: 31536000,
+    },
+    {
+      unit: (count: number) => t._n('%1 month', '%1 months', count, count),
+      seconds: 2592000,
+    },
+    {
+      unit: (count: number) => t._n('%1 week', '%1 weeks', count, count),
+      seconds: 604800,
+    },
+    {
+      unit: (count: number) => t._n('%1 day', '%1 days', count, count),
+      seconds: 86400,
+    },
+    {
+      unit: (count: number) => t._n('%1 hour', '%1 hours', count, count),
+      seconds: 3600,
+    },
+    {
+      unit: (count: number) => t._n('%1 minute', '%1 minutes', count, count),
+      seconds: 60,
+    },
+    {
+      unit: (count: number) => t._n('%1 second', '%1 seconds', count, count),
+      seconds: 1,
+    },
   ]
   const diffInSeconds = Math.abs((date2.getTime() - date1.getTime()) / 1000)
   // console.log('diff in seconds', diffInSeconds)

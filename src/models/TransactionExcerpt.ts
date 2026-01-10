@@ -1,6 +1,6 @@
-import { ConfirmedTransaction } from '../schemas/transaction.schema'
+import { getTransactionType, getTransactionTypeString } from '../enum/TransactionType'
+import type { ConfirmedTransaction } from '../schemas/transaction.schema'
 import { getAmount } from './transactionBody'
-import { getTransactionTypeString, getTransactionType } from '../enum/TransactionType'
 
 export class TransactionExcerpt {
   id: number
@@ -18,12 +18,12 @@ export class TransactionExcerpt {
     const amountString = getAmount(gradidoTransaction.bodyBytes)
     this.amount = parseFloat(amountString)
     this.createdAt = gradidoTransaction.bodyBytes.createdAt
-    this.transactionType = getTransactionTypeString(getTransactionType(gradidoTransaction.bodyBytes))
-    this.details = 
-      JSON.stringify(transaction, null, 2)
-          .replace(/\n/g, '<br/>')
-          .replace(/ /g, '&nbsp;')
+    this.transactionType = getTransactionTypeString(
+      getTransactionType(gradidoTransaction.bodyBytes),
+    )
+    this.details = JSON.stringify(transaction, null, 2)
+      .replace(/\n/g, '<br/>')
+      .replace(/ /g, '&nbsp;')
     this.isOpen = false
   }
-   
 }

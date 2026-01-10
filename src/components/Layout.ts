@@ -7,12 +7,11 @@ interface Attrs {
 }
 
 export const Layout: m.Component<Attrs> = {
-  view: ({attrs, children}) => {
+  view: ({ attrs, children }) => {
     return m('#app-wrapper', [
-      m(NavBar, {communityId: attrs.communityId}),
+      m(NavBar, { communityId: attrs.communityId }),
       m('#content', children),
-      m('.toaster-wrapper', m(toaster))
+      m('.toaster-wrapper', m(toaster)),
     ])
-  }
+  },
 }
-

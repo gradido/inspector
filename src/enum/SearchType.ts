@@ -2,11 +2,11 @@ export enum SearchType {
   PUBLIC_KEY_HEX,
   TRANSACTION_NR,
   HIERO_TRANSACTION_ID,
-  UNKNOWN
+  UNKNOWN,
 }
 
 export const searchTypeToString = (searchType: SearchType) => {
-  switch(searchType) {
+  switch (searchType) {
     case SearchType.PUBLIC_KEY_HEX:
       return t.__('Public Key')
     case SearchType.TRANSACTION_NR:

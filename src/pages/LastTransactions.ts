@@ -1,12 +1,12 @@
 import m from 'mithril'
-import { AllTransactionsList } from '../components/AllTransactionsList'
-import { WalletSum } from '../components/WalletSum'
-import { CONFIG } from '../config'
+import * as v from 'valibot'
 import { gradidoNodeClient } from '../client/gradidoNodeClient'
-import { GetTransactionsResult } from '../client/output.schema'
+import type { GetTransactionsResult } from '../client/output.schema'
+import { AllTransactionsList } from '../components/AllTransactionsList'
 import { CommunitySwitch } from '../components/CommunitySwitch'
 import { Pagination } from '../components/view/bootstrap/Pagination'
-import * as v from 'valibot'
+import { WalletSum } from '../components/WalletSum'
+import { CONFIG } from '../config'
 
 interface Attrs {
   communityId: string
@@ -20,8 +20,8 @@ export class LastTransactions implements m.ClassComponent<Attrs> {
   totalPages: number = 0
   pageSize: number = 20
   autoPollTimeout: NodeJS.Timeout | undefined = undefined
-  
-  oninit({attrs}: m.CVnode<Attrs>) {
+
+  oninit({ attrs }: m.CVnode<Attrs>) {
     if (attrs.communityId) {
       this.updateCommunityId(attrs.communityId)
     }
@@ -29,93 +29,112 @@ export class LastTransactions implements m.ClassComponent<Attrs> {
       this.pageSize = attrs.pageSize
     }
   }
-  
+
   async fetchTransactions(page: number) {
-    if(this.autoPollTimeout) {
+    if (this.autoPollTimeout) {
       clearTimeout(this.autoPollTimeout)
     }
-    if(!this.communityId) {
+    if (!this.communityId) {
       return
     }
     try {
       this.transactionsResult = await gradidoNodeClient.getTransactions({
         fromTransactionId: (page - 1) * this.pageSize,
         communityId: this.communityId,
-        maxResultCount: this.pageSize
+        maxResultCount: this.pageSize,
       })
       this.currentPage = page
-      m.redraw()  
-    } catch(e) {
+      m.redraw()
+    } catch (e) {
       if (e instanceof v.ValiError) {
         console.warn(`fetchTransactions: ${JSON.stringify(e.issues, null, 2)}`)
       } else {
         console.warn(`fetchTransactions: ${e}`)
       }
     } finally {
-      if(CONFIG.AUTO_POLL_INTERVAL > 0) {
-        this.autoPollTimeout = setTimeout(() => this.fetchTransactions(this.currentPage), CONFIG.AUTO_POLL_INTERVAL)
+      if (CONFIG.AUTO_POLL_INTERVAL > 0) {
+        this.autoPollTimeout = setTimeout(
+          () => this.fetchTransactions(this.currentPage),
+          CONFIG.AUTO_POLL_INTERVAL,
+        )
       }
     }
   }
 
   updateCommunityId(communityId: string) {
-    if(this.autoPollTimeout) {
+    if (this.autoPollTimeout) {
       clearTimeout(this.autoPollTimeout)
       this.autoPollTimeout = undefined
     }
     this.communityId = communityId
-    m.route.set('/' + communityId)
+    m.route.set(`/${communityId}`)
     this.currentPage = 1
     this.fetchTransactions(this.currentPage)
   }
 
   getPagination(transactionsResult: GetTransactionsResult): m.Child {
-    return m(Pagination, { 
-        currentPage: this.currentPage,
-        totalPages: Math.ceil(transactionsResult.totalCount / this.pageSize),
-        ariaLabel: t.__('Pagination for transactions overview'),
-        onPageChange: (page: number) => this.fetchTransactions(page),
-        pill: true,
-      }
-    )
+    return m(Pagination, {
+      currentPage: this.currentPage,
+      totalPages: Math.ceil(transactionsResult.totalCount / this.pageSize),
+      ariaLabel: t.__('Pagination for transactions overview'),
+      onPageChange: (page: number) => this.fetchTransactions(page),
+      pill: true,
+    })
   }
 
   viewTransactions() {
-    if(!this.transactionsResult) {
+    if (!this.transactionsResult) {
       return
     }
     const { gmwBalance, aufBalance, timeUsed, transactions } = this.transactionsResult
     return [
       m('.row', [
-        m('.col-lg-3.col-6', m(WalletSum, {amount: aufBalance, unit: 'GDD', name: 'AUF', active: true})),
+        m(
+          '.col-lg-3.col-6',
+          m(WalletSum, {
+            amount: aufBalance,
+            unit: 'GDD',
+            name: 'AUF',
+            active: true,
+          }),
+        ),
         // m('.col-lg-6.col-md-0.col-0'),
-        m('.col-lg-3.col-6', m(WalletSum, {amount: gmwBalance, unit: 'GDD', name: 'GMW', active: true})),
+        m(
+          '.col-lg-3.col-6',
+          m(WalletSum, {
+            amount: gmwBalance,
+            unit: 'GDD',
+            name: 'GMW',
+            active: true,
+          }),
+        ),
       ]),
       m('.mt-lg-3'),
       m('.col-lg-8.col-md-10.col-12', [
         this.getPagination(this.transactionsResult),
         m(AllTransactionsList, { transactions, communityId: this.communityId }),
         this.getPagination(this.transactionsResult),
-        m('', 'time used: ' + timeUsed)
+        m('', `time used: ${timeUsed}`),
       ]),
-      
     ]
-  } 
+  }
 
-  view() 
-  {
+  view() {
     return [
       m('div.container', [
-        m('h1',  t.__('Transactions overview')),
+        m('h1', t.__('Transactions overview')),
         m('.row.mt-3.mb-3', [
-            m('.col-lg-3.col-6', m('h2', t.__('Community Selection'))),
-            m('.col-lg-6.col-9', m(CommunitySwitch, { 
-                setCommunityId: (communityId: string) => this.updateCommunityId(communityId),
-                defaultCommunityId: this.communityId,
-            })),// m('.col-lg-6.col-md-0.col-0'),
+          m('.col-lg-3.col-6', m('h2', t.__('Community Selection'))),
+          m(
+            '.col-lg-6.col-9',
+            m(CommunitySwitch, {
+              setCommunityId: (communityId: string) => this.updateCommunityId(communityId),
+              defaultCommunityId: this.communityId,
+            }),
+          ), // m('.col-lg-6.col-md-0.col-0'),
         ]),
         this.transactionsResult ? this.viewTransactions() : undefined,
-      ])
+      ]),
     ]
   }
 }

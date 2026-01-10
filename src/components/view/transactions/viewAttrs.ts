@@ -1,4 +1,4 @@
-import { ConfirmedTransaction } from '../../../schemas/transaction.schema'
+import type { ConfirmedTransaction } from '../../../schemas/transaction.schema'
 
 export interface ViewAttrs {
   transaction: ConfirmedTransaction

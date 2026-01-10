@@ -1,4 +1,4 @@
-import { TransactionBody } from '../schemas/transaction.schema'
+import type { TransactionBody } from '../schemas/transaction.schema'
 
 export enum TransactionType {
   //! Invalid or Empty Transaction
@@ -22,35 +22,45 @@ export enum TransactionType {
 }
 
 export function getTransactionType(body: TransactionBody): TransactionType {
-  if(body.creation) {
+  if (body.creation) {
     return TransactionType.CREATION
-  } else if(body.transfer) {
+  } else if (body.transfer) {
     return TransactionType.TRANSFER
-  } else if(body.registerAddress) {
+  } else if (body.registerAddress) {
     return TransactionType.REGISTER_ADDRESS
-  } else if(body.deferredTransfer) {
+  } else if (body.deferredTransfer) {
     return TransactionType.DEFERRED_TRANSFER
-  } else if(body.communityRoot) {
+  } else if (body.communityRoot) {
     return TransactionType.COMMUNITY_ROOT
-  } else if(body.redeemDeferredTransfer) {
+  } else if (body.redeemDeferredTransfer) {
     return TransactionType.REDEEM_DEFERRED_TRANSFER
-  } else if(body.timeoutDeferredTransfer) {
+  } else if (body.timeoutDeferredTransfer) {
     return TransactionType.TIMEOUT_DEFERRED_TRANSFER
   }
   return TransactionType.NONE
 }
 
 export function getTransactionTypeString(type: TransactionType): string {
-  switch(type) {
-    case TransactionType.NONE: return t.__('None')
-    case TransactionType.CREATION: return t.__('Contribution Transaction')
-    case TransactionType.TRANSFER: return t.__('Transfer Transaction')
-    case TransactionType.COMMUNITY_FRIENDS_UPDATE: return t.__('Community Friends Update')
-    case TransactionType.REGISTER_ADDRESS: return t.__('Register Address Transaction')
-    case TransactionType.DEFERRED_TRANSFER: return t.__('Deferred Transfer')
-    case TransactionType.COMMUNITY_ROOT: return t.__('Community Root Transaction')
-    case TransactionType.REDEEM_DEFERRED_TRANSFER: return t.__('Redeem Deferred Transfer')
-    case TransactionType.TIMEOUT_DEFERRED_TRANSFER: return t.__('Timeout Deferred Transfer')
-    default: return t.__('Unknown')
+  switch (type) {
+    case TransactionType.NONE:
+      return t.__('None')
+    case TransactionType.CREATION:
+      return t.__('Contribution Transaction')
+    case TransactionType.TRANSFER:
+      return t.__('Transfer Transaction')
+    case TransactionType.COMMUNITY_FRIENDS_UPDATE:
+      return t.__('Community Friends Update')
+    case TransactionType.REGISTER_ADDRESS:
+      return t.__('Register Address Transaction')
+    case TransactionType.DEFERRED_TRANSFER:
+      return t.__('Deferred Transfer')
+    case TransactionType.COMMUNITY_ROOT:
+      return t.__('Community Root Transaction')
+    case TransactionType.REDEEM_DEFERRED_TRANSFER:
+      return t.__('Redeem Deferred Transfer')
+    case TransactionType.TIMEOUT_DEFERRED_TRANSFER:
+      return t.__('Timeout Deferred Transfer')
+    default:
+      return t.__('Unknown')
   }
 }

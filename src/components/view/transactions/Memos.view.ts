@@ -1,6 +1,6 @@
 import m from 'mithril'
-import { EncryptedMemo } from '../../../schemas/basic.schema'
 import { getMemoKeyTypeString } from '../../../enum/MemoKeyType'
+import type { EncryptedMemo } from '../../../schemas/basic.schema'
 import { CopyToClipboardLink } from '../CopyToClipboardLink'
 
 interface ViewAttrs {
@@ -8,7 +8,7 @@ interface ViewAttrs {
 }
 
 export class MemosView implements m.ClassComponent<ViewAttrs> {
-  view({attrs}: m.CVnode<ViewAttrs>) {
+  view({ attrs }: m.CVnode<ViewAttrs>) {
     return [
       attrs.memos.map((memo) => [
         m('.row', [
@@ -17,10 +17,17 @@ export class MemosView implements m.ClassComponent<ViewAttrs> {
         ]),
         m('.row', [
           m('.col', t.__('Encrypted Memo')),
-          m('.col.text-end.text-nowrap', m(CopyToClipboardLink, { data: memo.memo, name: t.__('Encrypted Memo'), maxLength: 64 })),
+          m(
+            '.col.text-end.text-nowrap',
+            m(CopyToClipboardLink, {
+              data: memo.memo,
+              name: t.__('Encrypted Memo'),
+              maxLength: 64,
+            }),
+          ),
         ]),
-        m('.row.pb-2')
-      ])
+        m('.row.pb-2'),
+      ]),
     ]
   }
 }

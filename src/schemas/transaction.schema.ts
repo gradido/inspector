@@ -1,9 +1,15 @@
 import * as v from 'valibot'
 import { AddressType } from '../enum/AddressType'
-import { dateSchema } from './typeConverter.schema'
-import { encryptedMemoSchema, hex32Schema, ledgerAnchorSchema, signaturePairSchema, transferAmountSchema } from './basic.schema'
-import { CrossGroupType } from '../enum/CrossGroupType'
 import { BalanceDerivationType } from '../enum/BalanceDerivationType'
+import { CrossGroupType } from '../enum/CrossGroupType'
+import {
+  encryptedMemoSchema,
+  hex32Schema,
+  ledgerAnchorSchema,
+  signaturePairSchema,
+  transferAmountSchema,
+} from './basic.schema'
+import { dateSchema } from './typeConverter.schema'
 
 export const communityRootSchema = v.object({
   pubkey: hex32Schema,
@@ -28,7 +34,7 @@ export const gradidoTransferSchema = v.object({
   recipient: hex32Schema,
 })
 
-export type GradidoTransfer = v.InferOutput<typeof gradidoTransferSchema> 
+export type GradidoTransfer = v.InferOutput<typeof gradidoTransferSchema>
 
 export const gradidoCreationSchema = v.object({
   recipient: transferAmountSchema,
@@ -49,13 +55,17 @@ export const gradidoRedeemDeferredTransferSchema = v.object({
   transfer: gradidoTransferSchema,
 })
 
-export type GradidoRedeemDeferredTransfer = v.InferOutput<typeof gradidoRedeemDeferredTransferSchema>
+export type GradidoRedeemDeferredTransfer = v.InferOutput<
+  typeof gradidoRedeemDeferredTransferSchema
+>
 
 export const gradidoTimeoutDeferredTransferSchema = v.object({
   deferredTransferTransactionNr: v.number(),
 })
 
-export type GradidoTimeoutDeferredTransfer = v.InferOutput<typeof gradidoTimeoutDeferredTransferSchema>
+export type GradidoTimeoutDeferredTransfer = v.InferOutput<
+  typeof gradidoTimeoutDeferredTransferSchema
+>
 
 export const transactionBodySchema = v.pipe(
   v.object({
@@ -72,15 +82,16 @@ export const transactionBodySchema = v.pipe(
     redeemDeferredTransfer: v.nullish(gradidoRedeemDeferredTransferSchema),
     timeoutDeferredTransfer: v.nullish(gradidoTimeoutDeferredTransferSchema),
   }),
+  // biome-ignore lint/suspicious/noExplicitAny: cannot use own type before complete defined
   v.custom((value: any) => {
     const setFieldsCount =
-        Number(value.communityRoot !== undefined) 
-      + Number(value.registerAddress !== undefined)
-      + Number(value.creation !== undefined)
-      + Number(value.transfer !== undefined)
-      + Number(value.deferredTransfer !== undefined)
-      + Number(value.redeemDeferredTransfer !== undefined)
-      + Number(value.timeoutDeferredTransfer !== undefined)
+      Number(value.communityRoot !== undefined) +
+      Number(value.registerAddress !== undefined) +
+      Number(value.creation !== undefined) +
+      Number(value.transfer !== undefined) +
+      Number(value.deferredTransfer !== undefined) +
+      Number(value.redeemDeferredTransfer !== undefined) +
+      Number(value.timeoutDeferredTransfer !== undefined)
     if (setFieldsCount !== 1) {
       return false
     }
