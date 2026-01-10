@@ -6,6 +6,7 @@ import { DetailsBlock } from '../DetailsBlock'
 import { PublicKeyLink } from '../PublicKeyLink'
 import { SignaturesView } from './Signatures.view'
 import type { ViewAttrs } from './viewAttrs'
+import { LedgerAnchorView } from './LedgerAnchor.view'
 
 export class CommunityRootView implements m.ClassComponent<ViewAttrs> {
   viewDetails(attrs: ViewAttrs) {
@@ -19,10 +20,11 @@ export class CommunityRootView implements m.ClassComponent<ViewAttrs> {
     const signaturePairs = gradidoTransaction.signatureMap
     const communityId = attrs.communityId
     return m('', [
-      m('.row.pb-2', [
+      m('.row', [
         m('.col', t.__('Transaction Number')),
         m('.col.text-end', attrs.transaction.id),
       ]),
+      m(LedgerAnchorView, { ledgerAnchor: attrs.transaction.ledgerAnchor }),
       m(SignaturesView, { signaturePairs }),
       m('.fw-bold.pb-2.mt-3', t.__('Community Root')),
       m('.row', [

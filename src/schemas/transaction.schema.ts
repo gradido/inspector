@@ -123,7 +123,7 @@ export const confirmedTransactionSchema = v.object({
   runningHash: hex32Schema,
   ledgerAnchor: ledgerAnchorSchema,
   accountBalances: v.array(accountBalanceSchema),
-  balanceDerivation: v.enum(BalanceDerivationType),
+  balanceDerivationType: v.enum(BalanceDerivationType),
 })
 
 export type ConfirmedTransaction = v.InferOutput<typeof confirmedTransactionSchema>

@@ -75,47 +75,16 @@ export type Decay = v.InferOutput<typeof decaySchema>
 export const ledgerAnchorSchema = v.pipe(
   v.object({
     type: v.enum(LedgerAnchorType),
-    iotaMessageId: v.nullish(hex32Schema),
-    hieroTransactionId: v.nullish(hieroTransactionIdSchema),
-    legacyTransactionId: v.nullish(positiveNumberSchema),
-    nodeTriggeredTransactionId: v.nullish(positiveNumberSchema),
-    legacyCommunityId: v.nullish(positiveNumberSchema),
-    legacyUserId: v.nullish(positiveNumberSchema),
-    legacyContributionId: v.nullish(positiveNumberSchema),
-    legacyTransactionLinkId: v.nullish(positiveNumberSchema),
+    value: v.nullish(v.pipe(v.union([
+      v.string(),
+      v.number(),
+    ]), v.transform((value: any): string => {
+      if (typeof value === 'number') {
+        return value.toString()
+      }
+      return value
+    }))),
   }),
-  // biome-ignore lint/suspicious/noExplicitAny: cannot use own type before complete defined
-  v.custom((value: any) => {
-    if (
-      (LedgerAnchorType.IOTA_MESSAGE_ID === value.type && value.iotaMessageId != null) ||
-      (LedgerAnchorType.HIERO_TRANSACTION_ID === value.type && value.hieroTransactionId != null) ||
-      (LedgerAnchorType.NODE_TRIGGER_TRANSACTION_ID === value.type &&
-        value.nodeTriggeredTransactionId != null) ||
-      (LedgerAnchorType.LEGACY_GRADIDO_DB_TRANSACTION_ID === value.type &&
-        value.legacyTransactionId != null) ||
-      (LedgerAnchorType.LEGACY_GRADIDO_DB_COMMUNITY_ID === value.type &&
-        value.legacyCommunityId != null) ||
-      (LedgerAnchorType.LEGACY_GRADIDO_DB_USER_ID === value.type && value.legacyUserId != null) ||
-      (LedgerAnchorType.LEGACY_GRADIDO_DB_CONTRIBUTION_ID === value.type &&
-        value.legacyContributionId != null) ||
-      (LedgerAnchorType.LEGACY_GRADIDO_DB_TRANSACTION_LINK_ID === value.type &&
-        value.legacyTransactionLinkId != null)
-    ) {
-      return true
-    }
-    if (
-      LedgerAnchorType.UNSPECIFIED === value.type &&
-      value.iotaMessageId == null &&
-      value.hieroTransactionId == null &&
-      value.legacyTransactionId == null &&
-      value.nodeTriggeredTransactionId == null &&
-      value.legacyCommunityId == null &&
-      value.legacyUserId == null &&
-      value.legacyContributionId == null &&
-      value.legacyTransactionLinkId == null
-    ) {
-      return true
-    }
-    return false
-  }, "type doesn't match value type"),
 )
+
+export type LedgerAnchor = v.InferOutput<typeof ledgerAnchorSchema>

@@ -10,6 +10,7 @@ import { MemosView } from './Memos.view'
 import { SignaturesView } from './Signatures.view'
 import { TransferAmountView } from './TransferAmount.view'
 import type { ViewAttrs } from './viewAttrs'
+import { LedgerAnchorView } from './LedgerAnchor.view'
 
 export class DeferredTransferView implements m.ClassComponent<ViewAttrs> {
   viewDetails(attrs: ViewAttrs) {
@@ -24,10 +25,11 @@ export class DeferredTransferView implements m.ClassComponent<ViewAttrs> {
     const communityId = attrs.communityId
 
     return m('', [
-      m('.row.pb-2', [
+      m('.row', [
         m('.col', t.__('Transaction Number')),
         m('.col.text-end', attrs.transaction.id),
       ]),
+      m(LedgerAnchorView, { ledgerAnchor: attrs.transaction.ledgerAnchor }),
       m(SignaturesView, { signaturePairs }),
       m('.fw-bold.pb-1.mt-3', t.__('Deferred Transfer')),
       m(MemosView, {
@@ -53,6 +55,7 @@ export class DeferredTransferView implements m.ClassComponent<ViewAttrs> {
       m('.mt-3'),
       m(AccountBalancesView, {
         accountBalances: attrs.transaction.accountBalances,
+        balanceDerivationType: attrs.transaction.balanceDerivationType,
         communityId,
         publicKeyFieldLabel: t.__('Account'),
       }),

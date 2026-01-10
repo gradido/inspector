@@ -9,7 +9,7 @@ interface ViewAttrs {
 export class SignaturesView implements m.ClassComponent<ViewAttrs> {
   view({ attrs }: m.CVnode<ViewAttrs>) {
     return [
-      m('.fw-bold.pb-2', t.__('Signature - Public Key Pairs')),
+      m('.fw-bold.pb-2.pt-2', t.__('Signature - Public Key Pairs')),
       attrs.signaturePairs.map((signaturePair) => [
         m('.row', [
           m('.col', t.__('Public Key')),
