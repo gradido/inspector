@@ -36,6 +36,8 @@ export function getUserTransactionTypeLabel(typeId: string | UserTransactionType
       return t.__('Charged')
     case UserTransactionType.CREATE:
       return t.__('Created')
+    case UserTransactionType.LINK_TIMEOUT:
+      return t.__('Link Timeout')
     default:
       return t.__('Unknown')
   }
@@ -47,5 +49,6 @@ export function isUserTransactionTypeLink(typeId: string | UserTransactionType):
     UserTransactionType.LINK_SEND,
     UserTransactionType.LINK_DELETE,
     UserTransactionType.LINK_CHANGE,
+    UserTransactionType.LINK_TIMEOUT,
   ].includes(userTransactionTypeFromString(typeId))
 }

@@ -39,6 +39,7 @@ export class TransactionListView implements m.ClassComponent<Attrs> {
       case UserTransactionType.LINK_DELETE:
       case UserTransactionType.LINK_CHANGE:
       case UserTransactionType.LINK_CHARGE:
+      case UserTransactionType.LINK_TIMEOUT:
         return m(Transfer, { transaction, communityId })
       default:
         return m('', transaction.typeId.toString())

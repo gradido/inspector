@@ -20,7 +20,7 @@ export class Account implements m.ClassComponent<Attrs> {
   loading: boolean = false
   errorView: m.Children | undefined = undefined
   currentPage: number = 1
-  pageSize: number = 5
+  pageSize: number = 20
   lastPubkey: string = ''
   lastCommunityId: string = ''
 
