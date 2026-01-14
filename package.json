@@ -13,13 +13,14 @@
     "serve": "cross-env TZ=UTC bun --bun vite preview",
     "lint": "biome check --error-on-warnings .",
     "extract": "bun --bun gettext-extract",
-    "locale": "bun scripts/localeJson.js"
+    "locale": "bun scripts/localeJson.js",
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "@iconify-json/bi": "^1.2.6",
     "bootstrap": "^5.3.8",
     "cross-env": "^7.0.3",
-    "gettext.js": "^2.0.3",
+    "@rjaros/gettext.js": "1.1.3",
     "mithril": "^2.2.2",
     "valibot": "^1.1.0"
   },

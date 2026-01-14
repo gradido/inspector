@@ -13,6 +13,7 @@ try {
     NODE_ENV: process.env.NODE_ENV,
     DLT_NODE_SERVER_URL: process.env.DLT_NODE_SERVER_URL,
     AUTO_POLL_INTERVAL: process.env.AUTO_POLL_INTERVAL,
+    FULL_DECIMAL_PLACES: process.env.FULL_DECIMAL_PLACES,
   })
 } catch (error: unknown) {
   if (error instanceof v.ValiError) {

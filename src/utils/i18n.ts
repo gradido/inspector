@@ -8,7 +8,7 @@ export async function i18nInitAsync() {
   const messageJson = await messagesResponse.json()
   t.loadJSON(
     {
-      '': { 'plural-forms': 'nplurals=2; plural=n>1', language: locale },
+      '': { 'plural-forms': 'nplurals=2; plural=(n != 1);', language: locale },
       ...messageJson,
     },
     'messages',

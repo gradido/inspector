@@ -1,4 +1,5 @@
 import * as v from 'valibot'
+import { DecayType } from '../enum/DecayType'
 import { LedgerAnchorType } from '../enum/LedgerAnchorType'
 import { MemoKeyType } from '../enum/MemoKeyType'
 import { dateSchema } from './typeConverter.schema'
@@ -68,6 +69,7 @@ export const decaySchema = v.object({
   duration: positiveNumberSchema,
   end: dateSchema,
   start: dateSchema,
+  type: v.enum(DecayType),
 })
 
 export type Decay = v.InferOutput<typeof decaySchema>

@@ -6,6 +6,10 @@ export enum NodeEnvironmentType {
   Production = 'production',
 }
 
+const booleanSchema = v.pipe(v.string(), v.transform<string, boolean>((input) => {
+  return input.toLowerCase() === 'true' || input === '1' || input.toLowerCase() === 'yes'
+}))
+
 export const configSchema = v.object({
   PRODUCTION: v.exactOptional(v.boolean(), false),
   NODE_ENV: v.exactOptional(
@@ -20,4 +24,5 @@ export const configSchema = v.object({
     }),
     0,
   ),
+  FULL_DECIMAL_PLACES: v.optional(booleanSchema, 'false'),
 })

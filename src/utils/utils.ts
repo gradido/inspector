@@ -1,3 +1,5 @@
+import { CONFIG } from "../config"
+
 export function getEnumValue<T extends string | number>(value: string | null, defaultValue: T): T {
   if (!value) {
     return defaultValue
@@ -16,13 +18,14 @@ export function formatCurrency(value: string, currency: string = 'GDD'): string 
     return ''
   }
 
-  const truncatedValue = Math.floor(numericValue * 100) / 100
+  const truncatedValue = numericValue // Math.floor(numericValue * 100) / 100
 
+  const decimalPlaces = CONFIG.FULL_DECIMAL_PLACES ? 4 : 2
   return new Intl.NumberFormat(t.getLocale(), {
     style: 'currency',
     currency,
-    minimumFractionDigits: 2,
-    maximumFractionDigits: 2,
+    minimumFractionDigits: decimalPlaces,
+    maximumFractionDigits: decimalPlaces,
   })
     .format(truncatedValue)
     .replace('-', t.__('− '))
@@ -87,31 +90,31 @@ export function formatDistance(
 ): string {
   const intervals = [
     {
-      unit: (count: number) => t._n('%1 year', '%1 years', count, count),
+      unit: (count: number) => (count > 1 ? `${count} ${t.__('years')}` : t.__('1 year')),
       seconds: 31536000,
     },
     {
-      unit: (count: number) => t._n('%1 month', '%1 months', count, count),
+      unit: (count: number) => (count > 1 ? `${count} ${t.__('months')}` : t.__('1 month')),
       seconds: 2592000,
     },
     {
-      unit: (count: number) => t._n('%1 week', '%1 weeks', count, count),
-      seconds: 604800,
+      unit: (count: number) => (count > 1 ? `${count} ${t.__('weeks')}` : t.__('1 week')),
+      seconds: 2*604800,
     },
     {
-      unit: (count: number) => t._n('%1 day', '%1 days', count, count),
+      unit: (count: number) => (count > 1 ? `${count} ${t.__('days')}` : t.__('1 day')),
       seconds: 86400,
     },
     {
-      unit: (count: number) => t._n('%1 hour', '%1 hours', count, count),
+      unit: (count: number) => (count > 1 ? `${count} ${t.__('hours')}` : t.__('1 hour')),
       seconds: 3600,
     },
     {
-      unit: (count: number) => t._n('%1 minute', '%1 minutes', count, count),
+      unit: (count: number) => (count > 1 ? `${count} ${t.__('minutes')}` : t.__('1 minute')),
       seconds: 60,
     },
     {
-      unit: (count: number) => t._n('%1 second', '%1 seconds', count, count),
+      unit: (count: number) => (count > 1 ? `${count} ${t.__('seconds')}` : t.__('1 second')),
       seconds: 1,
     },
   ]
@@ -120,7 +123,7 @@ export function formatDistance(
   for (const interval of intervals) {
     const count = Math.floor(diffInSeconds / interval.seconds)
     if (count >= 1) {
-      const result = interval.unit(count)
+      const result = `${t.__('about')} ${interval.unit(count)}`
 
       if (options.addSuffix) {
         const suffix = date2 > date1 ? t.__('later') : t.__('ago')

@@ -77,7 +77,7 @@ export class Pagination implements m.ClassComponent<Attrs> {
           is: 'button',
           type: 'button',
           role: 'menuitem',
-          'aria-label': t._n('Go to page %d', 'Go to page %d', page),
+          'aria-label': `${t.__('Go to page')} ${page}`,
           'aria-posinset': page,
           'aria-setsize': totalPages,
           tabindex,

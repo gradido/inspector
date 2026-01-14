@@ -2,11 +2,13 @@ import m from 'mithril'
 import * as v from 'valibot'
 import { gradidoNodeClient } from '../client/gradidoNodeClient'
 import type { GetTransactionsResult } from '../client/output.schema'
-import { AllTransactionsList } from '../components/AllTransactionsList'
 import { CommunitySwitch } from '../components/CommunitySwitch'
 import { Pagination } from '../components/view/bootstrap/Pagination'
 import { WalletSum } from '../components/WalletSum'
 import { CONFIG } from '../config'
+import { TransactionView } from '../components/view/transaction'
+import { ConfirmedTransaction } from '../schemas/transaction.schema'
+import { ViewAttrs } from '../components/view/transaction/viewAttrs'
 
 interface Attrs {
   communityId: string
@@ -112,7 +114,7 @@ export class LastTransactions implements m.ClassComponent<Attrs> {
       m('.mt-lg-3'),
       m('.col-lg-8.col-md-10.col-12', [
         this.getPagination(this.transactionsResult),
-        m(AllTransactionsList, { transactions, communityId: this.communityId }),
+        transactions.map((transaction: ConfirmedTransaction) => m(TransactionView, { transaction, communityId: this.communityId } as ViewAttrs)),
         this.getPagination(this.transactionsResult),
         m('', `time used: ${timeUsed}`),
       ]),

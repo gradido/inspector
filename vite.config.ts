@@ -70,6 +70,7 @@ export default defineConfig(() => {
       EnvironmentPlugin({
         DLT_NODE_SERVER_URL: config.DLT_NODE_SERVER_URL,
         AUTO_POLL_INTERVAL: config.AUTO_POLL_INTERVAL.toString(),
+        FULL_DECIMAL_PLACES: config.FULL_DECIMAL_PLACES.toString(),
       }),
       // commonjs(),
     ],
