@@ -34,7 +34,7 @@ export class TimeoutDeferredTransferView implements m.ClassComponent<ViewAttrs> 
       },
       thirdRow: {
         label: t.__('Received Back'),
-        amount: getAmount(attrs.transaction.gradidoTransaction.bodyBytes),
+        amount: undefined, //getAmount(attrs.transaction.gradidoTransaction.bodyBytes),
         sub: {
           label: t.__('via Link'),
           icon: m.trust(link45degIcon),

@@ -59,6 +59,17 @@ export function formatGDD(value: string): string {
   }
   return firstStep
 }
+export function formatGDD4(value: string): string {
+  const firstStep = formatCurrency4(value)
+  if (firstStep.length) {
+    const numericValue = parseFloat(value)
+    if (numericValue > 0) {
+      return `${t.__('+')} ${firstStep}`
+    }
+  }
+  return firstStep
+}
+
 export function combineElementWithClasses(element: string, classes?: string[]) {
   let elementWithClasses = element
   if (classes?.length) {

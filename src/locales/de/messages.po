@@ -152,7 +152,7 @@ msgstr "Gemeinschaftsstart"
 #: src/components/view/transactions/CommunityRoot.view.ts:58
 #: src/enum/TransactionType.ts:58
 msgid "Community Root Transaction"
-msgstr "Gemeinschaftsstarttransaktion"
+msgstr "Community gegründet"
 
 #: src/enum/MemoKeyType.ts:12
 msgid "Community Secret"
@@ -185,7 +185,7 @@ msgstr "Schöpfungsdatum"
 
 #: src/components/view/transactions/GradidoCreation.view.ts:62
 msgid "Creation Transaction"
-msgstr "Schöpfungstransaktion"
+msgstr "Schöpfung"
 
 #: src/enum/AddressType.ts:25
 msgid "Crypto Account"
@@ -235,12 +235,12 @@ msgstr "Transaktionslink"
 
 #: src/components/view/transactions/DeferredTransfer.view.ts:72
 msgid "Deferred Transfer Transaction"
-msgstr "Verzögerte Transaktion"
+msgstr "Link angelegt"
 
 #: src/components/view/transactions/Memos.view.ts:19
 #: src/components/view/transactions/Memos.view.ts:24
 msgid "Encrypted Memo"
-msgstr "Verschlüsseltes Memo"
+msgstr "Verschlüsselter Betreff"
 
 #: src/components/Toaster.ts:49
 msgid "Error"
@@ -427,7 +427,7 @@ msgstr "Transaktionslinkeinlösetransaktion"
 
 #: src/components/view/transactions/RedeemDeferredTransfer.view.ts:69
 msgid "Redeem Deferred Transfer Transaction"
-msgstr "Transaktionslinkeinlösetransaktion"
+msgstr "Link eingelöst"
 
 #: src/components/view/transactions/RegisterAddress.view.ts:30
 msgid "Register Address"
@@ -436,7 +436,7 @@ msgstr "Benutzerregistrierentransaktion"
 #: src/components/view/transactions/RegisterAddress.view.ts:82
 #: src/enum/TransactionType.ts:54
 msgid "Register Address Transaction"
-msgstr "Benutzerregistrierentransaktion"
+msgstr "Benutzer hinzugefügt"
 
 #: src/components/view/transactions/RegisterAddress.view.ts:86
 msgid "Registered"
@@ -517,7 +517,7 @@ msgstr "Transaktionslinkabgelaufen"
 
 #: src/components/view/transactions/TimeoutDeferredTransfer.view.ts:32
 msgid "Timeout Deferred Transfer Transaction"
-msgstr "Transaktionslinkabgelaufentransaktion"
+msgstr "Link abgelaufen"
 
 #: src/components/NavBar.ts:54
 msgid "Toggle navigation"
@@ -549,7 +549,7 @@ msgstr "Transaktionslink"
 #: src/components/view/transactions/GradidoTransfer.view.ts:67
 #: src/enum/TransactionType.ts:50
 msgid "Transfer Transaction"
-msgstr "Überweisungstransaktion"
+msgstr "Überweisung"
 
 #: src/components/view/transactions/GradidoTransfer.view.ts:71
 #: src/components/view/transactions/RedeemDeferredTransfer.view.ts:73

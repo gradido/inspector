@@ -2,7 +2,7 @@ import m from 'mithril'
 import dropletHalfIcon from '~icons/bi/droplet-half'
 import type { WalletTransaction } from '../../client/output.schema'
 import { getUserTransactionTypeLabel } from '../../enum/UserTransactionType'
-import { formatDistance, formatGDD } from '../../utils/utils'
+import { formatDistance, formatGDD, formatGDD4 } from '../../utils/utils'
 import { DecayType } from '../../enum/DecayType'
 
 export class DecayDetails implements m.ClassComponent<WalletTransaction> {
@@ -52,7 +52,7 @@ export class DecayDetails implements m.ClassComponent<WalletTransaction> {
     return attrs.decay && attrs.decay.type !== DecayType.BEFORE_START_BLOCK
       ? m('.row.mt-0', [
           m('.col-sm-6.col-md-6.col-lg-3.col-6', t.__('Decay')),
-          m('.offset-0.col.offset-0.text-end.me-0', formatGDD(attrs.decay.decay)),
+          m('.offset-0.col.offset-0.text-end.me-0', formatGDD4(attrs.decay.decay)),
         ])
       : undefined
   }
@@ -63,22 +63,22 @@ export class DecayDetails implements m.ClassComponent<WalletTransaction> {
       this.viewDateTime(attrs),
       m('.row.mt-2', [
         m('.col-sm-6.col-md-6.col-lg-4.col-6', t.__('Previous balance')),
-        m('.offset-0.col.offset-0.text-end.me-0', formatGDD(attrs.previousBalance)),
+        m('.offset-0.col.offset-0.text-end.me-0', formatGDD4(attrs.previousBalance)),
       ]),
       this.viewDecay(attrs),
       m('.row', [
         m('.col-sm-6.col-md-6.col-lg-3.col-6', getUserTransactionTypeLabel(attrs.typeId)),
-        m('.offset-0.col.offset-0.text-end.me-0', formatGDD(attrs.amount)),
+        m('.offset-0.col.offset-0.text-end.me-0', formatGDD4(attrs.amount)),
       ]),
       attrs.change
         ? m('.row.mt-0', [
             m('.col-sm-6.col-md-6.col-lg-4.col-6', t.__('Change')),
-            m('.offset-0.col.offset-0.text-end.me-0', formatGDD(attrs.change.amount)),
+            m('.offset-0.col.offset-0.text-end.me-0', formatGDD4(attrs.change.amount)),
           ])
         : undefined,
       m('.row.border-top.pt-2.mt-2', [
         m('.col-sm-6.col-md-6.col-lg-3.col-6', t.__('New balance')),
-        m('.offset-0.col.offset-0.text-end.me-0', m('b', formatGDD(attrs.balance))),
+        m('.offset-0.col.offset-0.text-end.me-0', m('b', formatGDD4(attrs.balance))),
       ]),
     ]
   }

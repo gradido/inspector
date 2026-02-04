@@ -1,6 +1,6 @@
 import m from 'mithril'
 import type { AccountBalance } from '../../../schemas/transaction.schema'
-import { formatCurrency4 } from '../../../utils/utils'
+import { formatCurrency } from '../../../utils/utils'
 import { CommunityLink } from '../CommunityLink'
 import { PublicKeyLink } from '../PublicKeyLink'
 import { BalanceDerivationType, getBalanceDerivationTypeString } from '../../../enum/BalanceDerivationType'
@@ -34,7 +34,7 @@ export class AccountBalancesView implements m.ClassComponent<ViewAttrs> {
           ]),
           m('.row', [
             m('.col', t.__('Balance')),
-            m('.col.text-end', formatCurrency4(accountBalance.balance)),
+            m('.col.text-end', formatCurrency(accountBalance.balance)),
           ]),
           accountBalance.communityId
             ? m('.row', [
