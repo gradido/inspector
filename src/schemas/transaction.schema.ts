@@ -73,7 +73,7 @@ export const transactionBodySchema = v.pipe(
     createdAt: dateSchema,
     versionNumber: v.string(),
     type: v.enum(CrossGroupType),
-    otherGroup: v.nullish(v.string()),
+    otherCommunity: v.nullish(v.string()),
     communityRoot: v.nullish(communityRootSchema),
     registerAddress: v.nullish(registerAddressSchema),
     creation: v.nullish(gradidoCreationSchema),
@@ -110,7 +110,7 @@ export const gradidoTransactionSchema = v.object({
 export const accountBalanceSchema = v.object({
   pubkey: hex32Schema,
   balance: v.string(),
-  communityId: v.nullish(v.string()),
+  coinCommunityId: v.nullish(v.string()),
 })
 
 export type AccountBalance = v.InferOutput<typeof accountBalanceSchema>
