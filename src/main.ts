@@ -1,5 +1,6 @@
-import 'bootstrap/scss/bootstrap.scss'
-import './styles/styles.less'
+// import 'bootstrap/scss/bootstrap.scss'
+import 'bootstrap/dist/css/bootstrap.css'
+import './styles/styles.scss'
 import './styles/gradido.scss'
 import 'bootstrap/js/src/toast'
 import m from 'mithril'
@@ -14,7 +15,8 @@ import { i18nInitAsync } from './utils/i18n'
 // i18nInit()
 globalThis.toaster = new Toaster()
 // TODO: move to config
-localStorage.setItem('language', navigator.language)
+const langueStringParts = navigator.language.split('-')
+localStorage.setItem('language', langueStringParts[0])
 const root = document.getElementById('app')
 if (!root) {
   throw new Error('app element not found')

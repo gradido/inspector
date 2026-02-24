@@ -36,7 +36,7 @@ export class AccountBalancesView implements m.ClassComponent<ViewAttrs> {
             m('.col', t.__('Balance')),
             m('.col.text-end', formatCurrency(accountBalance.balance)),
           ]),
-          accountBalance.coinCommunityId != attrs.communityId
+          accountBalance.coinCommunityId && accountBalance.coinCommunityId != attrs.communityId
             ? m('.row', [
                 m('.col', t.__('Origin Community')),
                 m('.col.text-end', m(CommunityLink, { communityId: accountBalance.coinCommunityId })),

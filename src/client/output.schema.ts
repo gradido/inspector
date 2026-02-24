@@ -5,8 +5,15 @@ import { decaySchema, hex32Schema, linkedUserSchema } from '../schemas/basic.sch
 import { confirmedTransactionSchema } from '../schemas/transaction.schema'
 import { dateSchema } from '../schemas/typeConverter.schema'
 
+export const communitySchema = v.object({
+  communityId: v.string(),
+  alias: v.string(),
+})
+
+export type Community = v.InferOutput<typeof communitySchema>
+
 export const listCommunitiesResultSchema = v.object({
-  communities: v.array(v.string()),
+  communities: v.array(communitySchema),
   timeUsed: v.string(),
 })
 

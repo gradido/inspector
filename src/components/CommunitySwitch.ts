@@ -2,27 +2,29 @@ import m from 'mithril'
 import { gradidoNodeClient } from '../client/gradidoNodeClient'
 import { CONFIG } from '../config'
 import 'bootstrap/js/src/dropdown'
+import { Community } from '../client/output.schema'
 
 interface Attrs {
-  setCommunityId: (communityId: string) => void
-  defaultCommunityId: string | undefined
+  communityId: string | undefined
 }
 
 export class CommunitySwitch implements m.ClassComponent<Attrs> {
-  communities: string[] = []
-  communityId: string | undefined = undefined
+  communities: Community[] = []
+
+  currentCommunity(communityId: string): Community | undefined {
+    if(!communityId || !globalThis.communities) {
+      return undefined
+    }
+    return globalThis.communities.get(communityId)
+  }
 
   oninit({ attrs }: m.CVnode<Attrs>) {
-    this.communityId = attrs.defaultCommunityId
     this.fetchCommunities(attrs)
   }
   async fetchCommunities(attrs: Attrs) {
     try {
       this.communities = (await gradidoNodeClient.listCommunities()).communities
-      if (this.communities.length > 0 && !this.communityId) {
-        this.communityId = this.communities[0]
-        attrs.setCommunityId(this.communityId)
-      }
+      globalThis.communities = new Map(this.communities.map((c) => [c.communityId, c]))
       m.redraw()
     } catch (e) {
       console.warn(`fetchCommunities: ${e}`)
@@ -32,11 +34,8 @@ export class CommunitySwitch implements m.ClassComponent<Attrs> {
       }
     }
   }
-  updateCommunityId(communityId: string, attrs: Attrs) {
-    this.communityId = communityId
-    attrs.setCommunityId(communityId)
-  }
   view({ attrs }: m.CVnode<Attrs>) {
+    const currentCommunity = this.currentCommunity(attrs.communityId!)
     return m(
       '.community-switch',
       this.communities.length > 1
@@ -49,12 +48,12 @@ export class CommunitySwitch implements m.ClassComponent<Attrs> {
                 'aria-expanded': 'false',
                 'aria-haspopup': 'menu',
               },
-              this.communityId || t.__('select community'),
+              currentCommunity?.alias || t.__('select community'),
             ),
             m(
               'ul.dropdown-menu.overflow-auto',
               { 'aria-labelledby': 'dropdownMenuButton', role: 'menu' },
-              this.communities.map((communityId) =>
+              this.communities.map((community) =>
                 m(
                   'li',
                   { role: 'presentation' },
@@ -63,15 +62,15 @@ export class CommunitySwitch implements m.ClassComponent<Attrs> {
                     {
                       type: 'button',
                       role: 'menuitem',
-                      onclick: () => this.updateCommunityId(communityId, attrs),
+                      onclick: () => m.route.set(`/${community.communityId}`),
                     },
-                    communityId,
+                    community.alias,
                   ),
                 ),
               ),
             ),
           ])
-        : m('.mb-4.mt-2', m('.row', m('.col.fw-bold', this.communityId))),
+        : m('.mb-4.mt-2', m('.row', m('.col.fw-bold', currentCommunity?.alias))),
     )
   }
 }

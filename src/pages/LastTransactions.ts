@@ -17,7 +17,7 @@ interface Attrs {
 
 export class LastTransactions implements m.ClassComponent<Attrs> {
   transactionsResult: GetTransactionsResult | undefined = undefined
-  communityId: string | undefined = undefined
+  lastKnownCommunityId: string | undefined = undefined
   currentPage: number = 1
   totalPages: number = 0
   pageSize: number = 20
@@ -25,24 +25,29 @@ export class LastTransactions implements m.ClassComponent<Attrs> {
 
   oninit({ attrs }: m.CVnode<Attrs>) {
     if (attrs.communityId) {
-      this.updateCommunityId(attrs.communityId)
+      this.refetchTransactions(attrs.communityId)
     }
     if (attrs.pageSize && attrs.pageSize > 0) {
       this.pageSize = attrs.pageSize
     }
   }
+  onupdate({ attrs }: m.VnodeDOM<Attrs, this>) {
+    if (this.lastKnownCommunityId !== attrs.communityId) {
+      this.refetchTransactions(attrs.communityId)
+    }
+  }
 
-  async fetchTransactions(page: number) {
+  async fetchTransactions(page: number, communityId: string) {
     if (this.autoPollTimeout) {
       clearTimeout(this.autoPollTimeout)
     }
-    if (!this.communityId) {
+    if (!communityId) {
       return
     }
     try {
       this.transactionsResult = await gradidoNodeClient.getTransactions({
         fromTransactionId: (page - 1) * this.pageSize,
-        communityId: this.communityId,
+        communityId: communityId,
         maxResultCount: this.pageSize,
       })
       this.currentPage = page
@@ -56,35 +61,34 @@ export class LastTransactions implements m.ClassComponent<Attrs> {
     } finally {
       if (CONFIG.AUTO_POLL_INTERVAL > 0) {
         this.autoPollTimeout = setTimeout(
-          () => this.fetchTransactions(this.currentPage),
+          () => this.fetchTransactions(this.currentPage, communityId),
           CONFIG.AUTO_POLL_INTERVAL,
         )
       }
     }
   }
 
-  updateCommunityId(communityId: string) {
+  refetchTransactions(communityId: string) {
     if (this.autoPollTimeout) {
       clearTimeout(this.autoPollTimeout)
       this.autoPollTimeout = undefined
     }
-    this.communityId = communityId
-    m.route.set(`/${communityId}`)
     this.currentPage = 1
-    this.fetchTransactions(this.currentPage)
+    this.fetchTransactions(this.currentPage, communityId)
+    this.lastKnownCommunityId = communityId
   }
 
-  getPagination(transactionsResult: GetTransactionsResult): m.Child {
+  getPagination(transactionsResult: GetTransactionsResult, communityId: string): m.Child {
     return m(Pagination, {
       currentPage: this.currentPage,
       totalPages: Math.ceil(transactionsResult.totalCount / this.pageSize),
       ariaLabel: t.__('Pagination for transactions overview'),
-      onPageChange: (page: number) => this.fetchTransactions(page),
+      onPageChange: (page: number) => this.fetchTransactions(page, communityId),
       pill: true,
     })
   }
 
-  viewTransactions() {
+  viewTransactions(communityId: string) {
     if (!this.transactionsResult) {
       return
     }
@@ -113,15 +117,15 @@ export class LastTransactions implements m.ClassComponent<Attrs> {
       ]),
       m('.mt-lg-3'),
       m('.col-lg-8.col-md-10.col-12', [
-        this.getPagination(this.transactionsResult),
-        transactions.map((transaction: ConfirmedTransaction) => m(TransactionView, { transaction, communityId: this.communityId } as ViewAttrs)),
-        this.getPagination(this.transactionsResult),
+        this.getPagination(this.transactionsResult, communityId),
+        transactions.map((transaction: ConfirmedTransaction) => m(TransactionView, { transaction, communityId } as ViewAttrs)),
+        this.getPagination(this.transactionsResult, communityId),
         m('', `time used: ${timeUsed}`),
       ]),
     ]
   }
 
-  view() {
+  view({ attrs }: m.CVnode<Attrs>) {
     return [
       m('div.container', [
         m('h1', t.__('Transactions overview')),
@@ -129,13 +133,10 @@ export class LastTransactions implements m.ClassComponent<Attrs> {
           m('.col-lg-3.col-6', m('h2', t.__('Community Selection'))),
           m(
             '.col-lg-6.col-9',
-            m(CommunitySwitch, {
-              setCommunityId: (communityId: string) => this.updateCommunityId(communityId),
-              defaultCommunityId: this.communityId,
-            }),
+            m(CommunitySwitch, attrs),
           ), // m('.col-lg-6.col-md-0.col-0'),
         ]),
-        this.transactionsResult ? this.viewTransactions() : undefined,
+        this.transactionsResult ? this.viewTransactions(attrs.communityId) : undefined,
       ]),
     ]
   }
