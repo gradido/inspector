@@ -25,6 +25,9 @@ export class CommunitySwitch implements m.ClassComponent<Attrs> {
     try {
       this.communities = (await gradidoNodeClient.listCommunities()).communities
       globalThis.communities = new Map(this.communities.map((c) => [c.communityId, c]))
+      if (!attrs.communityId && this.communities.length == 1) {
+        m.route.set(`/${this.communities[0].communityId}`)
+      }
       m.redraw()
     } catch (e) {
       console.warn(`fetchCommunities: ${e}`)
