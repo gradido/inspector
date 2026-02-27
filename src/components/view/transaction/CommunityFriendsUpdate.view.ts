@@ -19,7 +19,7 @@ export class CommunityFriendsUpdateView implements m.ClassComponent<ViewAttrs> {
         label: t.__('Friends'),
         amount: '0',
       },
-      id: attrs.transaction.id,
+      id: attrs.transaction.ledgerAnchor.value || attrs.transaction.id.toString(),
       details: m('div', 'community friends update details'),
     })
   }

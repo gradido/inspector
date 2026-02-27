@@ -73,7 +73,7 @@ export class Transfer implements m.ClassComponent<Attrs> {
       },
       details: m(TransferDetails, transaction),
       detailClasses: ['px-1'],
-      id: transaction.id,
+      id: transaction.id.toString(),
     })
   }
 }

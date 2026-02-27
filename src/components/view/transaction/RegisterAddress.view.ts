@@ -86,7 +86,7 @@ export class RegisterAddressView implements m.ClassComponent<ViewAttrs> {
         label: t.__('Registered'),
         publicKey: gradidoTransaction.bodyBytes.registerAddress.accountPubkey,
       },
-      id: attrs.transaction.id,
+      id: attrs.transaction.ledgerAnchor.value || attrs.transaction.id.toString(),
       details: this.viewDetails(attrs),
       detailClasses: ['pt-lg-3', 'pb-4'],
       communityId: attrs.communityId,

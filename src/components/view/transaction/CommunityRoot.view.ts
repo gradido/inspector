@@ -61,7 +61,7 @@ export class CommunityRootView implements m.ClassComponent<ViewAttrs> {
       thirdRow: {
         label: t.__('Started'),
       },
-      id: attrs.transaction.id,
+      id: attrs.transaction.ledgerAnchor.value || attrs.transaction.id.toString(),
       details: this.viewDetails(attrs),
       detailClasses: ['pt-lg-3', 'pb-4'],
     })

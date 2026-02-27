@@ -29,7 +29,7 @@ export class TransactionListView implements m.ClassComponent<Attrs> {
           details: m(DecayDetailsShort, transaction),
           containerClasses,
           detailClasses: ['pb-4', 'pt-5'],
-          id: transaction.id,
+          id: transaction.id.toString(),
         })
       case UserTransactionType.SEND:
       case UserTransactionType.RECEIVE:

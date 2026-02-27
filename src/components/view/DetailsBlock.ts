@@ -20,7 +20,7 @@ export interface DetailsBlockAttrs {
       icon?: m.Child
     }
   }
-  id: number
+  id: string
   details: m.Child
   detailClasses?: string[]
   communityId?: string

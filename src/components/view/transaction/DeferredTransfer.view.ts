@@ -80,7 +80,7 @@ export class DeferredTransferView implements m.ClassComponent<ViewAttrs> {
           icon: m.trust(link45degIcon),
         },
       },
-      id: attrs.transaction.id,
+      id: attrs.transaction.ledgerAnchor.value || attrs.transaction.id.toString(),
       details: this.viewDetails(attrs),
       detailClasses: ['pt-lg-3', 'pb-4'],
     })

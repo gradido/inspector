@@ -6,15 +6,15 @@ interface Attrs {
   details: Child
   containerClasses?: string[]
   detailClasses?: string[]
-  id: number
+  id: string
 }
 
 export class Collapse implements m.ClassComponent<Attrs> {
   detailsVisible: boolean
-  lastKnownId: number
+  lastKnownId: string
   constructor() {
     this.detailsVisible = false
-    this.lastKnownId = 0
+    this.lastKnownId = ''
   }
 
   oninit({ attrs }: m.CVnode<Attrs>) {

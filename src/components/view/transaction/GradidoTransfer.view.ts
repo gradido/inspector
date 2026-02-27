@@ -109,7 +109,7 @@ export class GradidoTransferView implements m.ClassComponent<ViewAttrs> {
         date: attrs.transaction.confirmedAt,
       },
       thirdRow: this.thirdRowView(attrs, crossGroupType, getAmount(attrs.transaction.gradidoTransaction.bodyBytes)),
-      id: attrs.transaction.id,
+      id: attrs.transaction.ledgerAnchor.value || attrs.transaction.id.toString(),
       details: this.viewDetails(attrs, crossGroupType),
       detailClasses: ['pt-lg-3', 'pb-4'],
     })
