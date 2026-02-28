@@ -14,6 +14,7 @@ try {
     DLT_NODE_SERVER_URL: process.env.DLT_NODE_SERVER_URL,
     AUTO_POLL_INTERVAL: process.env.AUTO_POLL_INTERVAL,
     FULL_DECIMAL_PLACES: process.env.FULL_DECIMAL_PLACES,
+    HIERO_BLOCKCHAIN_EXPLORER_URL_TRANSACTION_DETAILS: process.env.HIERO_BLOCKCHAIN_EXPLORER_URL_TRANSACTION_DETAILS,
   })
 } catch (error: unknown) {
   if (error instanceof v.ValiError) {

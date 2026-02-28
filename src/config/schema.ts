@@ -25,4 +25,8 @@ export const configSchema = v.object({
     0,
   ),
   FULL_DECIMAL_PLACES: v.optional(booleanSchema, 'false'),
+  HIERO_BLOCKCHAIN_EXPLORER_URL_TRANSACTION_DETAILS: v.optional(
+    v.pipe(v.string(), v.url()),
+    'https://hashscan.io/testnet/transaction/',
+  ),
 })
