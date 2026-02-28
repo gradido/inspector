@@ -46,7 +46,7 @@ export class LastTransactions implements m.ClassComponent<Attrs> {
     }
     try {
       this.transactionsResult = await gradidoNodeClient.getTransactions({
-        fromTransactionId: (page - 1) * this.pageSize,
+        fromTransactionId: (page - 1) * this.pageSize + 1,
         communityId: communityId,
         maxResultCount: this.pageSize,
       })
