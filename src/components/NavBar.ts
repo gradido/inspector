@@ -16,6 +16,7 @@ export class NavBar implements m.ClassComponent<Attrs> {
   search(e: Event, attrs: Attrs) {
     e.preventDefault()
     const type = detectSearchType(this.searchString)
+    this.searchError = undefined
     switch (type) {
       case SearchType.PUBLIC_KEY_HEX:
         m.route.set(`/account/${attrs.communityId}/${this.searchString}`)

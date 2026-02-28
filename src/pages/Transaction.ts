@@ -15,11 +15,20 @@ interface Attrs {
 export class Transaction implements m.ClassComponent<Attrs> {
   transactionResponse: GetTransactionResult | undefined = undefined
   searchType: SearchType = SearchType.UNKNOWN
+  search: string = ''
 
   oninit({ attrs }: m.CVnode<Attrs>) {
     this.searchType = detectSearchType(attrs.search)
+    this.search = attrs.search
     this.transactionResponse = undefined
     this.fetchTransaction(attrs.search, attrs.communityId)
+  }
+  onupdate({ attrs }: m.CVnode<Attrs>) {
+    if (this.search !== attrs.search) {
+      this.searchType = detectSearchType(attrs.search)
+      this.search = attrs.search
+      this.fetchTransaction(attrs.search, attrs.communityId)
+    }
   }
   async fetchTransaction(search: string, communityId: string) {
     try {
@@ -34,7 +43,7 @@ export class Transaction implements m.ClassComponent<Attrs> {
           hieroTransactionId: search,
         })
       }
-      console.log(this.transactionResponse)
+      // console.log(this.transactionResponse)
       m.redraw()
     } catch (e) {
       toaster.error(e)
