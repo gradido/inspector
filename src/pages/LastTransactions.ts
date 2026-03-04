@@ -37,6 +37,12 @@ export class LastTransactions implements m.ClassComponent<Attrs> {
     }
   }
 
+  onremove() {
+    if (this.autoPollTimeout) {
+      clearTimeout(this.autoPollTimeout)
+    }
+  }
+
   async fetchTransactions(page: number, communityId: string) {
     if (this.autoPollTimeout) {
       clearTimeout(this.autoPollTimeout)

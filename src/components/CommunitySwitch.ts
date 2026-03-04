@@ -10,6 +10,7 @@ interface Attrs {
 
 export class CommunitySwitch implements m.ClassComponent<Attrs> {
   communities: Community[] = []
+  reloadTimerId: ReturnType<typeof setTimeout> | undefined = undefined
 
   currentCommunity(communityId: string): Community | undefined {
     if(!communityId || !globalThis.communities) {
@@ -20,6 +21,11 @@ export class CommunitySwitch implements m.ClassComponent<Attrs> {
 
   oninit({ attrs }: m.CVnode<Attrs>) {
     this.fetchCommunities(attrs)
+  }
+  onremove() {
+    if (this.reloadTimerId) {
+      clearTimeout(this.reloadTimerId)
+    }
   }
   async fetchCommunities(attrs: Attrs) {
     try {
@@ -33,7 +39,7 @@ export class CommunitySwitch implements m.ClassComponent<Attrs> {
       console.warn(`fetchCommunities: ${e}`)
     } finally {
       if (CONFIG.AUTO_POLL_INTERVAL > 0) {
-        setTimeout(() => this.fetchCommunities(attrs), CONFIG.AUTO_POLL_INTERVAL)
+        this.reloadTimerId = setTimeout(() => this.fetchCommunities(attrs), CONFIG.AUTO_POLL_INTERVAL)
       }
     }
   }
