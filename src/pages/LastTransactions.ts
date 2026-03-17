@@ -9,6 +9,8 @@ import { CONFIG } from '../config'
 import { TransactionView } from '../components/view/transaction'
 import { ConfirmedTransaction } from '../schemas/transaction.schema'
 import { ViewAttrs } from '../components/view/transaction/viewAttrs'
+import { WireOutputFormat } from '../enum/WireOutputFormat'
+import { SearchDirection } from '../enum/SearchDirection'
 
 interface Attrs {
   communityId: string
@@ -19,7 +21,7 @@ export class LastTransactions implements m.ClassComponent<Attrs> {
   transactionsResult: GetTransactionsResult | undefined = undefined
   lastKnownCommunityId: string | undefined = undefined
   currentPage: number = 1
-  totalPages: number = 0
+  transactionsCount: number = 0
   pageSize: number = 20
   autoPollTimeout: NodeJS.Timeout | undefined = undefined
 
@@ -52,11 +54,16 @@ export class LastTransactions implements m.ClassComponent<Attrs> {
     }
     try {
       this.transactionsResult = await gradidoNodeClient.getTransactions({
-        fromTransactionId: (page - 1) * this.pageSize + 1,
         communityId: communityId,
-        maxResultCount: this.pageSize,
+        format: WireOutputFormat.Json,
+        pagination: {
+          size: this.pageSize,
+          page,
+        },
+        searchDirection: SearchDirection.DESC
       })
       this.currentPage = page
+      this.transactionsCount = this.transactionsResult.totalCount
       m.redraw()
     } catch (e) {
       if (e instanceof v.ValiError) {

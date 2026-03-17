@@ -5,9 +5,9 @@ import {
   type ListTransactionsQueryInput,
   listTransactionsQuerySchema,
   type TransactionIdentifierInput,
-  type TransactionsRangeInput,
   transactionIdentifierSchema,
-  transactionsRangeSchema,
+  type BlockchainFilterInput,
+  blockchainFilterSchema,
 } from './input.schema'
 import {
   type GetTransactionResult,
@@ -62,8 +62,8 @@ class Client {
     return v.parse(listTransactionsResultSchema, response)
   }
 
-  async getTransactions(params: TransactionsRangeInput): Promise<GetTransactionsResult> {
-    const response = await sendRequest('getTransactions', v.parse(transactionsRangeSchema, params))
+  async getTransactions(params: BlockchainFilterInput): Promise<GetTransactionsResult> {
+    const response = await sendRequest('getTransactions', v.parse(blockchainFilterSchema, params))
     return v.parse(getTransactionsResultSchema, response)
   }
 

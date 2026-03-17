@@ -1,5 +1,10 @@
 import * as v from 'valibot'
 import { hieroTransactionIdRegex } from '../schemas/basic.schema'
+import { SearchDirection } from '../enum/SearchDirection'
+import { TransactionType } from '../enum/TransactionType'
+import { PublicKeySearchType } from '../enum/PublicKeySearchType'
+import { WireOutputFormat } from '../enum/WireOutputFormat'
+import { dateStringSchema } from '../schemas/typeConverter.schema'
 
 export const hieroTransactionIdSchema = v.pipe(
   v.string(
@@ -39,11 +44,39 @@ export const transactionsRangeSchema = v.object({
   // default value is 100, max 100 transactions
   maxResultCount: v.nullish(v.pipe(v.number(), v.minValue(1, 'expect number >= 1')), 100),
   communityId: v.string(),
-  format: v.optional(v.literal('json'), 'json'),
+  format: v.optional(v.literal('Json'), 'Json'),
 })
 
 export type TransactionsRangeInput = v.InferInput<typeof transactionsRangeSchema>
 export type TransactionsRange = v.InferOutput<typeof transactionsRangeSchema>
+
+export const PaginationSchema = v.object({
+  size: v.pipe(v.number(), v.minValue(0, 'expect number >= 0'), v.maxValue(100, 'expect number <= 100')),
+  page: v.pipe(v.number(), v.minValue(0, 'expect number >= 0')),
+})
+
+export const TimepointIntervalSchema = v.object({
+  startDate: dateStringSchema,
+  endDate: dateStringSchema,
+})
+
+export const blockchainFilterSchema = v.object({
+  searchDirection: v.optional(v.enum(SearchDirection), undefined),
+  transactionType: v.optional(v.enum(TransactionType), undefined),
+  publicKeySearchType: v.optional(v.enum(PublicKeySearchType), undefined),
+  format: v.optional(v.enum(WireOutputFormat), undefined),
+  communityId: v.optional(v.string(), undefined),
+  coinCommunityId: v.optional(v.string(), undefined),
+  maxTransactionNr: v.optional(v.number(), undefined),
+  minTransactionNr: v.optional(v.number(), undefined),
+  publicKey: v.optional(v.string(), undefined),
+  pagination: v.optional(PaginationSchema, undefined),
+  timepointInterval: v.optional(TimepointIntervalSchema, undefined),
+  
+})
+
+export type BlockchainFilterInput = v.InferInput<typeof blockchainFilterSchema>
+export type BlockchainFilter = v.InferOutput<typeof blockchainFilterSchema>
 
 export const listTransactionsQuerySchema = v.object({
   communityId: v.string(),
