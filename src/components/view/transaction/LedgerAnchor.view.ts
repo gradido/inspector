@@ -9,36 +9,30 @@ interface ViewAttrs {
 }
 
 export class LedgerAnchorView implements m.ClassComponent<ViewAttrs> {
-  viewLink(ledgerAnchor: LedgerAnchor, communityId: string) {
-    let baseLink: string | undefined
+  formatValue(ledgerAnchor: LedgerAnchor, communityId: string) {
     switch (ledgerAnchor.type) {
       case LedgerAnchorType.HIERO_TRANSACTION_ID:
-        baseLink = `${CONFIG.HIERO_BLOCKCHAIN_EXPLORER_URL_TRANSACTION_DETAILS}/${ledgerAnchor.value}`
-        break
+        return m(
+          'a',
+          {
+            href: `${CONFIG.HIERO_BLOCKCHAIN_EXPLORER_URL_TRANSACTION_DETAILS}/${ledgerAnchor.value}`,
+            target: '_blank',
+          },
+          ledgerAnchor.value,
+        )
       case LedgerAnchorType.NODE_TRIGGER_TRANSACTION_ID:
-        baseLink = `/${communityId}/transaction/${ledgerAnchor.value}`
-        break
+        return m(m.route.Link, {href: `/transaction/${communityId}/${ledgerAnchor.value}`}, ledgerAnchor.value)
       default:
         break
     }
-    if (!baseLink) {
-      return ledgerAnchor.value
-    }
-    return m(
-      'a',
-      {
-        href: baseLink,
-        target: '_blank',
-      },
-      ledgerAnchor.value,
-    )
+    return ledgerAnchor.value
   }
 
   view({ attrs }: m.CVnode<ViewAttrs>) {
     return [
       m('.row', [
         m('.col', getLedgerAnchorTypeString(attrs.ledgerAnchor.type)),
-        m('.col.text-end', this.viewLink(attrs.ledgerAnchor, attrs.communityId)),
+        m('.col.text-end', this.formatValue(attrs.ledgerAnchor, attrs.communityId)),
       ]),
     ]
   }
