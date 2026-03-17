@@ -21,7 +21,11 @@ export class LedgerAnchorView implements m.ClassComponent<ViewAttrs> {
           ledgerAnchor.value,
         )
       case LedgerAnchorType.NODE_TRIGGER_TRANSACTION_ID:
-        return m(m.route.Link, {href: `/transaction/${communityId}/${ledgerAnchor.value}`}, ledgerAnchor.value)
+        return m(
+          m.route.Link,
+          { href: `/transaction/${communityId}/${ledgerAnchor.value}` },
+          ledgerAnchor.value,
+        )
       default:
         break
     }
