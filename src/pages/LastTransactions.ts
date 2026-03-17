@@ -4,13 +4,13 @@ import { gradidoNodeClient } from '../client/gradidoNodeClient'
 import type { GetTransactionsResult } from '../client/output.schema'
 import { CommunitySwitch } from '../components/CommunitySwitch'
 import { Pagination } from '../components/view/bootstrap/Pagination'
+import { TransactionView } from '../components/view/transaction'
+import type { ViewAttrs } from '../components/view/transaction/viewAttrs'
 import { WalletSum } from '../components/WalletSum'
 import { CONFIG } from '../config'
-import { TransactionView } from '../components/view/transaction'
-import { ConfirmedTransaction } from '../schemas/transaction.schema'
-import { ViewAttrs } from '../components/view/transaction/viewAttrs'
-import { WireOutputFormat } from '../enum/WireOutputFormat'
 import { SearchDirection } from '../enum/SearchDirection'
+import { WireOutputFormat } from '../enum/WireOutputFormat'
+import type { ConfirmedTransaction } from '../schemas/transaction.schema'
 
 interface Attrs {
   communityId: string
@@ -60,7 +60,7 @@ export class LastTransactions implements m.ClassComponent<Attrs> {
           size: this.pageSize,
           page,
         },
-        searchDirection: SearchDirection.DESC
+        searchDirection: SearchDirection.DESC,
       })
       this.currentPage = page
       this.transactionsCount = this.transactionsResult.totalCount
@@ -131,7 +131,9 @@ export class LastTransactions implements m.ClassComponent<Attrs> {
       m('.mt-lg-3'),
       m('.col-lg-8.col-md-10.col-12', [
         this.getPagination(this.transactionsResult, communityId),
-        transactions.map((transaction: ConfirmedTransaction) => m(TransactionView, { transaction, communityId } as ViewAttrs)),
+        transactions.map((transaction: ConfirmedTransaction) =>
+          m(TransactionView, { transaction, communityId } as ViewAttrs),
+        ),
         this.getPagination(this.transactionsResult, communityId),
         m('', `time used: ${timeUsed}`),
       ]),
@@ -144,10 +146,7 @@ export class LastTransactions implements m.ClassComponent<Attrs> {
         m('h1', t.__('Transactions overview')),
         m('.row.mt-3.mb-3', [
           m('.col-lg-3.col-6', m('h2', t.__('Community Selection'))),
-          m(
-            '.col-lg-6.col-9',
-            m(CommunitySwitch, attrs),
-          ), // m('.col-lg-6.col-md-0.col-0'),
+          m('.col-lg-6.col-9', m(CommunitySwitch, attrs)), // m('.col-lg-6.col-md-0.col-0'),
         ]),
         this.transactionsResult ? this.viewTransactions(attrs.communityId) : undefined,
       ]),

@@ -1,21 +1,20 @@
 import m from 'mithril'
 import timeoutIcon from '~icons/bi/clock-history'
 import link45degIcon from '~icons/bi/link-45deg'
-import { getAmount } from '../../../models/transactionBody'
 import { Badge } from '../bootstrap/Badge'
 import { DetailsBlock } from '../DetailsBlock'
-import type { ViewAttrs } from './viewAttrs'
-import { LedgerAnchorView } from './LedgerAnchor.view'
 import { AccountBalancesView } from './AccountBalances.view'
+import { LedgerAnchorView } from './LedgerAnchor.view'
+import type { ViewAttrs } from './viewAttrs'
 
 export class TimeoutDeferredTransferView implements m.ClassComponent<ViewAttrs> {
   viewDetails(attrs: ViewAttrs) {
     return m('', [
-      m('.row', [
-        m('.col', t.__('Transaction Number')),
-        m('.col.text-end', attrs.transaction.id),
-      ]),
-      m(LedgerAnchorView, { ledgerAnchor: attrs.transaction.ledgerAnchor }),
+      m('.row', [m('.col', t.__('Transaction Number')), m('.col.text-end', attrs.transaction.id)]),
+      m(LedgerAnchorView, {
+        ledgerAnchor: attrs.transaction.ledgerAnchor,
+        communityId: attrs.communityId,
+      }),
       m(AccountBalancesView, {
         accountBalances: attrs.transaction.accountBalances,
         balanceDerivationType: attrs.transaction.balanceDerivationType,

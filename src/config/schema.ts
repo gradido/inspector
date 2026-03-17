@@ -6,9 +6,12 @@ export enum NodeEnvironmentType {
   Production = 'production',
 }
 
-const booleanSchema = v.pipe(v.string(), v.transform<string, boolean>((input) => {
-  return input.toLowerCase() === 'true' || input === '1' || input.toLowerCase() === 'yes'
-}))
+const booleanSchema = v.pipe(
+  v.string(),
+  v.transform<string, boolean>((input) => {
+    return input.toLowerCase() === 'true' || input === '1' || input.toLowerCase() === 'yes'
+  }),
+)
 
 export const configSchema = v.object({
   PRODUCTION: v.exactOptional(v.boolean(), false),

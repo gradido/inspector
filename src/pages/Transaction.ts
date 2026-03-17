@@ -2,10 +2,10 @@ import m from 'mithril'
 import { gradidoNodeClient } from '../client/gradidoNodeClient'
 import type { GetTransactionResult } from '../client/output.schema'
 import { Title } from '../components/view/Title'
+import { TransactionView } from '../components/view/transaction'
+import type { ViewAttrs } from '../components/view/transaction/viewAttrs'
 import { SearchType, searchTypeToString } from '../enum/SearchType'
 import { detectSearchType } from '../utils/detectType'
-import { ViewAttrs } from '../components/view/transaction/viewAttrs'
-import { TransactionView } from '../components/view/transaction'
 
 interface Attrs {
   communityId: string
@@ -59,9 +59,15 @@ export class Transaction implements m.ClassComponent<Attrs> {
       }),
       m('.row.d-flex', [
         m('.col-2.d-none.d-lg-block'),
-        m('.col', this.transactionResponse 
-          ? m(TransactionView, { transaction: this.transactionResponse.transaction, communityId: attrs.communityId } as ViewAttrs) 
-          : t.__('No transaction found')),
+        m(
+          '.col',
+          this.transactionResponse
+            ? m(TransactionView, {
+                transaction: this.transactionResponse.transaction,
+                communityId: attrs.communityId,
+              } as ViewAttrs)
+            : t.__('No transaction found'),
+        ),
         m('.col-3.d-none.d-lg-block'),
       ]),
     ])

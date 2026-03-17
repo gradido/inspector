@@ -1,6 +1,5 @@
 import m from 'mithril'
 import { getTransactionType, TransactionType } from '../../../enum/TransactionType'
-import type { ConfirmedTransaction } from '../../../schemas/transaction.schema'
 import { CommunityFriendsUpdateView } from './CommunityFriendsUpdate.view'
 import { CommunityRootView } from './CommunityRoot.view'
 import { DeferredTransferView } from './DeferredTransfer.view'
@@ -9,7 +8,7 @@ import { GradidoTransferView } from './GradidoTransfer.view'
 import { RedeemDeferredTransferView } from './RedeemDeferredTransfer.view'
 import { RegisterAddressView } from './RegisterAddress.view'
 import { TimeoutDeferredTransferView } from './TimeoutDeferredTransfer.view'
-import { ViewAttrs } from './viewAttrs'
+import type { ViewAttrs } from './viewAttrs'
 
 export class TransactionView implements m.ClassComponent<ViewAttrs> {
   view({ attrs }: m.CVnode<ViewAttrs>) {

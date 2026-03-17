@@ -12,6 +12,7 @@
     "preserve": "bun locale",
     "serve": "cross-env TZ=UTC bun --bun vite preview",
     "lint": "biome check --error-on-warnings .",
+    "lint:fix": "biome check --error-on-warnings . --write",
     "extract": "bun --bun gettext-extract",
     "locale": "bun scripts/localeJson.js",
     "typecheck": "tsc --noEmit"

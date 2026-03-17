@@ -1,12 +1,11 @@
 import m from 'mithril'
 import dropletHalfIcon from '~icons/bi/droplet-half'
 import type { WalletTransaction } from '../../client/output.schema'
-import { getUserTransactionTypeLabel } from '../../enum/UserTransactionType'
-import { formatDistance, formatGDD, formatGDD4 } from '../../utils/utils'
 import { DecayType } from '../../enum/DecayType'
+import { getUserTransactionTypeLabel } from '../../enum/UserTransactionType'
+import { formatDistance, formatGDD4 } from '../../utils/utils'
 
 export class DecayDetails implements m.ClassComponent<WalletTransaction> {
-
   viewTitle(attrs: WalletTransaction) {
     if (attrs.decay) {
       if (attrs.decay.type === DecayType.AFTER_START_BLOCK) {
@@ -29,9 +28,14 @@ export class DecayDetails implements m.ClassComponent<WalletTransaction> {
     const userLocale = localStorage.getItem('language') ?? 'en'
     return [
       m('.row', [
-        m('.col-sm-10.col-md-8.col-lg-6.col-8', 
-          attrs.decay.type === DecayType.START_BLOCK_INSIDE ? t.__('Decay was introduced on') : t.__('Last Transaction')),
-        m('.offset-0.col.offset-0.text-end.me-0',
+        m(
+          '.col-sm-10.col-md-8.col-lg-6.col-8',
+          attrs.decay.type === DecayType.START_BLOCK_INSIDE
+            ? t.__('Decay was introduced on')
+            : t.__('Last Transaction'),
+        ),
+        m(
+          '.offset-0.col.offset-0.text-end.me-0',
           new Intl.DateTimeFormat(userLocale, {
             dateStyle: 'long',
             timeStyle: 'short',
@@ -40,11 +44,12 @@ export class DecayDetails implements m.ClassComponent<WalletTransaction> {
       ]),
       m('.row', [
         m('.col-sm-6.col-md-6.col-lg-4.col-6', t.__('Time passed')),
-        m('.offset-0.col.offset-0.text-end.me-0',
+        m(
+          '.offset-0.col.offset-0.text-end.me-0',
           // attrs.decay.end + ' ' + attrs.decay.start,
           formatDistance(new Date(attrs.decay.end), new Date(attrs.decay.start)),
         ),
-      ])
+      ]),
     ]
   }
 

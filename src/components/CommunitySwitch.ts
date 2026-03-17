@@ -2,18 +2,18 @@ import m from 'mithril'
 import { gradidoNodeClient } from '../client/gradidoNodeClient'
 import { CONFIG } from '../config'
 import 'bootstrap/js/src/dropdown'
-import { Community } from '../client/output.schema'
+import type { Community } from '../client/output.schema'
 
 interface Attrs {
-  communityId: string | undefined
+  communityId?: string
 }
 
 export class CommunitySwitch implements m.ClassComponent<Attrs> {
   communities: Community[] = []
   reloadTimerId: ReturnType<typeof setTimeout> | undefined = undefined
 
-  currentCommunity(communityId: string): Community | undefined {
-    if(!communityId || !globalThis.communities) {
+  currentCommunity(communityId?: string): Community | undefined {
+    if (!communityId || !globalThis.communities) {
       return undefined
     }
     return globalThis.communities.get(communityId)
@@ -31,7 +31,7 @@ export class CommunitySwitch implements m.ClassComponent<Attrs> {
     try {
       this.communities = (await gradidoNodeClient.listCommunities()).communities
       globalThis.communities = new Map(this.communities.map((c) => [c.communityId, c]))
-      if (!attrs.communityId && this.communities.length == 1) {
+      if (!attrs.communityId && this.communities.length === 1) {
         m.route.set(`/${this.communities[0].communityId}`)
       }
       m.redraw()
@@ -39,12 +39,15 @@ export class CommunitySwitch implements m.ClassComponent<Attrs> {
       console.warn(`fetchCommunities: ${e}`)
     } finally {
       if (CONFIG.AUTO_POLL_INTERVAL > 0) {
-        this.reloadTimerId = setTimeout(() => this.fetchCommunities(attrs), CONFIG.AUTO_POLL_INTERVAL)
+        this.reloadTimerId = setTimeout(
+          () => this.fetchCommunities(attrs),
+          CONFIG.AUTO_POLL_INTERVAL,
+        )
       }
     }
   }
   view({ attrs }: m.CVnode<Attrs>) {
-    const currentCommunity = this.currentCommunity(attrs.communityId!)
+    const currentCommunity = this.currentCommunity(attrs.communityId)
     return m(
       '.community-switch',
       this.communities.length > 1

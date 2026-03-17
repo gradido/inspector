@@ -2,12 +2,12 @@ import * as v from 'valibot'
 import { CONFIG } from '../config'
 import { GradidoNodeErrorCodes } from '../enum/GradidoNodeErrorCodes'
 import {
+  type BlockchainFilterInput,
+  blockchainFilterSchema,
   type ListTransactionsQueryInput,
   listTransactionsQuerySchema,
   type TransactionIdentifierInput,
   transactionIdentifierSchema,
-  type BlockchainFilterInput,
-  blockchainFilterSchema,
 } from './input.schema'
 import {
   type GetTransactionResult,

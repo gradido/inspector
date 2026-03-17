@@ -35,7 +35,7 @@ export class Account implements m.ClassComponent<Attrs> {
 
   onupdate({ attrs }: m.CVnode<Attrs>) {
     // if (this.reloadTimerId) {
-      // clearTimeout(this.reloadTimerId)
+    // clearTimeout(this.reloadTimerId)
     // }
     if (attrs.pageSize && attrs.pageSize > 0) {
       this.pageSize = attrs.pageSize

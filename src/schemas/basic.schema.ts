@@ -77,15 +77,17 @@ export type Decay = v.InferOutput<typeof decaySchema>
 export const ledgerAnchorSchema = v.pipe(
   v.object({
     type: v.enum(LedgerAnchorType),
-    value: v.nullish(v.pipe(v.union([
-      v.string(),
-      v.number(),
-    ]), v.transform((value: any): string => {
-      if (typeof value === 'number') {
-        return value.toString()
-      }
-      return value
-    }))),
+    value: v.nullish(
+      v.pipe(
+        v.union([v.string(), v.number()]),
+        v.transform((value: string | number): string => {
+          if (typeof value === 'number') {
+            return value.toString()
+          }
+          return value
+        }),
+      ),
+    ),
   }),
 )
 

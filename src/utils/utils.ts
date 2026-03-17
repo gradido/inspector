@@ -1,4 +1,4 @@
-import { CONFIG } from "../config"
+import { CONFIG } from '../config'
 
 export function getEnumValue<T extends string | number>(value: string | null, defaultValue: T): T {
   if (!value) {
@@ -110,7 +110,7 @@ export function formatDistance(
     },
     {
       unit: (count: number) => (count > 1 ? `${count} ${t.__('weeks')}` : t.__('1 week')),
-      seconds: 2*604800,
+      seconds: 2 * 604800,
     },
     {
       unit: (count: number) => (count > 1 ? `${count} ${t.__('days')}` : t.__('1 day')),

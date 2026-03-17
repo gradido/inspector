@@ -4,9 +4,9 @@ import { Badge } from '../bootstrap/Badge'
 import { CopyToClipboardLink } from '../CopyToClipboardLink'
 import { DetailsBlock } from '../DetailsBlock'
 import { PublicKeyLink } from '../PublicKeyLink'
+import { LedgerAnchorView } from './LedgerAnchor.view'
 import { SignaturesView } from './Signatures.view'
 import type { ViewAttrs } from './viewAttrs'
-import { LedgerAnchorView } from './LedgerAnchor.view'
 
 export class CommunityRootView implements m.ClassComponent<ViewAttrs> {
   viewDetails(attrs: ViewAttrs) {
@@ -20,11 +20,11 @@ export class CommunityRootView implements m.ClassComponent<ViewAttrs> {
     const signaturePairs = gradidoTransaction.signatureMap
     const communityId = attrs.communityId
     return m('', [
-      m('.row', [
-        m('.col', t.__('Transaction Number')),
-        m('.col.text-end', attrs.transaction.id),
-      ]),
-      m(LedgerAnchorView, { ledgerAnchor: attrs.transaction.ledgerAnchor }),
+      m('.row', [m('.col', t.__('Transaction Number')), m('.col.text-end', attrs.transaction.id)]),
+      m(LedgerAnchorView, {
+        ledgerAnchor: attrs.transaction.ledgerAnchor,
+        communityId: attrs.communityId,
+      }),
       m(SignaturesView, { signaturePairs }),
       m('.fw-bold.pb-2.mt-3', t.__('Community Root')),
       m('.row', [

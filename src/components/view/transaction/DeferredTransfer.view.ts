@@ -6,11 +6,11 @@ import { Badge } from '../bootstrap/Badge'
 import { DetailsBlock } from '../DetailsBlock'
 import { PublicKeyLink } from '../PublicKeyLink'
 import { AccountBalancesView } from './AccountBalances.view'
+import { LedgerAnchorView } from './LedgerAnchor.view'
 import { MemosView } from './Memos.view'
 import { SignaturesView } from './Signatures.view'
 import { TransferAmountView } from './TransferAmount.view'
 import type { ViewAttrs } from './viewAttrs'
-import { LedgerAnchorView } from './LedgerAnchor.view'
 
 export class DeferredTransferView implements m.ClassComponent<ViewAttrs> {
   viewDetails(attrs: ViewAttrs) {
@@ -25,11 +25,8 @@ export class DeferredTransferView implements m.ClassComponent<ViewAttrs> {
     const communityId = attrs.communityId
 
     return m('', [
-      m('.row', [
-        m('.col', t.__('Transaction Number')),
-        m('.col.text-end', attrs.transaction.id),
-      ]),
-      m(LedgerAnchorView, { ledgerAnchor: attrs.transaction.ledgerAnchor }),
+      m('.row', [m('.col', t.__('Transaction Number')), m('.col.text-end', attrs.transaction.id)]),
+      m(LedgerAnchorView, { ledgerAnchor: attrs.transaction.ledgerAnchor, communityId }),
       m(SignaturesView, { signaturePairs }),
       m('.fw-bold.pb-1.mt-3', t.__('Deferred Transfer')),
       m(MemosView, {

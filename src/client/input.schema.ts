@@ -1,9 +1,9 @@
 import * as v from 'valibot'
-import { hieroTransactionIdRegex } from '../schemas/basic.schema'
+import { PublicKeySearchType } from '../enum/PublicKeySearchType'
 import { SearchDirection } from '../enum/SearchDirection'
 import { TransactionType } from '../enum/TransactionType'
-import { PublicKeySearchType } from '../enum/PublicKeySearchType'
 import { WireOutputFormat } from '../enum/WireOutputFormat'
+import { hieroTransactionIdRegex } from '../schemas/basic.schema'
 import { dateStringSchema } from '../schemas/typeConverter.schema'
 
 export const hieroTransactionIdSchema = v.pipe(
@@ -51,7 +51,11 @@ export type TransactionsRangeInput = v.InferInput<typeof transactionsRangeSchema
 export type TransactionsRange = v.InferOutput<typeof transactionsRangeSchema>
 
 export const PaginationSchema = v.object({
-  size: v.pipe(v.number(), v.minValue(0, 'expect number >= 0'), v.maxValue(100, 'expect number <= 100')),
+  size: v.pipe(
+    v.number(),
+    v.minValue(0, 'expect number >= 0'),
+    v.maxValue(100, 'expect number <= 100'),
+  ),
   page: v.pipe(v.number(), v.minValue(0, 'expect number >= 0')),
 })
 
@@ -72,7 +76,6 @@ export const blockchainFilterSchema = v.object({
   publicKey: v.optional(v.string(), undefined),
   pagination: v.optional(PaginationSchema, undefined),
   timepointInterval: v.optional(TimepointIntervalSchema, undefined),
-  
 })
 
 export type BlockchainFilterInput = v.InferInput<typeof blockchainFilterSchema>
