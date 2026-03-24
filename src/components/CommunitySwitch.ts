@@ -30,6 +30,15 @@ export class CommunitySwitch implements m.ClassComponent<Attrs> {
   async fetchCommunities(attrs: Attrs) {
     try {
       this.communities = (await gradidoNodeClient.listCommunities()).communities
+      this.communities.sort((a: Community, b: Community) => {
+        if (a.alias < b.alias) {
+          return -1
+        } else if (a.alias > b.alias) {
+          return 1
+        } else {
+          return 0
+        }
+      })
       globalThis.communities = new Map(this.communities.map((c) => [c.communityId, c]))
       if (!attrs.communityId && this.communities.length === 1) {
         m.route.set(`/${this.communities[0].communityId}`)
