@@ -105,7 +105,7 @@ export class LastTransactions implements m.ClassComponent<Attrs> {
     if (!this.transactionsResult) {
       return
     }
-    const { gmwBalance, aufBalance, timeUsed, transactions } = this.transactionsResult
+    const { gmwBalance, timeUsed, aufBalance, transactions } = this.transactionsResult
     return [
       m('.row', [
         m(
@@ -135,7 +135,7 @@ export class LastTransactions implements m.ClassComponent<Attrs> {
           m(TransactionView, { transaction, communityId } as ViewAttrs),
         ),
         this.getPagination(this.transactionsResult, communityId),
-        m('', `time used: ${timeUsed}`),
+        m('', `time used: ${this.transactionsResult.timeUsed}`),
       ]),
     ]
   }

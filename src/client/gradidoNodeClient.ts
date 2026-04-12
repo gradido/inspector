@@ -63,8 +63,13 @@ class Client {
   }
 
   async getTransactions(params: BlockchainFilterInput): Promise<GetTransactionsResult> {
-    const response = await sendRequest('getTransactions', v.parse(blockchainFilterSchema, params))
-    return v.parse(getTransactionsResultSchema, response)
+    const inputParams = v.parse(blockchainFilterSchema, params)
+    const startTime = Date.now()
+    const response = await sendRequest('getTransactions', inputParams)
+    const timeUsed = Date.now() - startTime
+    const parsedResponse = v.parse(getTransactionsResultSchema, response)
+    parsedResponse.timeUsed = `server: ${parsedResponse.timeUsed}, client: ${timeUsed}ms`
+    return parsedResponse
   }
 
   async getTransaction(
