@@ -72,6 +72,7 @@ export default defineConfig(() => {
         AUTO_POLL_INTERVAL: config.AUTO_POLL_INTERVAL.toString(),
         FULL_DECIMAL_PLACES: config.FULL_DECIMAL_PLACES.toString(),
         HIERO_BLOCKCHAIN_EXPLORER_URL_TRANSACTION_DETAILS: config.HIERO_BLOCKCHAIN_EXPLORER_URL_TRANSACTION_DETAILS,
+        PAGINATION_PAGE_SIZE: config.PAGINATION_PAGE_SIZE.toString(),
       }),
       // commonjs(),
     ],

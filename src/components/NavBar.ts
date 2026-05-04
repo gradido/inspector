@@ -3,6 +3,7 @@ import m from 'mithril'
 import 'bootstrap/js/src/collapse.js'
 import { SearchType } from '../enum/SearchType'
 import { detectSearchType } from '../utils/detectType'
+import { CONFIG } from '../config'
 
 interface Attrs {
   communityId: string
@@ -22,6 +23,10 @@ export class NavBar implements m.ClassComponent<Attrs> {
         m.route.set(`/account/${attrs.communityId}/${this.searchString}`)
         break
       case SearchType.TRANSACTION_NR:
+        const txNr = Number(this.searchString)
+        const page = Math.floor(txNr / CONFIG.PAGINATION_PAGE_SIZE)
+        m.route.set(`/${attrs.communityId}/-${page}`)
+        break
       case SearchType.HIERO_TRANSACTION_ID:
         m.route.set(`/transaction/${attrs.communityId}/${this.searchString}`)
         break
@@ -29,7 +34,6 @@ export class NavBar implements m.ClassComponent<Attrs> {
         this.searchError = t.__('invalid input')
     }
     this.validated = true
-    console.log('search: ', this)
   }
   view({ attrs }: m.CVnode<Attrs>) {
     const searchValid = this.searchError === undefined

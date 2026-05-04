@@ -14,28 +14,36 @@ import type { ConfirmedTransaction } from '../schemas/transaction.schema'
 
 interface Attrs {
   communityId: string
+  page?: string
   pageSize?: number
 }
 
-export class LastTransactions implements m.ClassComponent<Attrs> {
+export class TransactionsList implements m.ClassComponent<Attrs> {
   transactionsResult: GetTransactionsResult | undefined = undefined
   lastKnownCommunityId: string | undefined = undefined
   currentPage: number = 1
+  lastSetPage: string = ''
   transactionsCount: number = 0
-  pageSize: number = 20
+  pageSize: number = CONFIG.PAGINATION_PAGE_SIZE
   autoPollTimeout: NodeJS.Timeout | undefined = undefined
 
   oninit({ attrs }: m.CVnode<Attrs>) {
     if (attrs.communityId) {
-      this.refetchTransactions(attrs.communityId)
+      this.refetchTransactions(attrs.communityId, attrs.page)
     }
     if (attrs.pageSize && attrs.pageSize > 0) {
       this.pageSize = attrs.pageSize
     }
   }
   onupdate({ attrs }: m.VnodeDOM<Attrs, this>) {
-    if (this.lastKnownCommunityId !== attrs.communityId) {
-      this.refetchTransactions(attrs.communityId)
+    if (this.lastKnownCommunityId !== attrs.communityId || (attrs.page && this.lastSetPage !== attrs.page)) {
+      this.lastSetPage = attrs.page || String(this.currentPage)
+      if (this.transactionsCount && attrs.page && Number(attrs.page) > Math.ceil(this.transactionsCount / this.pageSize)) {
+        toaster.error(t.__('Page not found'))
+        m.route.set(`/${attrs.communityId}/${this.currentPage}`)
+      } else {
+        this.refetchTransactions(attrs.communityId, attrs.page)
+      }
     }
   }
 
@@ -45,7 +53,8 @@ export class LastTransactions implements m.ClassComponent<Attrs> {
     }
   }
 
-  async fetchTransactions(page: number, communityId: string) {
+  async fetchTransactions(communityId: string, page: number) {
+    m.route.set(`/${communityId}/${page}`)
     if (this.autoPollTimeout) {
       clearTimeout(this.autoPollTimeout)
     }
@@ -64,6 +73,9 @@ export class LastTransactions implements m.ClassComponent<Attrs> {
       })
       this.currentPage = page
       this.transactionsCount = this.transactionsResult.totalCount
+      if (this.transactionsResult.transactions.length === 0 && page > 1) {
+        m.route.set(`/${communityId}/${this.currentPage - 1}`)
+      }
       m.redraw()
     } catch (e) {
       if (e instanceof v.ValiError) {
@@ -74,20 +86,28 @@ export class LastTransactions implements m.ClassComponent<Attrs> {
     } finally {
       if (CONFIG.AUTO_POLL_INTERVAL > 0) {
         this.autoPollTimeout = setTimeout(
-          () => this.fetchTransactions(this.currentPage, communityId),
+          () => this.fetchTransactions(communityId, this.currentPage),
           CONFIG.AUTO_POLL_INTERVAL,
         )
       }
     }
   }
 
-  refetchTransactions(communityId: string) {
+  refetchTransactions(communityId: string, page: string = '1') {
     if (this.autoPollTimeout) {
       clearTimeout(this.autoPollTimeout)
       this.autoPollTimeout = undefined
     }
-    this.currentPage = 1
-    this.fetchTransactions(this.currentPage, communityId)
+    this.currentPage = Number(page)
+    if (this.currentPage < 0) {
+      // revert page order on negative page (page assuming asc order, but we have desc order)
+      if (this.transactionsCount) {
+        this.currentPage = Math.ceil(this.transactionsCount / this.pageSize) + this.currentPage
+      } else {
+        this.currentPage = 1
+      }
+    }
+    this.fetchTransactions(communityId, this.currentPage)
     this.lastKnownCommunityId = communityId
   }
 
@@ -96,7 +116,7 @@ export class LastTransactions implements m.ClassComponent<Attrs> {
       currentPage: this.currentPage,
       totalPages: Math.ceil(transactionsResult.totalCount / this.pageSize),
       ariaLabel: t.__('Pagination for transactions overview'),
-      onPageChange: (page: number) => this.fetchTransactions(page, communityId),
+      onPageChange: (page: number) => this.fetchTransactions(communityId, page),
       pill: true,
     })
   }

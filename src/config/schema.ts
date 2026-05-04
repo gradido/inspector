@@ -32,4 +32,5 @@ export const configSchema = v.object({
     v.pipe(v.string(), v.url()),
     'https://hashscan.io/testnet/transaction',
   ),
+  PAGINATION_PAGE_SIZE: v.optional(v.pipe(stringToNumberSchema, v.minValue(10), v.maxValue(100)), 20),
 })

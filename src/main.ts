@@ -8,7 +8,7 @@ import m from 'mithril'
 import { Layout } from './components/Layout'
 import { Toaster } from './components/Toaster'
 import { Account } from './pages/Account'
-import { LastTransactions } from './pages/LastTransactions'
+import { TransactionsList } from './pages/TransactionsList'
 import { Transaction } from './pages/Transaction'
 import { i18nInitAsync } from './utils/i18n'
 
@@ -28,10 +28,13 @@ i18nInitAsync().then((t) => {
   // routes
   m.route(root, '/', {
     '/': {
-      render: () => m(Layout, m(LastTransactions)),
+      render: () => m(Layout, m(TransactionsList)),
     },
     '/:communityId': {
-      render: ({ attrs }) => m(Layout, attrs, m(LastTransactions, attrs)),
+      render: ({ attrs }) => m(Layout, attrs, m(TransactionsList, attrs)),
+    },
+    '/:communityId/:page': {
+      render: ({ attrs }) => m(Layout, attrs, m(TransactionsList, attrs)),
     },
     '/account/:communityId/:pubkey': {
       render: ({ attrs }) => m(Layout, attrs, m(Account, attrs)),
