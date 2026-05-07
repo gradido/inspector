@@ -1,8 +1,8 @@
 import m from 'mithril'
-import { formatGDD } from '../../utils/utils'
 import { Collapse } from './bootstrap/Collapse'
 import { CollapseArrow } from './CollapseArrow'
 import { PublicKeyLink } from './PublicKeyLink'
+import { FormattedCurrency } from './FormattedCurrency'
 
 export interface DetailsBlockAttrs {
   firstRow: m.Child
@@ -33,9 +33,9 @@ export class DetailsBlock implements m.ClassComponent<DetailsBlockAttrs> {
 
   amountView(amount: string): m.Child {
     if (this.isAmountPositive(amount)) {
-      return m('.fw-bold.gradido-global-color-accent', formatGDD(amount))
+      return m('.fw-bold.gradido-global-color-accent', m(FormattedCurrency, { value: amount }))
     } else {
-      return m('.fw-bold', formatGDD(amount))
+      return m('.fw-bold', m(FormattedCurrency, { value: amount }))
     }
   }
 

@@ -1,6 +1,7 @@
 import m from 'mithril'
-import { combineElementWithClasses, formatCurrency, stringToBoolean } from '../utils/utils'
+import { combineElementWithClasses, stringToBoolean } from '../utils/utils'
 import { Eye } from './view/Eye'
+import { FormattedCurrency } from './view/FormattedCurrency'
 
 interface Attrs {
   amount: string
@@ -63,7 +64,7 @@ export class WalletSum implements m.ClassComponent<Attrs> {
                 ),
                 m(
                   'span.fw-bold.gradido-global-color-accent',
-                  this.state.show ? formatCurrency(attrs.amount, attrs.unit) : '****',
+                  this.state.show ? m(FormattedCurrency, { value: attrs.amount, currency: attrs.unit }) : '****',
                 ),
               ]),
               m(

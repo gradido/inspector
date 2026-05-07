@@ -1,13 +1,18 @@
 import m from 'mithril'
 import dropletHalfIcon from '~icons/bi/droplet-half'
 import type { WalletTransaction } from '../../client/output.schema'
-import { formatGDD } from '../../utils/utils'
+import { FormattedCurrency } from '../view/FormattedCurrency'
 
 export class DecayDetailsShort implements m.ClassComponent<WalletTransaction> {
   constructDecayString({ previousBalance, decay, balance }: WalletTransaction): m.ChildArray {
-    const formattedPrevious = formatGDD(previousBalance)
-    const formattedDecay = decay ? (decay.decay === '0' ? t.__('− ') : formatGDD(decay.decay)) : ''
-    const formattedBalance = formatGDD(balance)
+    const formattedPrevious = m(FormattedCurrency, { value: previousBalance })
+    let formattedDecay: m.Child
+    if (decay && decay.decay !== '0') {
+      formattedDecay = m(FormattedCurrency, { value: decay.decay })
+    } else {
+      formattedDecay = t.__('− ')
+    }
+    const formattedBalance = m(FormattedCurrency, { value: balance })
 
     return [formattedPrevious, ' ', formattedDecay, ' ', t.__('='), ' ', m('b', formattedBalance)]
   }
@@ -23,8 +28,8 @@ export class DecayDetailsShort implements m.ClassComponent<WalletTransaction> {
         m(
           '.col',
           m('.row', [
-            m('.col-md-4.col-lg-4.col-12', m('', t.__('Decay'))),
-            m('.offset-1.offset-lg-0.offset-md-0.col', m('', this.constructDecayString(attrs))),
+            m('.col-md-4.col-lg-4.col-12', t.__('Decay')),
+            m('.offset-1.offset-lg-0.offset-md-0.col', this.constructDecayString(attrs)),
           ]),
         ),
       ),

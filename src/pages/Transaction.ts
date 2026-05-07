@@ -44,6 +44,7 @@ export class Transaction implements m.ClassComponent<Attrs> {
         })
       }
       // console.log(this.transactionResponse)
+      this.transactionResponse?.transaction.id
       m.redraw()
     } catch (e) {
       toaster.error(e)

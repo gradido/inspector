@@ -3,7 +3,9 @@ import dropletHalfIcon from '~icons/bi/droplet-half'
 import type { WalletTransaction } from '../../client/output.schema'
 import { DecayType } from '../../enum/DecayType'
 import { getUserTransactionTypeLabel } from '../../enum/UserTransactionType'
-import { formatDistance, formatGDD4 } from '../../utils/utils'
+import { formatDistance } from '../../utils/utils'
+import { FormattedCurrency } from '../view/FormattedCurrency'
+import { CONFIG } from '../../config'
 
 export class DecayDetails implements m.ClassComponent<WalletTransaction> {
   viewTitle(attrs: WalletTransaction) {
@@ -57,33 +59,46 @@ export class DecayDetails implements m.ClassComponent<WalletTransaction> {
     return attrs.decay && attrs.decay.type !== DecayType.BEFORE_START_BLOCK
       ? m('.row.mt-0', [
           m('.col-sm-6.col-md-6.col-lg-3.col-6', t.__('Decay')),
-          m('.offset-0.col.offset-0.text-end.me-0', formatGDD4(attrs.decay.decay)),
+          m('.offset-0.col.offset-0.text-end.me-0', 
+            m(FormattedCurrency, { value: attrs.decay.decay, decimalPlaces: CONFIG.FULL_DECIMAL_PLACES ? 4 : 2 })
+          )
         ])
       : undefined
   }
 
   view({ attrs }: m.CVnode<WalletTransaction>) {
+    const decimalPlaces = CONFIG.FULL_DECIMAL_PLACES ? 4 : 2
     return [
       this.viewTitle(attrs),
       this.viewDateTime(attrs),
       m('.row.mt-2', [
         m('.col-sm-6.col-md-6.col-lg-4.col-6', t.__('Previous balance')),
-        m('.offset-0.col.offset-0.text-end.me-0', formatGDD4(attrs.previousBalance)),
+        m('.offset-0.col.offset-0.text-end.me-0', 
+          m(FormattedCurrency, { value: attrs.previousBalance, decimalPlaces })
+        )
       ]),
       this.viewDecay(attrs),
       m('.row', [
         m('.col-sm-6.col-md-6.col-lg-3.col-6', getUserTransactionTypeLabel(attrs.typeId)),
-        m('.offset-0.col.offset-0.text-end.me-0', formatGDD4(attrs.amount)),
+        m('.offset-0.col.offset-0.text-end.me-0', 
+          m(FormattedCurrency, { value: attrs.amount, decimalPlaces })
+        ),
       ]),
       attrs.change
         ? m('.row.mt-0', [
             m('.col-sm-6.col-md-6.col-lg-4.col-6', t.__('Change')),
-            m('.offset-0.col.offset-0.text-end.me-0', formatGDD4(attrs.change.amount)),
+            m('.offset-0.col.offset-0.text-end.me-0', 
+              m(FormattedCurrency, { value: attrs.change.amount, decimalPlaces })
+            ),
           ])
         : undefined,
       m('.row.border-top.pt-2.mt-2', [
         m('.col-sm-6.col-md-6.col-lg-3.col-6', t.__('New balance')),
-        m('.offset-0.col.offset-0.text-end.me-0', m('b', formatGDD4(attrs.balance))),
+        m('.offset-0.col.offset-0.text-end.me-0', 
+          m('b', 
+            m(FormattedCurrency, { value: attrs.balance, decimalPlaces })
+          )
+        ),
       ]),
     ]
   }

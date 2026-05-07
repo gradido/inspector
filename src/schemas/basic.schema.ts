@@ -92,3 +92,14 @@ export const ledgerAnchorSchema = v.pipe(
 )
 
 export type LedgerAnchor = v.InferOutput<typeof ledgerAnchorSchema>
+
+export const currencyDisplayPartsSchema = v.object({
+  sign: v.string(),
+  intPart: v.string(),
+  decimalSeparator: v.string(),
+  decPart: v.string(),
+  currencySymbol: v.string()
+})
+
+export type CurrencyDisplayParts = v.InferOutput<typeof currencyDisplayPartsSchema>
+
