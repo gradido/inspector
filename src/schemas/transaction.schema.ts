@@ -71,7 +71,6 @@ export const transactionBodySchema = v.pipe(
   v.object({
     memos: v.array(encryptedMemoSchema),
     createdAt: dateSchema,
-    versionNumber: v.string(),
     type: v.enum(CrossGroupType),
     otherCommunity: v.nullish(v.string()),
     communityRoot: v.nullish(communityRootSchema),
@@ -119,7 +118,6 @@ export const confirmedTransactionSchema = v.object({
   id: v.number(),
   gradidoTransaction: gradidoTransactionSchema,
   confirmedAt: dateSchema,
-  versionNumber: v.string(),
   runningHash: hex32Schema,
   ledgerAnchor: ledgerAnchorSchema,
   accountBalances: v.array(accountBalanceSchema),

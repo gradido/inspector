@@ -9,7 +9,7 @@ export interface FormattedCurrencyAttrs {
 
 export class FormattedCurrency implements m.ClassComponent<FormattedCurrencyAttrs> {
   formatDecimalPart(decimalPart: string, decimalPlaces: number): m.Child[] {
-    if (decimalPlaces > 2) {      
+    if (decimalPlaces > 2) {
       return [
         decimalPart.slice(0, 2),
         m('span.gdd-precision-fractional-places', decimalPart.slice(2 - decimalPlaces))
@@ -28,7 +28,9 @@ export class FormattedCurrency implements m.ClassComponent<FormattedCurrencyAttr
       ' ',
       currencyParts.intPart,
       currencyParts.decimalSeparator,
-      ...decimalPart
+      ...decimalPart,
+      ' ',
+      currencyParts.currencySymbol,
     ])
   }
 }
