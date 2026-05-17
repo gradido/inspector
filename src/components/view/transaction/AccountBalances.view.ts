@@ -4,9 +4,9 @@ import {
   getBalanceDerivationTypeString,
 } from '../../../enum/BalanceDerivationType'
 import type { AccountBalance } from '../../../schemas/transaction.schema'
-import { formatCurrency } from '../../../utils/utils'
 import { CommunityLink } from '../CommunityLink'
 import { PublicKeyLink } from '../PublicKeyLink'
+import { FormattedCurrency } from '../FormattedCurrency'
 
 interface ViewAttrs {
   accountBalances: AccountBalance[]
@@ -38,7 +38,7 @@ export class AccountBalancesView implements m.ClassComponent<ViewAttrs> {
           ]),
           m('.row', [
             m('.col', t.__('Balance')),
-            m('.col.text-end', formatCurrency(accountBalance.balance)),
+            m('.col.text-end', m(FormattedCurrency, { value: accountBalance.balance })),
           ]),
           accountBalance.coinCommunityId && accountBalance.coinCommunityId !== attrs.communityId
             ? m('.row', [

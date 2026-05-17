@@ -1,8 +1,8 @@
 import m from 'mithril'
 import type { TransferAmount } from '../../../schemas/basic.schema'
-import { formatCurrency4 } from '../../../utils/utils'
 import { CommunityLink } from '../CommunityLink'
 import { PublicKeyLink } from '../PublicKeyLink'
+import { FormattedCurrency } from '../FormattedCurrency'
 
 interface ViewAttrs {
   transferAmount: TransferAmount
@@ -26,7 +26,7 @@ export class TransferAmountView implements m.ClassComponent<ViewAttrs> {
       ]),
       m('.row', [
         m('.col', t.__('Amount')),
-        m('.col.text-end', formatCurrency4(attrs.transferAmount.amount)),
+        m('.col.text-end', m(FormattedCurrency, { value: attrs.transferAmount.amount })),
       ]),
       attrs.transferAmount.communityId
         ? m('.row', [

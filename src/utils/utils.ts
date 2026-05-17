@@ -1,4 +1,5 @@
-import { CONFIG } from '../config'
+import { CurrencyDisplayParts, currencyDisplayPartsSchema } from '../schemas/basic.schema'
+import * as v from 'valibot'
 
 export function getEnumValue<T extends string | number>(value: string | null, defaultValue: T): T {
   if (!value) {
@@ -12,63 +13,58 @@ export function getEnumValue<T extends string | number>(value: string | null, de
   return defaultValue
 }
 
-export function formatCurrency(value: string, currency: string = 'GDD'): string {
-  const numericValue = parseFloat(value)
-  if (Number.isNaN(numericValue)) {
-    return ''
-  }
-
-  const truncatedValue = numericValue // Math.floor(numericValue * 100) / 100
-
-  const decimalPlaces = CONFIG.FULL_DECIMAL_PLACES ? 4 : 2
-  return new Intl.NumberFormat(t.getLocale(), {
-    style: 'currency',
-    currency,
-    minimumFractionDigits: decimalPlaces,
-    maximumFractionDigits: decimalPlaces,
-  })
-    .format(truncatedValue)
-    .replace('-', t.__('− '))
+const POW10: Record<number, number> = {
+  0: 1,
+  1: 10,
+  2: 100,
+  3: 1000,
+  4: 10000,
 }
 
-export function formatCurrency4(value: string, currency: string = 'GDD'): string {
-  const numericValue = parseFloat(value)
-  if (Number.isNaN(numericValue)) {
-    return ''
+export function createCurrencyDisplayParts(value: string, fractionDigits: number = 2, currency?: string): CurrencyDisplayParts {
+  const result = {
+    sign: '',
+    intPart: '',
+    decimalSeparator: '',
+    decPart: '',
+    currencySymbol: currency || 'GDD',
   }
-
-  const truncatedValue = Math.floor(numericValue * 10000) / 10000
-
-  return new Intl.NumberFormat(t.getLocale(), {
-    style: 'currency',
-    currency,
-    minimumFractionDigits: 4,
-    maximumFractionDigits: 4,
-  })
-    .format(truncatedValue)
-    .replace('-', t.__('− '))
-}
-
-export function formatGDD(value: string): string {
-  const firstStep = formatCurrency(value)
-  if (firstStep.length) {
-    const numericValue = parseFloat(value)
-    if (numericValue > 0) {
-      return `${t.__('+')} ${firstStep}`
+  const numericValue = parseFloat(value)
+  if (fractionDigits > 4) {
+    throw new Error('fractionDigits must be less than or equal to 4')
+  }
+  if (!Number.isNaN(numericValue)) {
+    const truncatedValue = Math.round(numericValue * POW10[fractionDigits]) / POW10[fractionDigits]
+    const parts = new Intl.NumberFormat(t.getLocale(), {
+      style: 'decimal',
+      minimumFractionDigits: fractionDigits,
+      maximumFractionDigits: fractionDigits,
+      useGrouping: true, 
+    }).formatToParts(truncatedValue)
+    if (truncatedValue > 0) {
+      result.sign = t.__('+')
+    } else if (truncatedValue < 0) {
+      result.sign = t.__('−')
+    }
+    for (const part of parts) {
+      switch (part.type) {
+        case 'integer':
+        case 'group':
+          result.intPart += part.value
+          break
+        case 'decimal':
+          result.decimalSeparator = part.value
+          break
+        case 'fraction':
+          result.decPart = part.value
+          break
+      }
     }
   }
-  return firstStep
+  
+  return v.parse(currencyDisplayPartsSchema, result)
 }
-export function formatGDD4(value: string): string {
-  const firstStep = formatCurrency4(value)
-  if (firstStep.length) {
-    const numericValue = parseFloat(value)
-    if (numericValue > 0) {
-      return `${t.__('+')} ${firstStep}`
-    }
-  }
-  return firstStep
-}
+
 
 export function combineElementWithClasses(element: string, classes?: string[]) {
   let elementWithClasses = element
