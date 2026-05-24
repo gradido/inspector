@@ -7,4 +7,5 @@ declare global {
   var t: i18n.Gettext
   var toaster: Toaster
   var communities: Map<string, Community>
+  var autoPoll: AutoPollManager
 }

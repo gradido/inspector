@@ -16,7 +16,6 @@ interface Attrs {
 
 export class Account implements m.ClassComponent<Attrs> {
   transactionListResponse: ListTransactionsResult | undefined = undefined
-  reloadTimerId: ReturnType<typeof setTimeout> | undefined = undefined
   loading: boolean = false
   errorView: m.Children | undefined = undefined
   currentPage: number = 1
@@ -25,6 +24,7 @@ export class Account implements m.ClassComponent<Attrs> {
   lastCommunityId: string = ''
 
   oninit({ attrs }: m.CVnode<Attrs>) {
+    autoPoll.clearTimer()
     if (attrs.pageSize && attrs.pageSize > 0) {
       this.pageSize = attrs.pageSize
     }
@@ -49,31 +49,17 @@ export class Account implements m.ClassComponent<Attrs> {
     }
   }
 
-  onremove() {
-    if (this.reloadTimerId) {
-      clearTimeout(this.reloadTimerId)
-    }
-  }
-
   async fetchTransactions(pubkey: string, communityId: string) {
     this.loading = true
     // console.log('fetchTransactions: ', pubkey, communityId)
-    if (this.reloadTimerId) {
-      clearTimeout(this.reloadTimerId)
-    }
+    autoPoll.clearTimer()
     try {
       this.transactionListResponse = await gradidoNodeClient.listTransactions({
         communityId,
         pubkey,
         pageSize: this.pageSize,
-        currentPage: this.currentPage,
+        currentPage: this.currentPage
       })
-      if (CONFIG.AUTO_POLL_INTERVAL > 0) {
-        this.reloadTimerId = setTimeout(
-          () => this.fetchTransactions(pubkey, communityId),
-          CONFIG.AUTO_POLL_INTERVAL,
-        )
-      }
     } catch (e) {
       if (e instanceof ValiError) {
         // console.error(e)
@@ -86,6 +72,7 @@ export class Account implements m.ClassComponent<Attrs> {
       }
     } finally {
       this.loading = false
+      autoPoll.callAfterTimeout(() => this.fetchTransactions(pubkey, communityId))
       m.redraw()
     }
   }

@@ -18,6 +18,7 @@ export class Transaction implements m.ClassComponent<Attrs> {
   search: string = ''
 
   oninit({ attrs }: m.CVnode<Attrs>) {
+    autoPoll.clearTimeout()
     this.searchType = detectSearchType(attrs.search)
     this.search = attrs.search
     this.transactionResponse = undefined

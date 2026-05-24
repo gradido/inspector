@@ -5,6 +5,7 @@ import './styles/gradido.scss'
 import 'bootstrap/js/src/toast'
 import m from 'mithril'
 // import i18nInit from './utils/i18nInit'
+import { AutoPollManager } from './components/AutoPollManager'
 import { Layout } from './components/Layout'
 import { Toaster } from './components/Toaster'
 import { Account } from './pages/Account'
@@ -14,6 +15,7 @@ import { i18nInitAsync } from './utils/i18n'
 
 // i18nInit()
 globalThis.toaster = new Toaster()
+globalThis.autoPoll = new AutoPollManager()
 // TODO: move to config
 const langueStringParts = navigator.language.split('-')
 localStorage.setItem('language', langueStringParts[0])

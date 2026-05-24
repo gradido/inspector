@@ -25,9 +25,9 @@ export class TransactionsList implements m.ClassComponent<Attrs> {
   lastSetPage: string = ''
   transactionsCount: number = 0
   pageSize: number = CONFIG.PAGINATION_PAGE_SIZE
-  autoPollTimeout: NodeJS.Timeout | undefined = undefined
 
   oninit({ attrs }: m.CVnode<Attrs>) {
+    autoPoll.clearTimer()
     if (attrs.communityId) {
       this.refetchTransactions(attrs.communityId, attrs.page)
     }
@@ -47,17 +47,9 @@ export class TransactionsList implements m.ClassComponent<Attrs> {
     }
   }
 
-  onremove() {
-    if (this.autoPollTimeout) {
-      clearTimeout(this.autoPollTimeout)
-    }
-  }
-
   async fetchTransactions(communityId: string, page: number) {
+    autoPoll.clearTimer()
     m.route.set(`/${communityId}/${page}`)
-    if (this.autoPollTimeout) {
-      clearTimeout(this.autoPollTimeout)
-    }
     if (!communityId) {
       return
     }
@@ -84,20 +76,12 @@ export class TransactionsList implements m.ClassComponent<Attrs> {
         console.warn(`fetchTransactions: ${e}`)
       }
     } finally {
-      if (CONFIG.AUTO_POLL_INTERVAL > 0) {
-        this.autoPollTimeout = setTimeout(
-          () => this.fetchTransactions(communityId, this.currentPage),
-          CONFIG.AUTO_POLL_INTERVAL,
-        )
-      }
+      autoPoll.callAfterTimeout(() => this.fetchTransactions(communityId, this.currentPage))
     }
   }
 
   refetchTransactions(communityId: string, page: string = '1') {
-    if (this.autoPollTimeout) {
-      clearTimeout(this.autoPollTimeout)
-      this.autoPollTimeout = undefined
-    }
+    autoPoll.clearTimer()
     this.currentPage = Number(page)
     if (this.currentPage < 0) {
       // revert page order on negative page (page assuming asc order, but we have desc order)
