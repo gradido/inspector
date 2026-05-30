@@ -58,7 +58,7 @@ export class Account implements m.ClassComponent<Attrs> {
         communityId,
         pubkey,
         pageSize: this.pageSize,
-        currentPage: this.currentPage
+        currentPage: this.currentPage,
       })
     } catch (e) {
       if (e instanceof ValiError) {

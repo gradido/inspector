@@ -12,7 +12,7 @@ export class FormattedCurrency implements m.ClassComponent<FormattedCurrencyAttr
     if (decimalPlaces > 2) {
       return [
         decimalPart.slice(0, 2),
-        m('span.gdd-precision-fractional-places', decimalPart.slice(2 - decimalPlaces))
+        m('span.gdd-precision-fractional-places', decimalPart.slice(2 - decimalPlaces)),
       ]
     } else {
       return [decimalPart]

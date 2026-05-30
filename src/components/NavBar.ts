@@ -1,9 +1,9 @@
 import m from 'mithril'
 
 import 'bootstrap/js/src/collapse.js'
+import { CONFIG } from '../config'
 import { SearchType } from '../enum/SearchType'
 import { detectSearchType } from '../utils/detectType'
-import { CONFIG } from '../config'
 
 interface Attrs {
   communityId: string
@@ -22,11 +22,12 @@ export class NavBar implements m.ClassComponent<Attrs> {
       case SearchType.PUBLIC_KEY_HEX:
         m.route.set(`/account/${attrs.communityId}/${this.searchString}`)
         break
-      case SearchType.TRANSACTION_NR:
+      case SearchType.TRANSACTION_NR: {
         const txNr = Number(this.searchString)
         const page = Math.floor(txNr / CONFIG.PAGINATION_PAGE_SIZE)
         m.route.set(`/${attrs.communityId}/-${page}`)
         break
+      }
       case SearchType.HIERO_TRANSACTION_ID:
         m.route.set(`/transaction/${attrs.communityId}/${this.searchString}`)
         break

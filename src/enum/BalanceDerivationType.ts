@@ -1,7 +1,7 @@
 export enum BalanceDerivationType {
-  UNSPECIFIED = 'UNSPECIFIED',
-  NODE = 'NODE',
-  EXTERN = 'EXTERN',
+  UNSPECIFIED = 'GRDT_BALANCE_DERIVATION_UNSPECIFIED',
+  NODE = 'GRDT_BALANCE_DERIVATION_NODE',
+  EXTERN = 'GRDT_BALANCE_DERIVATION_EXTERN',
 }
 
 export function getBalanceDerivationTypeString(type: BalanceDerivationType): string {

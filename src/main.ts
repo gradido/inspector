@@ -9,8 +9,8 @@ import { AutoPollManager } from './components/AutoPollManager'
 import { Layout } from './components/Layout'
 import { Toaster } from './components/Toaster'
 import { Account } from './pages/Account'
-import { TransactionsList } from './pages/TransactionsList'
 import { Transaction } from './pages/Transaction'
+import { TransactionsList } from './pages/TransactionsList'
 import { i18nInitAsync } from './utils/i18n'
 
 // i18nInit()

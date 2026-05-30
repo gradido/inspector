@@ -64,7 +64,9 @@ export class WalletSum implements m.ClassComponent<Attrs> {
                 ),
                 m(
                   'span.fw-bold.gradido-global-color-accent',
-                  this.state.show ? m(FormattedCurrency, { value: attrs.amount, currency: attrs.unit }) : '****',
+                  this.state.show
+                    ? m(FormattedCurrency, { value: attrs.amount, currency: attrs.unit })
+                    : '****',
                 ),
               ]),
               m(

@@ -1,8 +1,8 @@
 import m from 'mithril'
 import type { TransferAmount } from '../../../schemas/basic.schema'
 import { CommunityLink } from '../CommunityLink'
-import { PublicKeyLink } from '../PublicKeyLink'
 import { FormattedCurrency } from '../FormattedCurrency'
+import { PublicKeyLink } from '../PublicKeyLink'
 
 interface ViewAttrs {
   transferAmount: TransferAmount

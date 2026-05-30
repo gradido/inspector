@@ -5,8 +5,8 @@ import {
 } from '../../../enum/BalanceDerivationType'
 import type { AccountBalance } from '../../../schemas/transaction.schema'
 import { CommunityLink } from '../CommunityLink'
-import { PublicKeyLink } from '../PublicKeyLink'
 import { FormattedCurrency } from '../FormattedCurrency'
+import { PublicKeyLink } from '../PublicKeyLink'
 
 interface ViewAttrs {
   accountBalances: AccountBalance[]

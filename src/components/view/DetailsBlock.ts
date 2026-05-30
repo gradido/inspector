@@ -1,8 +1,8 @@
 import m from 'mithril'
 import { Collapse } from './bootstrap/Collapse'
 import { CollapseArrow } from './CollapseArrow'
-import { PublicKeyLink } from './PublicKeyLink'
 import { FormattedCurrency } from './FormattedCurrency'
+import { PublicKeyLink } from './PublicKeyLink'
 
 export interface DetailsBlockAttrs {
   firstRow: m.Child

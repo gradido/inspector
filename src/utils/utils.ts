@@ -1,5 +1,5 @@
-import { CurrencyDisplayParts, currencyDisplayPartsSchema } from '../schemas/basic.schema'
 import * as v from 'valibot'
+import { type CurrencyDisplayParts, currencyDisplayPartsSchema } from '../schemas/basic.schema'
 
 export function getEnumValue<T extends string | number>(value: string | null, defaultValue: T): T {
   if (!value) {
@@ -21,7 +21,11 @@ const POW10: Record<number, number> = {
   4: 10000,
 }
 
-export function createCurrencyDisplayParts(value: string, fractionDigits: number = 2, currency?: string): CurrencyDisplayParts {
+export function createCurrencyDisplayParts(
+  value: string,
+  fractionDigits: number = 2,
+  currency?: string,
+): CurrencyDisplayParts {
   const result = {
     sign: '',
     intPart: '',
@@ -39,7 +43,7 @@ export function createCurrencyDisplayParts(value: string, fractionDigits: number
       style: 'decimal',
       minimumFractionDigits: fractionDigits,
       maximumFractionDigits: fractionDigits,
-      useGrouping: true, 
+      useGrouping: true,
     }).formatToParts(truncatedValue)
     if (truncatedValue > 0) {
       result.sign = t.__('+')
@@ -61,10 +65,9 @@ export function createCurrencyDisplayParts(value: string, fractionDigits: number
       }
     }
   }
-  
+
   return v.parse(currencyDisplayPartsSchema, result)
 }
-
 
 export function combineElementWithClasses(element: string, classes?: string[]) {
   let elementWithClasses = element

@@ -36,9 +36,16 @@ export class TransactionsList implements m.ClassComponent<Attrs> {
     }
   }
   onupdate({ attrs }: m.VnodeDOM<Attrs, this>) {
-    if (this.lastKnownCommunityId !== attrs.communityId || (attrs.page && this.lastSetPage !== attrs.page)) {
+    if (
+      this.lastKnownCommunityId !== attrs.communityId ||
+      (attrs.page && this.lastSetPage !== attrs.page)
+    ) {
       this.lastSetPage = attrs.page || String(this.currentPage)
-      if (this.transactionsCount && attrs.page && Number(attrs.page) > Math.ceil(this.transactionsCount / this.pageSize)) {
+      if (
+        this.transactionsCount &&
+        attrs.page &&
+        Number(attrs.page) > Math.ceil(this.transactionsCount / this.pageSize)
+      ) {
         toaster.error(t.__('Page not found'))
         m.route.set(`/${attrs.communityId}/${this.currentPage}`)
       } else {
